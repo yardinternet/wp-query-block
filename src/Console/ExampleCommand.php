@@ -1,9 +1,9 @@
 <?php
 
-namespace VendorName\ExamplePackage\Console;
+namespace Yard\QueryBlock\Console;
 
 use Roots\Acorn\Console\Commands\Command;
-use VendorName\ExamplePackage\Facades\Example;
+use Yard\QueryBlock\Facades\Example;
 
 class ExampleCommand extends Command
 {

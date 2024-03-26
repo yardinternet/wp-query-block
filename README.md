@@ -1,19 +1,19 @@
-# Acorn Example Package
+# Yard Query Block
 
-This repo can be used to scaffold an Acorn package. See the [Acorn Package Development](https://roots.io/acorn/docs/package-development/) docs for further information.
+An acorn package providing a "Query Block" for the Gutenberg editor.
 
 ## Installation
 
 You can install this package with Composer:
 
 ```bash
-composer require vendor-name/example-package
+composer require yard/query-block
 ```
 
 You can publish the config file with:
 
 ```shell
-$ wp acorn vendor:publish --provider="VendorName\ExamplePackage\Providers\ExampleServiceProvider"
+$ wp acorn vendor:publish --provider="Yard\QueryBlock\Providers\QueryBlockServiceProvider"
 ```
 
 ## Usage

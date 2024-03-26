@@ -1,31 +1,25 @@
 {
-  "name": "yard/query-block",
-  "type": "package",
-  "description": "An example package for Roots Acorn.",
-  "version": "1.0.0",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Brandon Nifong",
-      "email": "brandon@tendency.me"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "VendorName\\ExamplePackage\\": "src/"
-    }
-  },
-  "require": {
-    "php": "^8.0"
-  },
-  "extra": {
-    "acorn": {
-      "providers": [
-        "VendorName\\ExamplePackage\\Providers\\ExampleServiceProvider"
-      ],
-      "aliases": {
-        "Example": "VendorName\\ExamplePackage\\Facades\\Example"
-      }
-    }
-  }
+	"name": "yard/query-block",
+	"type": "package",
+	"description": "A query block for the Gutenberg editor.",
+	"version": "1.0.0",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Yard\\QueryBlock\\": "src/"
+		}
+	},
+	"require": {
+		"php": "^8.0"
+	},
+	"extra": {
+		"acorn": {
+			"providers": [
+				"Yard\\QueryBlock\\Providers\\QueryBlockServiceProvider"
+			],
+			"aliases": {
+				"Example": "Yard\\QueryBlock\\Facades\\Example"
+			}
+		}
+	}
 }

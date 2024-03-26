@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\ExamplePackage;
+namespace Yard\QueryBlock;
 
 use Illuminate\Support\Arr;
 use Roots\Acorn\Application;

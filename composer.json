@@ -2,6 +2,7 @@
   "name": "yard/query-block",
   "type": "package",
   "description": "An example package for Roots Acorn.",
+  "version": "1.0.0",
   "license": "MIT",
   "authors": [
     {

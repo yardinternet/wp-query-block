@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\ExamplePackage\Facades;
+namespace Yard\QueryBlock\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

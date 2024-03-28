@@ -45,6 +45,8 @@ class QueryBlockServiceProvider extends ServiceProvider
 			'Example',
 		);
 
+		$this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
 		$this->commands([
 			ExampleCommand::class,
 		]);
@@ -71,8 +73,8 @@ class QueryBlockServiceProvider extends ServiceProvider
 	public function registerBlock()
 	{
 		add_action('admin_enqueue_scripts', function () {
-			wp_register_script('yard-query-block-editor-script', get_template_directory_uri().'/vendor/yard/query-block/public/index.js', get_template_directory_uri().'/vendor/yard/query-block/public/index.asset.php', $this->getVersion(), true);
-			wp_register_style('yard-query-block-style', get_template_directory_uri().'/vendor/yard/query-block/public/index.css', [], $this->getVersion(), true);
+			wp_register_script('yard-query-block-editor-script', $this->route('/yard/query-block/assets/js/index'), $this->route('/yard/query-block/assets/php/index'), $this->getVersion(), true);
+			wp_register_style('yard-query-block-style', $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion(), true);
 		});
 
 		\register_block_type(__DIR__ . '/../../public/block.json', [
@@ -82,6 +84,10 @@ class QueryBlockServiceProvider extends ServiceProvider
 		]);
 	}
 
+	public function route($path)
+	{
+		return config('app.url') . $path;
+	}
 
 	public function renderBlock($attributes, $content)
 	{

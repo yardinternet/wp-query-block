@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Yard\QueryBlock\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Yard\QueryBlock\Block\Attributes;
 use Yard\QueryBlock\Console\ExampleCommand;
 use Yard\QueryBlock\Example;
+use Yard\QueryBlock\Services\QuerySourceManager;
 use Yard\QueryBlock\Traits\VersionRetriever;
 
 class QueryBlockServiceProvider extends ServiceProvider
@@ -42,7 +44,7 @@ class QueryBlockServiceProvider extends ServiceProvider
 
 		$this->loadViewsFrom(
 			__DIR__.'/../../resources/views',
-			'Example',
+			'Query',
 		);
 
 		$this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -91,6 +93,15 @@ class QueryBlockServiceProvider extends ServiceProvider
 
 	public function renderBlock($attributes, $content)
 	{
-		return "Hi there!";
+		$attributes = new Attributes($attributes);
+
+		$queryService = QuerySourceManager::getService($attributes);
+
+		$results = $queryService->getResults();
+
+		return view('Query::templates.default', [
+			'posts' => $results,
+			'attributes' => $attributes,
+		]);
 	}
 }

@@ -25,7 +25,7 @@ const ManualSelectionToggleControl = ( props ) => {
 				excludePosts: [],
 				enablePostParent: false,
 				postParentOption: 'only-parents',
-				postParent: undefined,
+				postParent: [],
 				enableTaxonomies: false,
 				taxonomyTerms: undefined,
 			} );

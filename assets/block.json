@@ -59,7 +59,8 @@
 			"default": "only-parents"
 		},
 		"postParent": {
-			"type": "number"
+			"type": "object",
+			"default": []
 		},
 		"enableTaxonomies": {
 			"type": "boolean",

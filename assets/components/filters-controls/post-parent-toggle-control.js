@@ -17,7 +17,7 @@ const PostParentToggleControl = ( props ) => {
 		setAttributes( { enablePostParent: state } );
 
 		if ( ! state ) {
-			setAttributes( { postParent: undefined } );
+			setAttributes( { postParent: [] } );
 		}
 	};
 

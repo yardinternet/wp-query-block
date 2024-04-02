@@ -1,0 +1,28 @@
+{
+	"name": "yard-query-block",
+	"version": "1.0.0",
+	"description": "A collection of components for the WordPress Gutenberg editor",
+	"author": "Yard | Digital Agency",
+	"license": "MIT License",
+	"main": "public/index.js",
+	"scripts": {
+		"build": "wp-scripts build --webpack-src-dir=assets --output-path=public",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"start": "wp-scripts start --webpack-src-dir=assets --output-path=public"
+	},
+	"devDependencies": {
+		"@wordpress/prettier-config": "^3.11.0",
+		"@wordpress/scripts": "^27.5.0"
+	},
+	"dependencies": {
+		"@wordpress/api-fetch": "^6.51.0",
+		"@wordpress/blocks": "^12.31.0",
+		"@wordpress/components": "^27.2.0",
+		"@wordpress/element": "^5.31.0",
+		"@wordpress/server-side-render": "^4.31.0",
+		"react-select": "^5.8.0"
+	}
+}

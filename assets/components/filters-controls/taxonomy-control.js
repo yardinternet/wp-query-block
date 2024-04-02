@@ -1,7 +1,6 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 
 /**
@@ -17,27 +16,27 @@ const TaxonomyControl = ( props ) => {
 	const { postTypes, enableTaxonomies, enableManualSelection } = attributes;
 	const [ taxonomies, setTaxonomies ] = useState( [] );
 
-	useEffect( () => {
-		getTaxonomies();
-	}, [ postTypes ] );
-
 	/**
 	 * Fetch taxonomies of selected post types
 	 */
-	const getTaxonomies = async () => {
-		let allTaxonomies = {};
+	useEffect( () => {
+		const getTaxonomies = async () => {
+			let allTaxonomies = {};
 
-		for ( const key in postTypes ) {
-			const typeTaxonomies = await fetchTaxonomiesByPostType(
-				postTypes[ key ][ 'value' ]
-			);
-			allTaxonomies = { ...allTaxonomies, ...typeTaxonomies };
-		}
+			for ( const key in postTypes ) {
+				const typeTaxonomies = await fetchTaxonomiesByPostType(
+					postTypes[ key ].value
+				);
+				allTaxonomies = { ...allTaxonomies, ...typeTaxonomies };
+			}
 
-		const filteredTaxonomies = filterTaxonomies( allTaxonomies );
+			const filteredTaxonomies = filterTaxonomies( allTaxonomies );
 
-		setTaxonomies( filteredTaxonomies );
-	};
+			setTaxonomies( filteredTaxonomies );
+		};
+
+		getTaxonomies();
+	}, [ postTypes ] );
 
 	return (
 		! enableManualSelection &&

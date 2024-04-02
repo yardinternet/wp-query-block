@@ -20,19 +20,16 @@ const StickyPostComboboxControl = ( props ) => {
 	 * Check if stickyPost is set
 	 */
 	useEffect( () => {
+		const getSelectedPost = async () => {
+			const post = await fetchPostById( stickyPost );
+
+			setOptions( mapPostsToOptions( post ) );
+		};
+
 		if ( stickyPost ) {
 			getSelectedPost();
 		}
 	}, [ stickyPost ] );
-
-	/**
-	 * Fetch saved post by id
-	 */
-	const getSelectedPost = async () => {
-		const post = await fetchPostById( stickyPost );
-
-		setOptions( mapPostsToOptions( post ) );
-	};
 
 	/**
 	 * Fetch new options based on the entered search term

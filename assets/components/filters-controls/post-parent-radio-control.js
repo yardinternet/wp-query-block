@@ -21,18 +21,12 @@ const PostParentRadioControl = ( props ) => {
 		attributes;
 
 	/**
-	 * Save option in attributes and set/remove postParent attribute
+	 * Save option in attributes and reset postParent attribute
 	 *
 	 * @param {string} value - Selected option
 	 */
 	const onChange = ( value ) => {
-		setAttributes( { postParentOption: value } );
-
-		if ( value === 'only-parents' ) {
-			setAttributes( { postParent: 0 } );
-		} else {
-			setAttributes( { postParent: undefined } );
-		}
+		setAttributes( { postParentOption: value, postParent: [] } );
 	};
 
 	return (

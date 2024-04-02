@@ -3,10 +3,10 @@
  *
  * @param {Array} options - Array to map
  */
-export const mapPostsToOptions = ( options ) => {
+export const mapPostsToOptions = ( options = [] ) => {
 	return options.map( ( item ) => ( {
 		value: item.id,
-		label: `#${ item.id }: ${ item.title }`,
+		label: item.title ? item.title : `#${ item.id }: geen titel`,
 	} ) );
 };
 

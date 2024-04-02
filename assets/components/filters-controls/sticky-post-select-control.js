@@ -8,7 +8,7 @@ import debounce from 'debounce-promise';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -20,6 +20,23 @@ const StickyPostSelectControl = ( props ) => {
 	const { attributes, setAttributes } = props;
 	const { postTypes, enableStickyPost, stickyPost } = attributes;
 	const [ defaultOptions, setDefaultOptions ] = useState( [] );
+
+	/**
+	 * Load posts on init
+	 */
+	useEffect( () => {
+		const getOptions = async () => {
+			const subtype = getSubtype( postTypes );
+			const posts = await searchPosts( '', subtype );
+
+			if ( ! posts ) return;
+
+			const options = mapPostsToOptions( posts );
+			setDefaultOptions( options );
+		};
+
+		getOptions();
+	}, [ postTypes ] );
 
 	/**
 	 * Load posts as options based on input value

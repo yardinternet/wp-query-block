@@ -7,9 +7,9 @@
 	"main": "public/index.js",
 	"scripts": {
 		"build": "wp-scripts build --webpack-src-dir=assets --output-path=public",
-		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
+		"format": "wp-scripts format ./assets",
+		"lint:css": "wp-scripts lint-style './assets/**/*.scss'",
+		"lint:js": "wp-scripts lint-js ./assets",
 		"packages-update": "wp-scripts packages-update",
 		"start": "wp-scripts start --webpack-src-dir=assets --output-path=public"
 	},
@@ -22,7 +22,9 @@
 		"@wordpress/blocks": "^12.31.0",
 		"@wordpress/components": "^27.2.0",
 		"@wordpress/element": "^5.31.0",
+		"@wordpress/eslint-plugin": "^17.11.0",
 		"@wordpress/server-side-render": "^4.31.0",
+		"prettier": "npm:wp-prettier@^3.0.3",
 		"react-select": "^5.8.0"
 	}
 }

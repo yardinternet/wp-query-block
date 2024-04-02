@@ -15,6 +15,9 @@ export const fetchRegisteredPostTypes = () => {
 /**
  * Search through posts by subtype with a search term
  *
+ * @param {string} search
+ * @param {string} subtype
+ *
  * @see https://developer.wordpress.org/rest-api/reference/search-results/
  */
 export const searchPosts = ( search = '', subtype = 'any' ) => {
@@ -26,6 +29,8 @@ export const searchPosts = ( search = '', subtype = 'any' ) => {
 /**
  * Fetch post by an id
  *
+ * @param {string} id
+ *
  * @see https://developer.wordpress.org/rest-api/reference/search-results/
  */
 export const fetchPostById = ( id = '' ) => {
@@ -35,6 +40,8 @@ export const fetchPostById = ( id = '' ) => {
 /**
  * Fetch taxonomies by post type
  *
+ * @param {string} type
+ *
  * @see https://developer.wordpress.org/rest-api/reference/taxonomies/
  */
 export const fetchTaxonomiesByPostType = ( type = '' ) => {
@@ -43,6 +50,8 @@ export const fetchTaxonomiesByPostType = ( type = '' ) => {
 
 /**
  * Fetch terms by taxonomy
+ *
+ * @param {string} taxonomy
  */
 export const fetchTermsByTaxonomy = ( taxonomy = '' ) => {
 	return apiFetch( { path: `wp/v2/${ taxonomy }` } );

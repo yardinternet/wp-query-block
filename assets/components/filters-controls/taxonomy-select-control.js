@@ -7,7 +7,6 @@ import Select from 'react-select';
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -34,7 +33,7 @@ const TaxonomySelectControl = ( props ) => {
 	/**
 	 * Save the selected terms as an attribute
 	 *
-	 * @param {array} option - The new terms to save
+	 * @param {Array} option - The new terms to save
 	 */
 	const onChange = ( option ) => {
 		const newOption = { [ taxonomy.slug ]: option };

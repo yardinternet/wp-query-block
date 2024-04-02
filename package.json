@@ -1,7 +1,7 @@
 {
 	"name": "yard-query-block",
 	"version": "1.0.0",
-	"description": "A collection of components for the WordPress Gutenberg editor",
+	"description": "",
 	"author": "Yard | Digital Agency",
 	"license": "MIT License",
 	"main": "public/index.js",

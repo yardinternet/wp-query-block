@@ -1,18 +1,40 @@
+# This file is for unifying the coding style for different editors and IDEs
+# editorconfig.org
+
+# WordPress Coding Standards
+# https://make.wordpress.org/core/handbook/coding-standards/
+
 root = true
 
 [*]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = tab
+
+[*.yml]
 indent_style = space
 indent_size = 2
-trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
 
-[*.php]
-indent_size = 4
+[{*.txt,wp-config-sample.php}]
+end_of_line = crlf
 
-[*.blade.php]
-indent_size = 2
+# ====================================================================
+# The rules above ↑this↑ line are the exact contents of WordPress' config file.'
+# Github mirror : https://github.com/WordPress/wordpress-develop/blob/trunk/.editorconfig
+# SVN original  : https://core.trac.wordpress.org/browser/trunk/.editorconfig
+
+# Yard Custom
+[*.{js},*.{jsx}, *.{ts}, *.{tsx}]
+# This setting has precedence over VSCode user settings for tabSize
+# Not included are tab_width(tabs) or indent_size(spaces) since the user can decide
+# what they like visually, 2 vs 4 column size, as long as they use tabs. Default: 4
+# This setting also affects Prettier.
+indent_style = tabs
+
+[{.eslintrc,*.json,*.yml}]
+indent_style = spaces

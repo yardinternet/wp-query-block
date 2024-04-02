@@ -22,15 +22,31 @@ const PostTypeSelectControl = ( props ) => {
 	const { postTypes } = attributes;
 	const [ options, setOptions ] = useState( [] );
 
+	/**
+	 * Fetch and map all post types without the unwanted post types
+	 *
+	 * @todo Add external options
+	 */
 	useEffect( () => {
+		const getOptions = async () => {
+			const allPostTypes = await fetchRegisteredPostTypes();
+			const filteredPostTypes = filterPostTypes( allPostTypes );
+			const mappedPostTypes = mapPostTypesToOptions( filteredPostTypes );
+
+			setOptions( mappedPostTypes );
+		};
+
 		getOptions();
 	}, [] );
 
 	/**
-	 * Reset attributes when the post types changed
+	 * Handle post type change and reset attributes
+	 *
+	 * @param {Array} value
 	 */
-	useEffect( () => {
+	const onChange = ( value ) => {
 		setAttributes( {
+			postTypes: value,
 			enableManualSelection: false,
 			manualSelectionPosts: [],
 			enableStickyPost: false,
@@ -43,19 +59,6 @@ const PostTypeSelectControl = ( props ) => {
 			enableTaxonomies: false,
 			taxonomyTerms: undefined,
 		} );
-	}, [ postTypes ] );
-
-	/**
-	 * Fetch and map all post types without the unwanted post types
-	 *
-	 * @todo Add external options
-	 */
-	const getOptions = async () => {
-		const allPostTypes = await fetchRegisteredPostTypes();
-		const filteredPostTypes = filterPostTypes( allPostTypes );
-		const mappedPostTypes = mapPostTypesToOptions( filteredPostTypes );
-
-		setOptions( mappedPostTypes );
 	};
 
 	return options.length > 0 ? (
@@ -67,7 +70,7 @@ const PostTypeSelectControl = ( props ) => {
 				isMulti
 				value={ postTypes }
 				options={ options }
-				onChange={ ( value ) => setAttributes( { postTypes: value } ) }
+				onChange={ onChange }
 			/>
 		</>
 	) : (

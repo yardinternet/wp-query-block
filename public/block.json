@@ -102,6 +102,5 @@
   },
   "textdomain": "yard",
   "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "viewScript": "file:./frontend.js"
+  "editorStyle": "file:./index.css"
 }

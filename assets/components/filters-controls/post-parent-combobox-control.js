@@ -23,22 +23,19 @@ const PostParentComboboxControl = ( props ) => {
 	const [ options, setOptions ] = useState( [] );
 
 	/**
-	 * Check if postParent is set
+	 * Check if postParent is set and fetched save post
 	 */
 	useEffect( () => {
+		const getSelectedPost = async () => {
+			const post = await fetchPostById( postParent );
+
+			setOptions( mapPostsToOptions( post ) );
+		};
+
 		if ( postParent && postParent !== 0 ) {
 			getSelectedPost();
 		}
 	}, [ postParent ] );
-
-	/**
-	 * Fetch saved post by id
-	 */
-	const getSelectedPost = async () => {
-		const post = await fetchPostById( postParent );
-
-		setOptions( mapPostsToOptions( post ) );
-	};
 
 	/**
 	 * Fetch new options based on the entered search term

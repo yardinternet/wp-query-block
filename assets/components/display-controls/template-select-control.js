@@ -16,6 +16,7 @@ const TemplateSelectControl = ( props ) => {
 	 * Options:
 	 * - Template name (not the file name)
 	 */
+
 	return (
 		<SelectControl
 			label={ __( 'Sjabloon' ) }

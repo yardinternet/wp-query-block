@@ -43,7 +43,7 @@ const OrderbySelectControl = ( props ) => {
 		) {
 			setOptions( DEFAULT_ORDERBY_OPTIONS );
 		}
-	}, [ postTypes ] );
+	}, [ postTypes, options ] );
 
 	return (
 		<SelectControl

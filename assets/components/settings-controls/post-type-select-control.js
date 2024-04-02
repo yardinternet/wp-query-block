@@ -50,7 +50,7 @@ const PostTypeSelectControl = ( props ) => {
 			enableManualSelection: false,
 			manualSelectionPosts: [],
 			enableStickyPost: false,
-			stickyPost: undefined,
+			stickyPost: [],
 			enableExcludePosts: false,
 			excludePosts: [],
 			enablePostParent: false,

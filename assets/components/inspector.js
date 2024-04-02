@@ -23,7 +23,7 @@ import PostParentSelectControl from './filters-controls/post-parent-select-contr
 import PostParentRadioControl from './filters-controls/post-parent-radio-control';
 import PostParentToggleControl from './filters-controls/post-parent-toggle-control';
 import PostTypeSelectControl from './settings-controls/post-type-select-control';
-import StickyPostComboboxControl from './filters-controls/sticky-post-combobox-control';
+import StickyPostSelectControl from './filters-controls/sticky-post-select-control';
 import StickyPostToggleControl from './filters-controls/sticky-post-toggle-control';
 import TaxonomyControl from './filters-controls/taxonomy-control';
 import TemplateSelectControl from './display-controls/template-select-control';
@@ -50,7 +50,7 @@ const Inspector = ( props ) => {
 					<ManualSelectionToggleControl { ...props } />
 					<ManualSelectionSelectControl { ...props } />
 					<StickyPostToggleControl { ...props } />
-					<StickyPostComboboxControl { ...props } />
+					<StickyPostSelectControl { ...props } />
 					<ExcludePostsToggleControl { ...props } />
 					{ /* @todo Add multi select control to select posts to exclude */ }
 					<PostParentToggleControl { ...props } />

@@ -40,7 +40,8 @@
 			"default": false
 		},
 		"stickyPost": {
-			"type": "number"
+			"type": "object",
+			"default": []
 		},
 		"enableExcludePosts": {
 			"type": "boolean",

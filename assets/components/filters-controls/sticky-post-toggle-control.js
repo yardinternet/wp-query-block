@@ -17,7 +17,7 @@ const StickyPostToggleControl = ( props ) => {
 		setAttributes( { enableStickyPost: state } );
 
 		if ( ! state ) {
-			setAttributes( { stickyPost: undefined } );
+			setAttributes( { stickyPost: [] } );
 		}
 	};
 

@@ -76,7 +76,7 @@ class QueryBlockServiceProvider extends ServiceProvider
 	{
 		add_action('admin_enqueue_scripts', function () {
 			wp_register_script('yard-query-block-editor-script', $this->route('/yard/query-block/assets/js/index'), $this->route('/yard/query-block/assets/php/index'), $this->getVersion(), true);
-			wp_register_style('yard-query-block-style', $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion(), true);
+			wp_register_style('yard-query-block-style', $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion());
 		});
 
 		\register_block_type(__DIR__ . '/../../public/block.json', [

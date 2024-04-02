@@ -20,7 +20,7 @@ const ManualSelectionToggleControl = ( props ) => {
 			setAttributes( {
 				manualSelectionPosts: [],
 				enableStickyPost: false,
-				stickyPost: undefined,
+				stickyPost: [],
 				enableExcludePosts: false,
 				excludePosts: [],
 				enablePostParent: false,

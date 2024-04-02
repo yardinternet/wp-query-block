@@ -19,7 +19,7 @@ import NumberOfPostsRangeControl from './settings-controls/number-of-posts-range
 import OffsetRangeControl from './settings-controls/offset-range-control';
 import OrderSelectControl from './settings-controls/order-select-control';
 import OrderbySelectControl from './settings-controls/orderby-select-control';
-import PostParentComboboxControl from './filters-controls/post-parent-combobox-control';
+import PostParentSelectControl from './filters-controls/post-parent-select-control';
 import PostParentRadioControl from './filters-controls/post-parent-radio-control';
 import PostParentToggleControl from './filters-controls/post-parent-toggle-control';
 import PostTypeSelectControl from './settings-controls/post-type-select-control';
@@ -55,7 +55,7 @@ const Inspector = ( props ) => {
 					{ /* @todo Add multi select control to select posts to exclude */ }
 					<PostParentToggleControl { ...props } />
 					<PostParentRadioControl { ...props } />
-					<PostParentComboboxControl { ...props } />
+					<PostParentSelectControl { ...props } />
 					<TaxonomyControl { ...props } />
 				</PanelBody>
 			) }

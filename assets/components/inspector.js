@@ -12,6 +12,7 @@ import DisplayDateToggleControl from './display-controls/display-date-toggle-con
 import DisplayExcerptToggleControl from './display-controls/display-excerpt-toggle-control';
 import DisplayImageToggleControl from './display-controls/display-image-toggle-control';
 import DisplayLabelToggleControl from './display-controls/display-label-toggle-control';
+import ExcludePostsSelectControl from './filters-controls/exclude-posts-select-control';
 import ExcludePostsToggleControl from './filters-controls/exclude-posts-toggle-control';
 import ManualSelectionToggleControl from './filters-controls/manual-selection-toggle-control';
 import ManualSelectionSelectControl from './filters-controls/manual-selection-select-control';
@@ -52,7 +53,7 @@ const Inspector = ( props ) => {
 					<StickyPostToggleControl { ...props } />
 					<StickyPostSelectControl { ...props } />
 					<ExcludePostsToggleControl { ...props } />
-					{ /* @todo Add multi select control to select posts to exclude */ }
+					<ExcludePostsSelectControl { ...props } />
 					<PostParentToggleControl { ...props } />
 					<PostParentRadioControl { ...props } />
 					<PostParentSelectControl { ...props } />

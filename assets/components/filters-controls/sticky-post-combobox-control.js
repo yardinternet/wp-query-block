@@ -8,7 +8,7 @@ import { useEffect, useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { mapPostsToOptions } from '../../utils/helpers';
+import { mapPostsToOptions, getSubtype } from '../../utils/helpers';
 import { searchPosts, fetchPostById } from '../../utils/api';
 
 const StickyPostComboboxControl = ( props ) => {
@@ -37,12 +37,7 @@ const StickyPostComboboxControl = ( props ) => {
 	 * @param {string} searchValue - Entered search term
 	 */
 	const onFilterValueChange = async ( searchValue ) => {
-		let subtype = 'any';
-
-		if ( postTypes.length > 0 ) {
-			subtype = postTypes.map( ( type ) => type.value ).join( ',' );
-		}
-
+		const subtype = getSubtype( postTypes );
 		const posts = await searchPosts( searchValue, subtype );
 
 		setOptions( mapPostsToOptions( posts ) );

@@ -33,3 +33,18 @@ export const mapTermsToOptions = ( terms = [] ) => {
 		value: term.slug,
 	} ) );
 };
+
+/**
+ * Get subtype that is used in for example a search request
+ *
+ * @param {Array} postTypes - Post types to map to subtype string
+ */
+export const getSubtype = ( postTypes = [] ) => {
+	let subtype = 'any';
+
+	if ( postTypes.length > 0 ) {
+		subtype = postTypes.map( ( type ) => type.value ).join( ',' );
+	}
+
+	return subtype;
+};

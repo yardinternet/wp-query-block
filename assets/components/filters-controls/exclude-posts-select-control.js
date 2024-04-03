@@ -61,17 +61,26 @@ const ExcludePostsSelectControl = ( props ) => {
 		enableExcludePosts && (
 			<>
 				<p className="yard-query-inspector-label">
-					{ __( 'Vul je zoekterm in. Zoekt op hele woorden.' ) }
+					{ __(
+						'Selecteer de berichten die je niet in deze lijst wilt tonen.'
+					) }
 				</p>
 				<AsyncSelect
-					isMulti
 					backspaceRemovesValue={ false }
 					defaultOptions={ defaultOptions }
-					value={ excludePosts }
+					isMulti
+					loadingMessage={ () => __( 'Laden…' ) }
+					loadOptions={ debounce( loadOptions, 500 ) }
+					noOptionsMessage={ () =>
+						__(
+							'Geen berichten gevonden. Probeer een andere zoekterm.'
+						)
+					}
 					onChange={ ( selectedPosts ) =>
 						setAttributes( { excludePosts: selectedPosts } )
 					}
-					loadOptions={ debounce( loadOptions, 500 ) }
+					placeholder={ __( 'Selecteer bericht…' ) }
+					value={ excludePosts }
 				/>
 			</>
 		)

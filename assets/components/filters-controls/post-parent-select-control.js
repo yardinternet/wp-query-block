@@ -74,13 +74,20 @@ const PostParentSelectControl = ( props ) => {
 					) }
 				</p>
 				<AsyncSelect
-					isClearable={ true }
 					defaultOptions={ defaultOptions }
-					value={ postParent }
+					isClearable={ true }
+					loadingMessage={ () => __( 'Laden…' ) }
+					loadOptions={ debounce( loadOptions, 500 ) }
+					noOptionsMessage={ () =>
+						__(
+							'Geen berichten gevonden. Probeer een andere zoekterm.'
+						)
+					}
 					onChange={ ( selectedPost ) =>
 						setAttributes( { postParent: selectedPost } )
 					}
-					loadOptions={ debounce( loadOptions, 500 ) }
+					placeholder={ __( 'Selecteer bericht…' ) }
+					value={ postParent }
 				/>
 			</>
 		)

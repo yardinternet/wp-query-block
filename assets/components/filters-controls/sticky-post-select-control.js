@@ -66,13 +66,20 @@ const StickyPostSelectControl = ( props ) => {
 					) }
 				</p>
 				<AsyncSelect
-					isClearable={ true }
 					defaultOptions={ defaultOptions }
-					value={ stickyPost }
+					isClearable={ true }
+					loadingMessage={ () => __( 'Laden…' ) }
+					loadOptions={ debounce( loadOptions, 500 ) }
+					noOptionsMessage={ () =>
+						__(
+							'Geen berichten gevonden. Probeer een andere zoekterm.'
+						)
+					}
 					onChange={ ( selectedPost ) =>
 						setAttributes( { stickyPost: selectedPost } )
 					}
-					loadOptions={ debounce( loadOptions, 500 ) }
+					placeholder={ __( 'Selecteer bericht…' ) }
+					value={ stickyPost }
 				/>
 			</>
 		)

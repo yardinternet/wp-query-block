@@ -7,10 +7,16 @@
 	}
 }
 
-.yard-sortable-select__multi-value__wrapper {
-	width: 100%;
+.yard-async-sortable-select__multi-value {
+	&__wrapper {
+		width: 100%;
 
-	.yard-sortable-select__multi-value__label {
+		&[aria-pressed='true'] {
+			z-index: 1;
+		}
+	}
+
+	&__label {
 		flex-grow: 1;
 	}
 }

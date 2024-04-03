@@ -41,7 +41,7 @@
 		},
 		"stickyPost": {
 			"type": "object",
-			"default": []
+			"default": {}
 		},
 		"enableExcludePosts": {
 			"type": "boolean",
@@ -61,7 +61,7 @@
 		},
 		"postParent": {
 			"type": "object",
-			"default": []
+			"default": {}
 		},
 		"enableTaxonomies": {
 			"type": "boolean",

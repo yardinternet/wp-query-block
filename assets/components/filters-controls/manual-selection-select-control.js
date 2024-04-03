@@ -138,7 +138,9 @@ const ManualSelectionSelectControl = ( props ) => {
 		enableManualSelection && (
 			<>
 				<p className="yard-query-inspector-label">
-					{ __( 'Vul je zoekterm in. Zoekt op hele woorden.' ) }
+					{ __(
+						'Selecteer de berichten die je in deze lijst wilt tonen.'
+					) }
 				</p>
 				<DndContext
 					modifiers={ [ restrictToParentElement ] }

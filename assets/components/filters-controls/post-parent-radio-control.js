@@ -26,7 +26,7 @@ const PostParentRadioControl = ( props ) => {
 	 * @param {string} value - Selected option
 	 */
 	const onChange = ( value ) => {
-		setAttributes( { postParentOption: value, postParent: [] } );
+		setAttributes( { postParentOption: value, postParent: {} } );
 	};
 
 	return (

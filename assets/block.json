@@ -35,6 +35,10 @@
 			"type": "array",
 			"default": []
 		},
+		"keepManualSelectionOrder": {
+			"type": "boolean",
+			"default": false
+		},
 		"enableStickyPost": {
 			"type": "boolean",
 			"default": false

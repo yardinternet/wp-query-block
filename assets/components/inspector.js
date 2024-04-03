@@ -14,6 +14,7 @@ import DisplayImageToggleControl from './display-controls/display-image-toggle-c
 import DisplayLabelToggleControl from './display-controls/display-label-toggle-control';
 import ExcludePostsSelectControl from './filters-controls/exclude-posts-select-control';
 import ExcludePostsToggleControl from './filters-controls/exclude-posts-toggle-control';
+import ManualSelectionOrderCheckboxControl from './filters-controls/manual-selection-order-checkbox-control';
 import ManualSelectionToggleControl from './filters-controls/manual-selection-toggle-control';
 import ManualSelectionSelectControl from './filters-controls/manual-selection-select-control';
 import NumberOfPostsRangeControl from './settings-controls/number-of-posts-range-control';
@@ -50,6 +51,7 @@ const Inspector = ( props ) => {
 				<PanelBody title={ __( 'Filters' ) } initialOpen={ false }>
 					<ManualSelectionToggleControl { ...props } />
 					<ManualSelectionSelectControl { ...props } />
+					<ManualSelectionOrderCheckboxControl { ...props } />
 					<StickyPostToggleControl { ...props } />
 					<StickyPostSelectControl { ...props } />
 					<ExcludePostsToggleControl { ...props } />

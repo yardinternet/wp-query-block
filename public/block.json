@@ -35,12 +35,17 @@
       "type": "array",
       "default": []
     },
+    "keepManualSelectionOrder": {
+      "type": "boolean",
+      "default": false
+    },
     "enableStickyPost": {
       "type": "boolean",
       "default": false
     },
     "stickyPost": {
-      "type": "number"
+      "type": "object",
+      "default": {}
     },
     "enableExcludePosts": {
       "type": "boolean",
@@ -59,7 +64,8 @@
       "default": "only-parents"
     },
     "postParent": {
-      "type": "number"
+      "type": "object",
+      "default": {}
     },
     "enableTaxonomies": {
       "type": "boolean",

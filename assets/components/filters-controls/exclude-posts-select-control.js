@@ -1,89 +1,31 @@
 /**
- * External dependencies
- */
-import AsyncSelect from 'react-select/async';
-import debounce from 'debounce-promise';
-
-/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import { mapPostsToOptions, getSubtype } from '../../utils/helpers';
-import { searchPosts } from '../../utils/api';
+import AsyncSelectPostsControl from '../shared/async-select-posts-control';
 
 const ExcludePostsSelectControl = ( props ) => {
 	const { attributes, setAttributes } = props;
-	const { postTypes, enableExcludePosts, excludePosts } = attributes;
-	const [ defaultOptions, setDefaultOptions ] = useState( [] );
-
-	/**
-	 * Load posts on init
-	 */
-	useEffect( () => {
-		const getOptions = async () => {
-			const subtype = getSubtype( postTypes );
-			const posts = await searchPosts( '', subtype );
-
-			if ( ! posts ) return;
-
-			const options = mapPostsToOptions( posts );
-			setDefaultOptions( options );
-		};
-
-		getOptions();
-	}, [ postTypes ] );
-
-	/**
-	 * Load posts as options based on input value
-	 *
-	 * @param {string}   input
-	 * @param {Function} callback
-	 */
-	const loadOptions = async ( input, callback ) => {
-		if ( ! input ) return callback( [] );
-
-		const subtype = getSubtype( postTypes );
-		const posts = await searchPosts( input, subtype );
-
-		if ( ! posts ) return callback( [] );
-
-		const options = mapPostsToOptions( posts );
-		setDefaultOptions( options );
-		callback( options );
-	};
+	const { enableExcludePosts, excludePosts } = attributes;
 
 	return (
-		enableExcludePosts && (
-			<>
-				<p className="yard-query-inspector-label">
-					{ __(
-						'Selecteer de berichten die je niet in deze lijst wilt tonen.'
-					) }
-				</p>
-				<AsyncSelect
-					backspaceRemovesValue={ false }
-					defaultOptions={ defaultOptions }
-					isMulti
-					loadingMessage={ () => __( 'Laden…' ) }
-					loadOptions={ debounce( loadOptions, 500 ) }
-					noOptionsMessage={ () =>
-						__(
-							'Geen berichten gevonden. Probeer een andere zoekterm.'
-						)
-					}
-					onChange={ ( selectedPosts ) =>
-						setAttributes( { excludePosts: selectedPosts } )
-					}
-					placeholder={ __( 'Selecteer bericht…' ) }
-					value={ excludePosts }
-				/>
-			</>
-		)
+		<AsyncSelectPostsControl
+			attributes={ attributes }
+			enable={ enableExcludePosts }
+			handleChange={ ( selectedPosts ) =>
+				setAttributes( { excludePosts: selectedPosts } )
+			}
+			isClearable={ false }
+			isMulti={ true }
+			label={ __(
+				'Selecteer de berichten die je niet in deze lijst wilt tonen.'
+			) }
+			value={ excludePosts }
+		/>
 	);
 };
 

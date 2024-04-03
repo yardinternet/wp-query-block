@@ -35,13 +35,10 @@ const AsyncSelectPostsControl = ( props ) => {
 	 * @param {string} input
 	 */
 	const getPostsAsOptions = useCallback(
-		async ( input ) => {
-			if ( ! input ) input = '';
-
+		async ( input = '' ) => {
 			const subtype = getSubtype( postTypes );
 			const posts = await searchPosts( input, subtype );
-
-			return posts ? mapPostsToOptions( posts ) : null;
+			return posts ? mapPostsToOptions( posts ) : [];
 		},
 		[ postTypes ]
 	);
@@ -52,7 +49,7 @@ const AsyncSelectPostsControl = ( props ) => {
 	useEffect( () => {
 		const getOptions = async () => {
 			const options = await getPostsAsOptions();
-			if ( options ) setDefaultOptions( options );
+			setDefaultOptions( options );
 		};
 
 		getOptions();
@@ -69,12 +66,8 @@ const AsyncSelectPostsControl = ( props ) => {
 
 		const options = await getPostsAsOptions( input );
 
-		if ( options ) {
-			setDefaultOptions( options );
-			callback( options );
-		} else {
-			callback( [] );
-		}
+		setDefaultOptions( options );
+		callback( options );
 	};
 
 	return (

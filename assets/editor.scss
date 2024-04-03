@@ -6,3 +6,11 @@
 		margin-bottom: 1.5rem !important;
 	}
 }
+
+.yard-sortable-select__multi-value__wrapper {
+	width: 100%;
+
+	.yard-sortable-select__multi-value__label {
+		flex-grow: 1;
+	}
+}

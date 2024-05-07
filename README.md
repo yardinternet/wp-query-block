@@ -2,6 +2,11 @@
 
 An acorn package providing a "Query Block" for the Gutenberg editor.
 
+## Requirements
+
+- [Sage](https://github.com/roots/sage) >= 10.0
+- [Acorn](https://github.com/roots/acorn) >= 3.0
+
 ## Installation
 
 You can install this package with Composer:
@@ -17,15 +22,3 @@ $ wp acorn vendor:publish --provider="Yard\QueryBlock\Providers\QueryBlockServic
 ```
 
 ## Usage
-
-From a Blade template:
-
-```blade
-@include('Example::example')
-```
-
-From WP-CLI:
-
-```shell
-$ wp acorn example
-```

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Yard\QueryBlock\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Yard\QueryBlock\Block\Attributes;
-use Yard\QueryBlock\Console\ExampleCommand;
-use Yard\QueryBlock\Example;
+use Yard\Data\PostData;
+use Yard\QueryBlock\Block\BlockAttributes;
 use Yard\QueryBlock\Services\QuerySourceManager;
 use Yard\QueryBlock\Traits\VersionRetriever;
 
@@ -80,17 +79,25 @@ class QueryBlockServiceProvider extends ServiceProvider
         return config('app.url') . $path;
     }
 
-	public function renderBlock($attributes, $content)
-	{
-		$attributes = new Attributes($attributes);
+    public function renderBlock(array $attributes, $content)
+    {
+        $attributes = new BlockAttributes($attributes);
 
-		$queryService = QuerySourceManager::getService($attributes);
+        $queryService = QuerySourceManager::getService($attributes);
 
-		$results = $queryService->getResults();
+        $results = $queryService->getResults();
 
-		return view('Query::templates.default', [
-			'posts' => $results,
-			'attributes' => $attributes,
-		]);
-	}
+        $postDataCollection = PostData::collect($results);
+
+        $template = $attributes->template();
+
+        if (! view()->exists("vendor.yard-query-block.templates.{$template}") && ! view()->exists("QueryBlock::templates.{$template}")) {
+            throw new \Exception("Template {$template} not found.");
+        }
+
+        return view()->first(["vendor.yard-query-block.templates.{$template}", "QueryBlock::templates.{$template}"], [
+            'postDataCollection' => $postDataCollection,
+            'attributes' => $attributes,
+        ]);
+    }
 }

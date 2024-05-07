@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Yard\QueryBlock\Services;
 
 use Illuminate\Support\Collection;
-use Yard\QueryBlock\Block\Attributes;
+use Yard\QueryBlock\Block\BlockAttributes;
 
 interface QuerySourceInterface
 {
-	public function __construct(Attributes $attributes);
-	public function getResults(): Collection;
+    public function __construct(BlockAttributes $attributes);
+    public function getResults(): Collection;
 }

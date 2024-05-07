@@ -9,8 +9,16 @@
 			"Yard\\QueryBlock\\": "src/"
 		}
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:yardinternet/yard-data.git"
+		}
+	],
 	"require": {
-		"php": "^8.0"
+		"php": "^8.0",
+		"yard/data": "dev-development",
+		"jgrossi/corcel": "^7.0"
 	},
 	"extra": {
 		"acorn": {

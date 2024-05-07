@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Yard\QueryBlock\Services;
 
-use Corcel\Model\Post;
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
+use Yard\QueryBlock\Model\Post;
 
 class EloquentQuerySourceFetcher implements QuerySourceInterface
 {

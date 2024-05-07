@@ -16,9 +16,10 @@
 		}
 	],
 	"require": {
-		"php": "^8.0",
+		"php": "^8.1",
 		"yard/data": "dev-development",
-		"jgrossi/corcel": "^7.0"
+		"jgrossi/corcel": "^7.0",
+		"illuminate/auth": "^10.48"
 	},
 	"extra": {
 		"acorn": {

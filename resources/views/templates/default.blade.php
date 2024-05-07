@@ -1,5 +1,7 @@
 @php
 	/**
+	 * Template: Standaard
+	 *
 	 * @var Illuminate\Support\Collection|Yard\Data\PostData $postDataCollection
 	 * @var Yard\QueryBlock\Block\BlockAttributes $attributes
 	 */

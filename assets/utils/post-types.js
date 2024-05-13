@@ -11,6 +11,8 @@ export const excludePostTypes = [
 	'tribe_venue',
 	'visibility_preset',
 	'wp_block',
+	'wp_font_face',
+	'wp_font_family',
 	'wp_navigation',
 	'wp_template',
 	'wp_template_part',

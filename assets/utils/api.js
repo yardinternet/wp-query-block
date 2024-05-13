@@ -56,3 +56,10 @@ export const fetchTaxonomiesByPostType = ( type = '' ) => {
 export const fetchTermsByTaxonomy = ( taxonomy = '' ) => {
 	return apiFetch( { path: `wp/v2/${ taxonomy }` } );
 };
+
+/**
+ * Fetch available block settings
+ */
+export const fetchBlockSettings = () => {
+	return apiFetch( { path: 'yard/query-block/v1/settings' } );
+};

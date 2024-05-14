@@ -77,6 +77,20 @@ class BlockAttributes
         return $this->attributes['keepManualSelectionOrder'] ?? false;
     }
 
+    public function hasStickyPost(): bool
+    {
+        return $this->attributes['enableStickyPost'] ?? false;
+    }
+
+    public function stickyPostID(): int
+    {
+        if (empty($this->attributes['stickyPost'])) {
+            return 0;
+        }
+
+        return (int) $this->attributes['stickyPost']['value'];
+    }
+
     public function order(): string
     {
         return Str::lower($this->attributes['order']) ?? 'desc';

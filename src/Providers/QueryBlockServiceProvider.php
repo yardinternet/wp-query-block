@@ -50,6 +50,10 @@ class QueryBlockServiceProvider extends ServiceProvider
      */
     public function addBlockCategory(array $categories)
     {
+        if (in_array('yard', array_column($categories, 'slug'))) {
+            return $categories;
+        }
+
         $categories = array_merge($categories, [
             [
                 'slug' => 'yard',

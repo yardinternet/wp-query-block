@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yard\QueryBlock\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use WP_REST_Response;
 use Yard\Data\PostData;
 use Yard\QueryBlock\Block\BlockAttributes;
 use Yard\QueryBlock\Services\QuerySourceManager;
@@ -43,6 +44,13 @@ class QueryBlockServiceProvider extends ServiceProvider
 
         \add_action('init', [$this, 'registerBlock']);
         \add_filter('block_categories_all', [$this, 'addBlockCategory']);
+        \add_action('rest_api_init', function () {
+            \register_rest_route('yard/query-block/v1', '/settings', [
+                'methods' => 'GET',
+                'callback' => $this->blockSettings(...),
+                'permission_callback' => '__return_true',
+            ]);
+        });
     }
 
     /**
@@ -81,6 +89,32 @@ class QueryBlockServiceProvider extends ServiceProvider
     public function route($path)
     {
         return config('app.url') . $path;
+    }
+
+    public function blockSettings()
+    {
+        $path = resource_path('views/vendor/yard-query-block/templates');
+        $files = scandir($path);
+        $templates = [];
+
+        foreach ($files as $file) {
+            if (strpos($file, '.blade.php') === false) {
+                continue;
+            }
+
+            $content = file_get_contents($path . '/' . $file);
+            preg_match('/Template: (.*)\n/', $content, $matches);
+            $templateName = $matches[1] ?? $file;
+
+            $templates[] = [
+                'label' => $templateName,
+                'value' => str_replace('.blade.php', '', $file),
+            ];
+        }
+
+        return new WP_REST_Response([
+            'templates' => $templates,
+        ]);
     }
 
     public function renderBlock(array $attributes, $content)

@@ -79,7 +79,7 @@ class BlockAttributes
 
     public function hasStickyPost(): bool
     {
-        return $this->attributes['enableStickyPost'] ?? false;
+        return ($this->attributes['enableStickyPost'] ?? false) && 0 !== $this->stickyPostID();
     }
 
     public function stickyPostID(): int

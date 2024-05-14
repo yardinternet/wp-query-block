@@ -26,6 +26,10 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             $query->whereIn('ID', $this->attributes->manualSelectionPostIDs());
         }
 
+        if ($this->attributes->hasExcludedPosts()) {
+            $query->whereNotIn('ID', $this->attributes->excludedPostIDs());
+        }
+
         $query = $this->orderQuery($query);
 
         return $query->get();

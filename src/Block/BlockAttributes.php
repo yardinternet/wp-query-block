@@ -82,4 +82,9 @@ class BlockAttributes
     {
         return $this->attributes['displayLabel'] ?? false;
     }
+
+    public function align(): string
+    {
+        return isset($this->attributes['align']) ? 'align' . $this->attributes['align'] : '';
+    }
 }

@@ -91,6 +91,20 @@ class BlockAttributes
         return (int) $this->attributes['stickyPost']['value'];
     }
 
+    public function hasExcludedPosts(): bool
+    {
+        return ($this->attributes['enableExcludePosts'] ?? false) && ! empty($this->excludedPostIds());
+    }
+
+    public function excludedPostIds(): array
+    {
+        if (empty($this->attributes['excludePosts'])) {
+            return [];
+        }
+
+        return array_column($this->attributes['excludePosts'], 'value');
+    }
+
     public function order(): string
     {
         return Str::lower($this->attributes['order']) ?? 'desc';

@@ -58,7 +58,7 @@ class BlockAttributes
         return 'rand' === $this->attributes['orderBy'];
     }
 
-    public function isManualSelection(): bool
+    public function hasManualSelection(): bool
     {
         return $this->attributes['enableManualSelection'] ?? false;
     }

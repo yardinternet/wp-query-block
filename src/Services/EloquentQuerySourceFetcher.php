@@ -22,7 +22,7 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             ->limit($this->attributes->limit())
             ->offset($this->attributes->offset());
 
-        if ($this->attributes->isManualSelection()) {
+        if ($this->attributes->hasManualSelection()) {
             $query->whereIn('ID', $this->attributes->manualSelectionPostIDs());
         }
 
@@ -33,7 +33,7 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
 
     private function orderQuery($query): PostBuilder
     {
-        if ($this->attributes->isManualSelection()
+        if ($this->attributes->hasManualSelection()
         && $this->attributes->keepManualSelectionOrder()
         && $this->attributes->manualSelectionPostIDs()
         ) {

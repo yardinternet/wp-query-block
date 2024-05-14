@@ -30,6 +30,17 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             $query->whereNotIn('ID', $this->attributes->excludedPostIDs());
         }
 
+        if ($this->attributes->excludeChildPosts()) {
+            $query->where('post_parent', 0);
+        }
+
+        if ($this->attributes->onlyChildPostsOfParent()) {
+            if ($this->attributes->parentPostID() === 0) {
+                return collect();
+            }
+            $query->where('post_parent', $this->attributes->parentPostID());
+        }
+
         $query = $this->orderQuery($query);
 
         return $query->get();

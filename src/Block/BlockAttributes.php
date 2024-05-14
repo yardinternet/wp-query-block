@@ -105,6 +105,26 @@ class BlockAttributes
         return array_column($this->attributes['excludePosts'], 'value');
     }
 
+    public function excludeChildPosts(): bool
+    {
+        return ($this->attributes['enablePostParent'] ?? false) && "only-parents" === $this->attributes['postParentOption'];
+    }
+
+    public function onlyChildPostsOfParent(): bool
+    {
+        return ($this->attributes['enablePostParent'] ?? false)
+        && "specific-parent" === $this->attributes['postParentOption'];
+    }
+
+    public function parentPostID(): int
+    {
+        if (empty($this->attributes['postParent'])) {
+            return 0;
+        }
+
+        return (int) $this->attributes['postParent']['value'];
+    }
+
     public function order(): string
     {
         return Str::lower($this->attributes['order']) ?? 'desc';

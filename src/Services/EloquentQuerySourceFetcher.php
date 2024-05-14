@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yard\QueryBlock\Services;
 
+use Corcel\Model\Builder\PostBuilder;
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
 use Yard\QueryBlock\Model\Post;
@@ -21,14 +22,28 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             ->limit($this->attributes->limit())
             ->offset($this->attributes->offset());
 
-        if ($this->attributes->inRandomOrder()) {
-            $query->inRandomOrder();
-        } else {
-            $query->orderBy($this->attributes->orderBy(), $this->attributes->order());
+        if ($this->attributes->isManualSelection()) {
+            $query->whereIn('ID', $this->attributes->manualSelectionPostIDs());
         }
 
-        $posts = $query->get();
+        $query = $this->orderQuery($query);
 
-        return collect($posts);
+        return $query->get();
+    }
+
+    private function orderQuery($query): PostBuilder
+    {
+        if ($this->attributes->isManualSelection()
+        && $this->attributes->keepManualSelectionOrder()
+        && $this->attributes->manualSelectionPostIDs()
+        ) {
+            return $query->orderByRaw('FIELD(ID, ' . implode(',', $this->attributes->manualSelectionPostIDs()) . ')');
+        }
+
+        if ($this->attributes->inRandomOrder()) {
+            return $query->inRandomOrder();
+        }
+
+        return $query->orderBy($this->attributes->orderBy(), $this->attributes->order());
     }
 }

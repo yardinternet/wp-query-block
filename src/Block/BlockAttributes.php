@@ -58,6 +58,25 @@ class BlockAttributes
         return 'rand' === $this->attributes['orderBy'];
     }
 
+    public function isManualSelection(): bool
+    {
+        return $this->attributes['enableManualSelection'] ?? false;
+    }
+
+    public function manualSelectionPostIDs(): array
+    {
+        if (empty($this->attributes['manualSelectionPosts'])) {
+            return [];
+        }
+
+        return array_column($this->attributes['manualSelectionPosts'], 'value');
+    }
+
+    public function keepManualSelectionOrder(): bool
+    {
+        return $this->attributes['keepManualSelectionOrder'] ?? false;
+    }
+
     public function order(): string
     {
         return Str::lower($this->attributes['order']) ?? 'desc';

@@ -40,11 +40,9 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             return $query->orderByRaw('FIELD(ID, ' . implode(',', $this->attributes->manualSelectionPostIDs()) . ')');
         }
 
-        if ($this->attributes->hasStickyPost()
-        && $this->attributes->stickyPostID()) {
+        if ($this->attributes->hasStickyPost()) {
             $query->orderByRaw('FIELD(ID, ' . $this->attributes->stickyPostID() . ') DESC');
         }
-
 
         if ($this->attributes->inRandomOrder()) {
             return $query->inRandomOrder();

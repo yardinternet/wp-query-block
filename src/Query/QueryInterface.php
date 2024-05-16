@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Yard\QueryBlock\Services;
+namespace Yard\QueryBlock\Query;
 
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
 
-interface QuerySourceInterface
+interface QueryInterface
 {
     public function __construct(BlockAttributes $attributes);
-    public function getResults(): Collection;
+    public function get(): Collection;
 }

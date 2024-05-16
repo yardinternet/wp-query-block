@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Yard\QueryBlock\Services;
+namespace Yard\QueryBlock\Query;
 
 use Corcel\Model\Builder\PostBuilder;
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
 use Yard\QueryBlock\Model\Post;
 
-class EloquentQuerySourceFetcher implements QuerySourceInterface
+class PostQuery implements QueryInterface
 {
     public function __construct(private BlockAttributes $attributes)
     {
     }
 
-    public function getResults(): Collection
+    public function get(): Collection
     {
         $query = Post::published()
             ->whereIn('post_type', $this->attributes->postTypes())
@@ -47,12 +47,12 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             }
         }
 
-        $query = $this->orderQuery($query);
+        $query = $this->order($query);
 
         return $query->get();
     }
 
-    private function orderQuery($query): PostBuilder
+    private function order($query): PostBuilder
     {
         if ($this->attributes->hasManualSelection()
         && $this->attributes->keepManualSelectionOrder()

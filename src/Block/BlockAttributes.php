@@ -125,6 +125,37 @@ class BlockAttributes
         return (int) $this->attributes['postParent']['value'];
     }
 
+    public function hasTaxonomyFilter(): bool
+    {
+        return ($this->attributes['enableTaxonomies'] ?? false) && ! empty($this->taxonomyTerms());
+    }
+
+    public function taxonomyTerms(): array
+    {
+        $taxonomyTerms = $this->attributes['taxonomyTerms'] ?? [];
+
+        if (empty($taxonomyTerms)) {
+            return [];
+        }
+
+        return $taxonomyTerms;
+    }
+
+    public function taxonomyTermSlugs(): array
+    {
+        $taxonomyTermSlugs = [];
+        foreach ($this->taxonomyTerms() as $taxonomy => $terms) {
+            $taxonomyTermSlugs[$taxonomy] = array_column($terms, 'value');
+        }
+
+        return $taxonomyTermSlugs;
+    }
+
+    public function taxonomyRelation(): string
+    {
+        return $this->attributes['taxonomyRelation'] ?? 'AND';
+    }
+
     public function order(): string
     {
         return Str::lower($this->attributes['order']) ?? 'desc';

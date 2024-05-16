@@ -41,6 +41,12 @@ class EloquentQuerySourceFetcher implements QuerySourceInterface
             $query->where('post_parent', $this->attributes->parentPostID());
         }
 
+        if ($this->attributes->hasTaxonomyFilter()) {
+            foreach ($this->attributes->taxonomyTermSlugs() as $taxonomy => $termSlugs) {
+                $query->taxonomy($taxonomy, $termSlugs);
+            }
+        }
+
         $query = $this->orderQuery($query);
 
         return $query->get();

@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use WP_REST_Response;
 use Yard\Data\PostData;
 use Yard\QueryBlock\Block\BlockAttributes;
-use Yard\QueryBlock\Services\QuerySourceManager;
+use Yard\QueryBlock\Query\PostQuery;
 use Yard\QueryBlock\Traits\VersionRetriever;
 
 class QueryBlockServiceProvider extends ServiceProvider
@@ -121,9 +121,7 @@ class QueryBlockServiceProvider extends ServiceProvider
     {
         $attributes = new BlockAttributes($attributes);
 
-        $queryService = QuerySourceManager::getService($attributes);
-
-        $results = $queryService->getResults();
+        $results = (new PostQuery($attributes))->get();
 
         $postDataCollection = PostData::collect($results);
 

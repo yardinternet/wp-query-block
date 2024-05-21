@@ -1,0 +1,125 @@
+{
+	"[blade]": {
+		"editor.defaultFormatter": "shufo.vscode-blade-formatter"
+	},
+	"[css]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.prettier": "explicit",
+			"source.fixAll.stylelint": "explicit"
+		},
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript][javascriptreact][typescript][typescriptreact]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.prettier": "explicit"
+		},
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnPaste": false
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[php]": {
+		"editor.defaultFormatter": "junstyle.php-cs-fixer"
+	},
+	"blade.format.enable": true,
+	"bladeFormatter.format.indentSize": 1,
+	"bladeFormatter.format.useTabs": true,
+	"css.validate": false,
+	"editor.formatOnSave": true,
+	"emmet.triggerExpansionOnTab": true,
+	"emmet.includeLanguages": {
+		"blade": "html",
+		"javascript": "html",
+		"typescript": "html"
+	},
+	"eslint.workingDirectories": [
+		{
+			"changeProcessCWD": true,
+			"mode": "auto"
+		}
+	],
+	"intelephense.environment.phpVersion": "8.1",
+	"intelephense.format.enable": false,
+	"intelephense.stubs": [
+		"apache",
+		"bcmath",
+		"bz2",
+		"calendar",
+		"com_dotnet",
+		"Core",
+		"ctype",
+		"curl",
+		"date",
+		"dba",
+		"dom",
+		"enchant",
+		"exif",
+		"FFI",
+		"fileinfo",
+		"filter",
+		"fpm",
+		"ftp",
+		"gd",
+		"gettext",
+		"gmp",
+		"hash",
+		"iconv",
+		"imap",
+		"intl",
+		"json",
+		"ldap",
+		"libxml",
+		"mbstring",
+		"meta",
+		"mysqli",
+		"oci8",
+		"odbc",
+		"openssl",
+		"pcntl",
+		"pcre",
+		"PDO",
+		"pdo_ibm",
+		"pdo_mysql",
+		"pdo_pgsql",
+		"pdo_sqlite",
+		"pgsql",
+		"Phar",
+		"posix",
+		"pspell",
+		"random",
+		"readline",
+		"Reflection",
+		"session",
+		"shmop",
+		"SimpleXML",
+		"snmp",
+		"soap",
+		"sockets",
+		"sodium",
+		"SPL",
+		"sqlite3",
+		"standard",
+		"superglobals",
+		"sysvmsg",
+		"sysvsem",
+		"sysvshm",
+		"tidy",
+		"tokenizer",
+		"xml",
+		"xmlreader",
+		"xmlrpc",
+		"xmlwriter",
+		"xsl",
+		"Zend OPcache",
+		"zip",
+		"zlib",
+		"wordpress",
+		"Core"
+	],
+	"php-cs-fixer.config": ".php-cs-fixer.php",
+	"php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+	"php-cs-fixer.pathMode": "intersection",
+	"prettier.configPath": ".prettierrc.js",
+	"stylelint.validate": [ "css" ]
+}

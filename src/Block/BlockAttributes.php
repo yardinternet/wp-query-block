@@ -17,11 +17,6 @@ class BlockAttributes
         return $this->attributes['template'] ?? 'default';
     }
 
-    public function selectedSource(): string
-    {
-        return 'eloquent';
-    }
-
     public function postTypes(): array
     {
         return collect($this->attributes['postTypes'])

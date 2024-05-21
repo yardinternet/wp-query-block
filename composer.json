@@ -21,6 +21,12 @@
 		"jgrossi/corcel": "^7.0",
 		"illuminate/auth": "^10.48"
 	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.57"
+	},
+	"scripts": {
+        "format": "./vendor/bin/php-cs-fixer fix"
+    },
 	"extra": {
 		"acorn": {
 			"providers": [

@@ -25,16 +25,13 @@
 		"friendsofphp/php-cs-fixer": "^3.57"
 	},
 	"scripts": {
-        "format": "./vendor/bin/php-cs-fixer fix"
-    },
+		"format": "./vendor/bin/php-cs-fixer fix"
+	},
 	"extra": {
 		"acorn": {
 			"providers": [
-				"Yard\\QueryBlock\\Providers\\QueryBlockServiceProvider"
-			],
-			"aliases": {
-				"Example": "Yard\\QueryBlock\\Facades\\Example"
-			}
+				"Yard\\QueryBlock\\QueryBlockServiceProvider"
+			]
 		}
 	}
 }

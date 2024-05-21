@@ -15,6 +15,7 @@ $finder = Finder::create()
     ->ignoreVCS(true)
     ->exclude('public')
     ->exclude('node_modules')
+    ->exclude('build')
 ;
 
 return (new Config)

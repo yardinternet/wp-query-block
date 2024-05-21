@@ -23,9 +23,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.57",
-        "phpstan/phpstan": "1.4.0",
         "orchestra/testbench": "^8.23",
-        "pestphp/pest": "^2.34"
+        "pestphp/pest": "^2.34",
+        "szepeviktor/phpstan-wordpress": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +38,10 @@
         }
     },
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": [
+            "sed -i -e 's#function __(#function ____(#' ./vendor/php-stubs/wordpress-stubs/wordpress-stubs.php",
+            "vendor/bin/phpstan analyse --memory-limit 1G"
+        ],
         "format": "vendor/bin/php-cs-fixer fix",
         "test": "vendor/bin/pest"
     },

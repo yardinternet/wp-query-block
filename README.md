@@ -18,7 +18,7 @@ composer require yard/query-block
 You can publish the config file with:
 
 ```shell
-$ wp acorn vendor:publish --provider="Yard\QueryBlock\Providers\QueryBlockServiceProvider"
+$ wp acorn vendor:publish --provider="Yard\QueryBlock\QueryBlockServiceProvider"
 ```
 
 ## Usage

@@ -14,6 +14,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true)
     ->exclude('public')
+    ->exclude('node_modules')
 ;
 
 return (new Config)

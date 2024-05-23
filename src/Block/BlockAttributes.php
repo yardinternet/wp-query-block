@@ -40,6 +40,7 @@ class BlockAttributes
             'date' => 'post_date',
             'title' => 'post_title',
             'menu_order' => 'menu_order',
+            'event_date' => 'event_date',
             default => 'post_date',
         };
     }

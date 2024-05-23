@@ -9,10 +9,16 @@ An acorn package providing a "Query Block" for the Gutenberg editor.
 
 ## Installation
 
-You can install this package with Composer:
+Install this package with Composer:
 
 ```bash
 composer require yard/query-block
+```
+
+Then run the Acorn WP-CLI command to discover this package:
+
+```shell
+wp acorn package:discover
 ```
 
 ## Usage

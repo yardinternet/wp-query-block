@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yard\QueryBlock;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 use WP_REST_Response;
 use Yard\Data\PostData;
@@ -47,7 +48,7 @@ class QueryBlockServiceProvider extends ServiceProvider
     /**
      * Add a custom block category if it doesn't already exist.
      */
-    public function addBlockCategory(array $categories)
+    public function addBlockCategory(array $categories): array
     {
         if (in_array('yard', array_column($categories, 'slug'))) {
             return $categories;
@@ -63,10 +64,11 @@ class QueryBlockServiceProvider extends ServiceProvider
         return $categories;
     }
 
-    public function registerBlock()
+    public function registerBlock(): void
     {
         add_action('admin_enqueue_scripts', function () {
-            wp_register_script('yard-query-block-editor-script', $this->route('/yard/query-block/assets/js/index'), $this->route('/yard/query-block/assets/php/index'), $this->getVersion(), true);
+            $deps = require __DIR__.'/../public/index.asset.php';
+            wp_register_script('yard-query-block-editor-script', $this->route('/yard/query-block/assets/js/index'), $deps['dependencies'], $this->getVersion(), true);
             wp_register_style('yard-query-block-style', $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion());
         });
 
@@ -77,12 +79,12 @@ class QueryBlockServiceProvider extends ServiceProvider
         ]);
     }
 
-    public function route($path)
+    public function route(string $path): string
     {
         return config('app.url') . $path;
     }
 
-    public function blockSettings()
+    public function blockSettings(): WP_REST_Response
     {
         $path = resource_path('views/vendor/yard-query-block/templates');
         $files = scandir($path);
@@ -108,7 +110,7 @@ class QueryBlockServiceProvider extends ServiceProvider
         ]);
     }
 
-    public function renderBlock(array $attributes, $content)
+    public function renderBlock(array $attributes): View
     {
         $attributes = new BlockAttributes($attributes);
 

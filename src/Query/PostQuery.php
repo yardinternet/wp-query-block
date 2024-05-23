@@ -52,7 +52,7 @@ class PostQuery implements QueryInterface
         return $query->get();
     }
 
-    private function order($query): PostBuilder
+    private function order(PostBuilder $query): PostBuilder
     {
         if ($this->attributes->hasManualSelection()
         && $this->attributes->keepManualSelectionOrder()

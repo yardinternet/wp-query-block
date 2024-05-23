@@ -25,7 +25,8 @@
         "friendsofphp/php-cs-fixer": "^3.57",
         "orchestra/testbench": "^8.23",
         "pestphp/pest": "^2.34",
-        "szepeviktor/phpstan-wordpress": "^1.0"
+        "szepeviktor/phpstan-wordpress": "^1.0",
+        "larastan/larastan": "^2.0"
     },
     "autoload": {
         "psr-4": {

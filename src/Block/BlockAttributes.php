@@ -26,12 +26,12 @@ class BlockAttributes
 
     public function limit(): int
     {
-        return (int) $this->attributes['postsPerPage'] ?? 3;
+        return (int) ($this->attributes['postsPerPage'] ?? 3);
     }
 
     public function offset(): int
     {
-        return (int) $this->attributes['offset'] ?? 0;
+        return (int) ($this->attributes['offset'] ?? 0);
     }
 
     public function orderBy(): string
@@ -150,7 +150,7 @@ class BlockAttributes
 
     public function order(): string
     {
-        return Str::lower($this->attributes['order']) ?? 'desc';
+        return Str::lower($this->attributes['order'] ?? 'desc') ;
     }
 
     public function displayImage(): bool

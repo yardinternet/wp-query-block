@@ -1,56 +1,56 @@
 {
-    "name": "yard/query-block",
-    "type": "package",
-    "description": "A query block for the Gutenberg editor.",
-    "version": "1.0.0",
-    "license": "MIT",
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:yardinternet/yard-data.git"
-        }
-    ],
-    "require": {
-        "php": "^8.1",
-        "yard/data": "dev-development",
-        "jgrossi/corcel": "^7.0",
-        "illuminate/auth": "^10.48"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.57",
-        "orchestra/testbench": "^8.23",
-        "pestphp/pest": "^2.34",
-        "szepeviktor/phpstan-wordpress": "^1.0",
-        "larastan/larastan": "^2.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Yard\\QueryBlock\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Yard\\QueryBlock\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "analyse": [
-            "sed -i -e 's#function __(#function ____(#' ./vendor/php-stubs/wordpress-stubs/wordpress-stubs.php",
-            "vendor/bin/phpstan analyse --memory-limit 1G"
-        ],
-        "format": "vendor/bin/php-cs-fixer fix",
-        "test": "vendor/bin/pest"
-    },
-    "extra": {
-        "acorn": {
-            "providers": [
-                "Yard\\QueryBlock\\QueryBlockServiceProvider"
-            ]
-        }
-    }
+	"name": "yard/query-block",
+	"type": "package",
+	"description": "A query block for the Gutenberg editor.",
+	"version": "1.0.0",
+	"license": "MIT",
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:yardinternet/yard-data.git"
+		}
+	],
+	"require": {
+		"php": "^8.1",
+		"yard/data": "dev-development",
+		"jgrossi/corcel": "^7.0",
+		"illuminate/auth": "^10.48"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.57",
+		"orchestra/testbench": "^8.23",
+		"pestphp/pest": "^2.34",
+		"szepeviktor/phpstan-wordpress": "^1.0",
+		"larastan/larastan": "^2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Yard\\QueryBlock\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Yard\\QueryBlock\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"analyse": [
+			"sed -i -e 's#function __(#function ____(#' ./vendor/php-stubs/wordpress-stubs/wordpress-stubs.php",
+			"vendor/bin/phpstan analyse --debug --memory-limit 1G"
+		],
+		"format": "vendor/bin/php-cs-fixer fix",
+		"test": "vendor/bin/pest"
+	},
+	"extra": {
+		"acorn": {
+			"providers": [
+				"Yard\\QueryBlock\\QueryBlockServiceProvider"
+			]
+		}
+	}
 }

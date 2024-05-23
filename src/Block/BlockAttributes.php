@@ -36,16 +36,12 @@ class BlockAttributes
 
     public function orderBy(): string
     {
-        switch ($this->attributes['orderBy']) {
-            case 'date':
-                return 'post_date';
-            case 'title':
-                return 'post_title';
-            case 'menu_order':
-                return 'menu_order';
-            default:
-                return 'post_date';
-        }
+        return match ($this->attributes['orderBy']) {
+            'date' => 'post_date',
+            'title' => 'post_title',
+            'menu_order' => 'menu_order',
+            default => 'post_date',
+        };
     }
 
     public function inRandomOrder(): bool

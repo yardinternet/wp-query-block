@@ -19,7 +19,7 @@ class BlockAttributes
 
     public function postTypes(): array
     {
-        return collect($this->attributes['postTypes'])
+        return collect($this->attributes['postTypes'] ?? [])
             ->map(fn ($postType) => $postType['value'])
             ->toArray();
     }
@@ -36,7 +36,7 @@ class BlockAttributes
 
     public function orderBy(): string
     {
-        return match ($this->attributes['orderBy']) {
+        return match ($this->attributes['orderBy'] ?? 'date') {
             'date' => 'post_date',
             'title' => 'post_title',
             'menu_order' => 'menu_order',

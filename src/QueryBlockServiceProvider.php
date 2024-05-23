@@ -14,22 +14,13 @@ use Yard\QueryBlock\Traits\VersionRetriever;
 class QueryBlockServiceProvider extends ServiceProvider
 {
     use VersionRetriever;
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+
+    public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
         $this->loadViewsFrom(
             __DIR__.'/../resources/views',

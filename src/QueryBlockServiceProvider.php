@@ -25,7 +25,7 @@ class QueryBlockServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(
             __DIR__.'/../resources/views',
-            'QueryBlock',
+            'yard-query-block',
         );
 
         $this->publishes([
@@ -120,11 +120,7 @@ class QueryBlockServiceProvider extends ServiceProvider
 
         $template = $attributes->template();
 
-        if (! view()->exists("vendor.yard-query-block.templates.{$template}") && ! view()->exists("QueryBlock::templates.{$template}")) {
-            throw new \Exception("Template {$template} not found.");
-        }
-
-        return view()->first(["vendor.yard-query-block.templates.{$template}", "QueryBlock::templates.{$template}"], [
+        return view("yard-query-block::templates." . $template, [
             'postDataCollection' => $postDataCollection,
             'attributes' => $attributes,
         ]);

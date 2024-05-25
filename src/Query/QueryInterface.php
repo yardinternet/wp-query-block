@@ -10,5 +10,8 @@ use Yard\QueryBlock\Block\BlockAttributes;
 interface QueryInterface
 {
     public function __construct(BlockAttributes $attributes);
+    /**
+     * @return Collection<int, \Illuminate\Database\Eloquent\Model>
+     */
     public function get(): Collection;
 }

@@ -6,9 +6,4 @@ parameters:
     level: 6
     paths:
         - src
-        - tests
     tmpDir: build/phpstan
-    ignoreErrors:
-        - identifier: missingType.generics
-        - identifier: missingType.iterableValue
-        - identifier: argument.templateType

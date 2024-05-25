@@ -15,6 +15,9 @@ class PostQuery implements QueryInterface
     {
     }
 
+    /**
+     * @return Collection<int, \Illuminate\Database\Eloquent\Model>
+     */
     public function get(): Collection
     {
         $query = Post::published()

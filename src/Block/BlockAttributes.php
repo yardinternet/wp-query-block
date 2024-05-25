@@ -8,6 +8,57 @@ use Illuminate\Support\Str;
 
 class BlockAttributes
 {
+    /**
+     * @param array{
+     * 	'postTypes': array{
+     * 		array{
+     * 			'label': string,
+     * 			'value': string
+     * 		}
+     * 	},
+     * 	'postsPerPage': int,
+     * 	'offset': int,
+     * 	'orderBy': string,
+     * 	'enableManualSelection': bool,
+     * 	'manualSelectionPosts': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'keepManualSelectionOrder': bool,
+     * 	'enableStickyPost': bool,
+     * 	'stickyPost': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'enableExcludePosts': bool,
+     * 	'excludePosts': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'enablePostParent': bool,
+     * 	'postParentOption': string,
+     * 	'postParent': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'enableTaxonomies': bool,
+     * 	'taxonomyTerms': array{
+     * 		'taxonomy': string,
+     * 		'terms': array{
+     * 			'label': string,
+     * 			'value': string
+     * 		}
+     * 	},
+     * 	'taxonomyRelation': string,
+     * 	'order': string,
+     * 	'displayImage': bool,
+     * 	'displayDate': bool,
+     * 	'displayExcerpt': bool,
+     * 	'displayLabel': bool,
+     * 	'align': string,
+     * 	'template': string
+     * 	} $attributes
+     */
     public function __construct(private array $attributes)
     {
     }
@@ -17,6 +68,9 @@ class BlockAttributes
         return $this->attributes['template'] ?? 'default';
     }
 
+    /**
+     * @return list<string>
+     */
     public function postTypes(): array
     {
         return collect($this->attributes['postTypes'] ?? [])
@@ -55,6 +109,9 @@ class BlockAttributes
         return $this->attributes['enableManualSelection'] ?? false;
     }
 
+    /**
+     * @return array<int>
+     */
     public function manualSelectionPostIDs(): array
     {
         if (empty($this->attributes['manualSelectionPosts'])) {
@@ -88,6 +145,9 @@ class BlockAttributes
         return ($this->attributes['enableExcludePosts'] ?? false) && ! empty($this->excludedPostIds());
     }
 
+    /**
+     * @return array<int>
+     */
     public function excludedPostIds(): array
     {
         if (empty($this->attributes['excludePosts'])) {
@@ -122,6 +182,15 @@ class BlockAttributes
         return ($this->attributes['enableTaxonomies'] ?? false) && ! empty($this->taxonomyTerms());
     }
 
+    /**
+     * @return array{
+     * 	taxonomy: string,
+     * 	terms: array{
+     * 		label: string,
+     * 		value: string
+     * 		}
+     * 	}|array<int>
+     */
     public function taxonomyTerms(): array
     {
         $taxonomyTerms = $this->attributes['taxonomyTerms'] ?? [];
@@ -133,6 +202,9 @@ class BlockAttributes
         return $taxonomyTerms;
     }
 
+    /**
+     * @return array<list<string>>
+     */
     public function taxonomyTermSlugs(): array
     {
         $taxonomyTermSlugs = [];

@@ -47,6 +47,10 @@ class QueryBlockServiceProvider extends ServiceProvider
 
     /**
      * Add a custom block category if it doesn't already exist.
+     *
+     * @param list<array{slug: string, title: string}> $categories
+     *
+     * @return list<array{slug: string, title: string}>
      */
     public function addBlockCategory(array $categories): array
     {
@@ -110,6 +114,9 @@ class QueryBlockServiceProvider extends ServiceProvider
         ]);
     }
 
+    /**
+     * @param array<mixed> $attributes
+     */
     public function renderBlock(array $attributes): View
     {
         $attributes = new BlockAttributes($attributes);

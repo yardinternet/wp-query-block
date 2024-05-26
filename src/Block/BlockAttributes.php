@@ -74,8 +74,8 @@ class BlockAttributes
     public function postTypes(): array
     {
         return collect($this->attributes['postTypes'] ?? [])
-            ->map(fn ($postType) => $postType['value'])
-            ->toArray();
+            ->map(fn (array $postType): string => $postType['value'])
+            ->all();
     }
 
     public function limit(): int

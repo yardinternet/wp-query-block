@@ -13,18 +13,22 @@ trait VersionRetriever
     {
         $composerJsonPath = __DIR__ . '/../../composer.json';
 
-        if (file_exists($composerJsonPath)) {
-            $content = file_get_contents($composerJsonPath);
-
-            if (false === $content) {
-                return 'unknown';
-            }
-
-            $composerJson = json_decode($content, true);
-
-            return $composerJson['version'] ?? 'unknown';
+        if (! file_exists($composerJsonPath)) {
+            return 'unknown';
         }
 
-        return 'unknown';
+        $content = file_get_contents($composerJsonPath);
+
+        if (false === $content) {
+            return 'unknown';
+        }
+
+        $composerJson = json_decode($content, true);
+
+        if (! is_array($composerJson) || ! array_key_exists('version', $composerJson)) {
+            return 'unknown';
+        }
+
+        return $composerJson['version'];
     }
 }

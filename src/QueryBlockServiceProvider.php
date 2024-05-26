@@ -94,12 +94,23 @@ class QueryBlockServiceProvider extends ServiceProvider
         $files = scandir($path);
         $templates = [];
 
+        if (false === $files) {
+            return new WP_REST_Response([
+                'templates' => [],
+            ]);
+        }
+
         foreach ($files as $file) {
             if (strpos($file, '.blade.php') === false) {
                 continue;
             }
 
             $content = file_get_contents($path . '/' . $file);
+
+            if (false === $content) {
+                continue;
+            }
+
             preg_match('/Template: (.*)\n/', $content, $matches);
             $templateName = $matches[1] ?? $file;
 
@@ -115,7 +126,55 @@ class QueryBlockServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param array<mixed> $attributes
+     * @param array{
+     * 	'postTypes': array{
+     * 		array{
+     * 			'label': string,
+     * 			'value': string
+     * 		}
+     * 	},
+     * 	'postsPerPage': int,
+     * 	'offset': int,
+     * 	'orderBy': string,
+     * 	'enableManualSelection': bool,
+     * 	'manualSelectionPosts': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'keepManualSelectionOrder': bool,
+     * 	'enableStickyPost': bool,
+     * 	'stickyPost': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'enableExcludePosts': bool,
+     * 	'excludePosts': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'enablePostParent': bool,
+     * 	'postParentOption': string,
+     * 	'postParent': array{
+     * 		'label': string,
+     * 		'value': string
+     * 	},
+     * 	'enableTaxonomies': bool,
+     * 	'taxonomyTerms': array{
+     * 		string: list<array{
+     * 			'label': string,
+     * 			'value': string
+     * 			}
+     * 		>
+     * 	},
+     * 	'taxonomyRelation': string,
+     * 	'order': string,
+     * 	'displayImage': bool,
+     * 	'displayDate': bool,
+     * 	'displayExcerpt': bool,
+     * 	'displayLabel': bool,
+     * 	'align': string,
+     * 	'template': string
+     * 	} $attributes
      */
     public function renderBlock(array $attributes): View
     {

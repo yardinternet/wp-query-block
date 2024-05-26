@@ -43,11 +43,11 @@ class BlockAttributes
      * 	},
      * 	'enableTaxonomies': bool,
      * 	'taxonomyTerms': array{
-     * 		'taxonomy': string,
-     * 		'terms': array{
+     * 		string: list<array{
      * 			'label': string,
      * 			'value': string
-     * 		}
+     * 			}
+     * 		>
      * 	},
      * 	'taxonomyRelation': string,
      * 	'order': string,
@@ -110,7 +110,7 @@ class BlockAttributes
     }
 
     /**
-     * @return array<int>
+     * @return list<int>
      */
     public function manualSelectionPostIDs(): array
     {
@@ -146,7 +146,7 @@ class BlockAttributes
     }
 
     /**
-     * @return array<int>
+     * @return list<int>
      */
     public function excludedPostIds(): array
     {
@@ -184,12 +184,12 @@ class BlockAttributes
 
     /**
      * @return array{
-     * 	taxonomy: string,
-     * 	terms: array{
-     * 		label: string,
-     * 		value: string
-     * 		}
-     * 	}|array<int>
+     * 		string: list<array{
+     * 			'label': string,
+     * 			'value': string
+     * 			}
+     * 		>
+     * 	}|array{}
      */
     public function taxonomyTerms(): array
     {

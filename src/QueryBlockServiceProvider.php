@@ -126,59 +126,11 @@ class QueryBlockServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param array{
-     * 	'postTypes': array{
-     * 		array{
-     * 			'label': string,
-     * 			'value': string
-     * 		}
-     * 	},
-     * 	'postsPerPage': int,
-     * 	'offset': int,
-     * 	'orderBy': string,
-     * 	'enableManualSelection': bool,
-     * 	'manualSelectionPosts': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'keepManualSelectionOrder': bool,
-     * 	'enableStickyPost': bool,
-     * 	'stickyPost': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'enableExcludePosts': bool,
-     * 	'excludePosts': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'enablePostParent': bool,
-     * 	'postParentOption': string,
-     * 	'postParent': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'enableTaxonomies': bool,
-     * 	'taxonomyTerms': array{
-     * 		string: list<array{
-     * 			'label': string,
-     * 			'value': string
-     * 			}
-     * 		>
-     * 	},
-     * 	'taxonomyRelation': string,
-     * 	'order': string,
-     * 	'displayImage': bool,
-     * 	'displayDate': bool,
-     * 	'displayExcerpt': bool,
-     * 	'displayLabel': bool,
-     * 	'align': string,
-     * 	'template': string
-     * 	} $attributes
+     * @param array{} $attributes
      */
     public function renderBlock(array $attributes): View
     {
-        $attributes = new BlockAttributes($attributes);
+        $attributes = BlockAttributes::from($attributes);
 
         $results = (new PostQuery($attributes))->get();
 

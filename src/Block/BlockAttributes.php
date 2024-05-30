@@ -5,67 +5,59 @@ declare(strict_types=1);
 namespace Yard\QueryBlock\Block;
 
 use Illuminate\Support\Str;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Data;
+use Yard\QueryBlock\Casts\IntCast;
 
-class BlockAttributes
+/**
+ * @phpstan-type LabelValueArray array{
+ * 		label: string,
+ * 		value: string
+ * }
+ */
+class BlockAttributes extends Data
 {
     /**
-     * @param array{
-     * 	'postTypes': array{
-     * 		array{
-     * 			'label': string,
-     * 			'value': string
-     * 		}
-     * 	},
-     * 	'postsPerPage': int,
-     * 	'offset': int,
-     * 	'orderBy': string,
-     * 	'enableManualSelection': bool,
-     * 	'manualSelectionPosts': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'keepManualSelectionOrder': bool,
-     * 	'enableStickyPost': bool,
-     * 	'stickyPost': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'enableExcludePosts': bool,
-     * 	'excludePosts': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'enablePostParent': bool,
-     * 	'postParentOption': string,
-     * 	'postParent': array{
-     * 		'label': string,
-     * 		'value': string
-     * 	},
-     * 	'enableTaxonomies': bool,
-     * 	'taxonomyTerms': array{
-     * 		string: list<array{
-     * 			'label': string,
-     * 			'value': string
-     * 			}
-     * 		>
-     * 	},
-     * 	'taxonomyRelation': string,
-     * 	'order': string,
-     * 	'displayImage': bool,
-     * 	'displayDate': bool,
-     * 	'displayExcerpt': bool,
-     * 	'displayLabel': bool,
-     * 	'align': string,
-     * 	'template': string
-     * 	} $attributes
+     * @param array{LabelValueArray}|array{} $postTypes
+     * @param LabelValueArray|array{} $manualSelectionPosts
+     * @param LabelValueArray|array{} $stickyPost
+     * @param LabelValueArray|array{} $excludePosts
+     * @param LabelValueArray|array{} $postParent
+     * @param array{string: list<LabelValueArray>}|array{} $taxonomyTerms
      */
-    public function __construct(private array $attributes)
-    {
+    public function __construct(
+        public array $postTypes = [],
+        #[WithCast(IntCast::class)]
+        public int $postsPerPage = 3,
+        #[WithCast(IntCast::class)]
+        public int $offset = 0,
+        public string $orderBy = 'date',
+        public bool $enableManualSelection = false,
+        public array $manualSelectionPosts = [],
+        public bool $keepManualSelectionOrder = false,
+        public bool $enableStickyPost = false,
+        public array $stickyPost = [],
+        public bool $enableExcludePosts = false,
+        public array $excludePosts = [],
+        public bool $enablePostParent = false,
+        public string $postParentOption = 'only-parents',
+        public array $postParent = [],
+        public bool $enableTaxonomies = false,
+        public array $taxonomyTerms = [],
+        public string $taxonomyRelation = 'AND',
+        public string $order = 'desc',
+        public bool $displayImage = false,
+        public bool $displayDate = false,
+        public bool $displayExcerpt = false,
+        public bool $displayLabel = false,
+        public string $align = '',
+        public string $template = 'default',
+    ) {
     }
 
     public function template(): string
     {
-        return $this->attributes['template'] ?? 'default';
+        return $this->template;
     }
 
     /**
@@ -73,24 +65,24 @@ class BlockAttributes
      */
     public function postTypes(): array
     {
-        return collect($this->attributes['postTypes'] ?? [])
+        return collect($this->postTypes)
             ->map(fn (array $postType): string => $postType['value'])
             ->all();
     }
 
     public function limit(): int
     {
-        return (int) ($this->attributes['postsPerPage'] ?? 3);
+        return $this->postsPerPage;
     }
 
     public function offset(): int
     {
-        return (int) ($this->attributes['offset'] ?? 0);
+        return $this->offset;
     }
 
     public function orderBy(): string
     {
-        return match ($this->attributes['orderBy'] ?? 'date') {
+        return match ($this->orderBy) {
             'date' => 'post_date',
             'title' => 'post_title',
             'menu_order' => 'menu_order',
@@ -101,12 +93,12 @@ class BlockAttributes
 
     public function inRandomOrder(): bool
     {
-        return 'rand' === $this->attributes['orderBy'];
+        return 'rand' === $this->orderBy;
     }
 
     public function hasManualSelection(): bool
     {
-        return $this->attributes['enableManualSelection'] ?? false;
+        return $this->enableManualSelection;
     }
 
     /**
@@ -114,35 +106,35 @@ class BlockAttributes
      */
     public function manualSelectionPostIDs(): array
     {
-        if (empty($this->attributes['manualSelectionPosts'])) {
+        if (empty($this->manualSelectionPosts)) {
             return [];
         }
 
-        return array_column($this->attributes['manualSelectionPosts'], 'value');
+        return array_column($this->manualSelectionPosts, 'value');
     }
 
     public function keepManualSelectionOrder(): bool
     {
-        return $this->attributes['keepManualSelectionOrder'] ?? false;
+        return $this->keepManualSelectionOrder;
     }
 
     public function hasStickyPost(): bool
     {
-        return ($this->attributes['enableStickyPost'] ?? false) && 0 !== $this->stickyPostID();
+        return $this->enableStickyPost && 0 !== $this->stickyPostID();
     }
 
     public function stickyPostID(): int
     {
-        if (empty($this->attributes['stickyPost'])) {
+        if (empty($this->stickyPost)) {
             return 0;
         }
 
-        return (int) $this->attributes['stickyPost']['value'];
+        return (int) $this->stickyPost['value'];
     }
 
     public function hasExcludedPosts(): bool
     {
-        return ($this->attributes['enableExcludePosts'] ?? false) && ! empty($this->excludedPostIds());
+        return $this->enableExcludePosts && ! empty($this->excludedPostIds());
     }
 
     /**
@@ -150,56 +142,35 @@ class BlockAttributes
      */
     public function excludedPostIds(): array
     {
-        if (empty($this->attributes['excludePosts'])) {
+        if (empty($this->excludePosts)) {
             return [];
         }
 
-        return array_column($this->attributes['excludePosts'], 'value');
+        return array_column($this->excludePosts, 'value');
     }
 
     public function excludeChildPosts(): bool
     {
-        return ($this->attributes['enablePostParent'] ?? false) && "only-parents" === $this->attributes['postParentOption'];
+        return $this->enablePostParent && "only-parents" === $this->postParentOption;
     }
 
     public function onlyChildPostsOfParent(): bool
     {
-        return ($this->attributes['enablePostParent'] ?? false)
-        && "specific-parent" === $this->attributes['postParentOption'];
+        return $this->enablePostParent && "specific-parent" === $this->postParentOption;
     }
 
     public function parentPostID(): int
     {
-        if (empty($this->attributes['postParent'])) {
+        if (empty($this->postParent)) {
             return 0;
         }
 
-        return (int) $this->attributes['postParent']['value'];
+        return (int) $this->postParent['value'];
     }
 
     public function hasTaxonomyFilter(): bool
     {
-        return ($this->attributes['enableTaxonomies'] ?? false) && ! empty($this->taxonomyTerms());
-    }
-
-    /**
-     * @return array{
-     * 		string: list<array{
-     * 			'label': string,
-     * 			'value': string
-     * 			}
-     * 		>
-     * 	}|array{}
-     */
-    public function taxonomyTerms(): array
-    {
-        $taxonomyTerms = $this->attributes['taxonomyTerms'] ?? [];
-
-        if (empty($taxonomyTerms)) {
-            return [];
-        }
-
-        return $taxonomyTerms;
+        return $this->enableTaxonomies && ! empty($this->taxonomyTerms);
     }
 
     /**
@@ -208,7 +179,7 @@ class BlockAttributes
     public function taxonomyTermSlugs(): array
     {
         $taxonomyTermSlugs = [];
-        foreach ($this->taxonomyTerms() as $taxonomy => $terms) {
+        foreach ($this->taxonomyTerms as $taxonomy => $terms) {
             $taxonomyTermSlugs[$taxonomy] = array_column($terms, 'value');
         }
 
@@ -217,36 +188,36 @@ class BlockAttributes
 
     public function taxonomyRelation(): string
     {
-        return $this->attributes['taxonomyRelation'] ?? 'AND';
+        return $this->taxonomyRelation;
     }
 
     public function order(): string
     {
-        return Str::lower($this->attributes['order'] ?? 'desc') ;
+        return Str::lower($this->order) ;
     }
 
     public function displayImage(): bool
     {
-        return $this->attributes['displayImage'] ?? false;
+        return $this->displayImage;
     }
 
     public function displayDate(): bool
     {
-        return $this->attributes['displayDate'] ?? false;
+        return $this->displayDate;
     }
 
     public function displayExcerpt(): bool
     {
-        return $this->attributes['displayExcerpt'] ?? false;
+        return $this->displayExcerpt;
     }
 
     public function displayLabel(): bool
     {
-        return $this->attributes['displayLabel'] ?? false;
+        return $this->displayLabel;
     }
 
     public function align(): string
     {
-        return isset($this->attributes['align']) ? 'align' . $this->attributes['align'] : '';
+        return empty($this->align) ? $this->align : 'align' . $this->align;
     }
 }

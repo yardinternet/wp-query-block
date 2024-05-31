@@ -6,12 +6,21 @@ namespace Yard\QueryBlock\Casts;
 
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Casts\Uncastable;
+
+use Spatie\LaravelData\Contracts\BaseData;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
+/**
+ * @template TData of BaseData
+ */
 class IntCast implements Cast
 {
-    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed // @phpstan-ignore-line
+    /**
+     * @param array<string> $properties
+     * @param CreationContext<TData> $context
+     */
+    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): int|Uncastable
     {
         if ($this->isCastableToInt($value)) {
             return (int) $value;

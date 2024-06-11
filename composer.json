@@ -17,7 +17,7 @@
 	],
 	"require": {
 		"php": "^8.1",
-		"yard/data": "dev-development",
+		"yard/data": "^1.0",
 		"jgrossi/corcel": "^7.0",
 		"illuminate/auth": "^10.48",
 		"webmozart/assert": "^1.11"

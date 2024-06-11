@@ -24,7 +24,7 @@ const PostParentToggleControl = ( props ) => {
 	return (
 		! enableManualSelection && (
 			<ToggleControl
-				label={ __( 'Filter op hoofdbericht' ) }
+				label={ __( 'Filter op hoofdbericht', 'yard-query-block' ) }
 				checked={ enablePostParent }
 				onChange={ onChange }
 			/>

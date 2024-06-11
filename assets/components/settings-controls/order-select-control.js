@@ -5,8 +5,8 @@ import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const DEFAULT_ORDER_OPTIONS = [
-	{ label: __( 'Oplopend' ), value: 'ASC' },
-	{ label: __( 'Aflopend' ), value: 'DESC' },
+	{ label: __( 'Oplopend', 'yard-query-block' ), value: 'ASC' },
+	{ label: __( 'Aflopend', 'yard-query-block' ), value: 'DESC' },
 ];
 
 const OrderSelectControl = ( props ) => {
@@ -32,7 +32,7 @@ const OrderSelectControl = ( props ) => {
 	return (
 		orderBy !== 'rand' && (
 			<SelectControl
-				label={ __( 'Volgorde' ) }
+				label={ __( 'Volgorde', 'yard-query-block' ) }
 				value={ order }
 				options={ DEFAULT_ORDER_OPTIONS }
 				help={ getHelpText() }

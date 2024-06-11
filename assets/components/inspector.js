@@ -36,7 +36,10 @@ const Inspector = ( props ) => {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Instellingen' ) } initialOpen={ true }>
+			<PanelBody
+				title={ __( 'Instellingen', 'yard-query-block' ) }
+				initialOpen={ true }
+			>
 				<PostTypeSelectControl { ...props } />
 				{ postTypes.length > 0 && (
 					<>
@@ -48,7 +51,10 @@ const Inspector = ( props ) => {
 				) }
 			</PanelBody>
 			{ postTypes.length > 0 && (
-				<PanelBody title={ __( 'Filters' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Filters', 'yard-query-block' ) }
+					initialOpen={ false }
+				>
 					<ManualSelectionToggleControl { ...props } />
 					<ManualSelectionSelectControl { ...props } />
 					<ManualSelectionOrderCheckboxControl { ...props } />
@@ -63,7 +69,10 @@ const Inspector = ( props ) => {
 				</PanelBody>
 			) }
 			{ postTypes.length > 0 && (
-				<PanelBody title={ __( 'Weergave' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Weergave', 'yard-query-block' ) }
+					initialOpen={ false }
+				>
 					<TemplateSelectControl { ...props } />
 					<DisplayImageToggleControl { ...props } />
 					<DisplayDateToggleControl { ...props } />
@@ -71,7 +80,8 @@ const Inspector = ( props ) => {
 					<DisplayLabelToggleControl { ...props } />
 					<p>
 						{ __(
-							'Let op: Niet alle opties hebben invloed op elk sjabloon.'
+							'Let op: Niet alle opties hebben invloed op elk sjabloon.',
+							'yard-query-block'
 						) }
 					</p>
 				</PanelBody>

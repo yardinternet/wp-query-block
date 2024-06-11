@@ -11,10 +11,14 @@ const ManualSelectionOrderCheckboxControl = ( props ) => {
 	return (
 		enableManualSelection && (
 			<CheckboxControl
-				label={ __( 'Behoud geselecteerde volgorde' ) }
+				label={ __(
+					'Behoud geselecteerde volgorde',
+					'yard-query-block'
+				) }
 				checked={ keepManualSelectionOrder }
 				help={ __(
-					'Versleep de labels om de volgorde van de berichten te veranderen.'
+					'Versleep de labels om de volgorde van de berichten te veranderen.',
+					'yard-query-block'
 				) }
 				onChange={ () =>
 					setAttributes( {

@@ -6,11 +6,14 @@ import { __ } from '@wordpress/i18n';
 
 const DEFAULT_POST_PARENT_OPTIONS = [
 	{
-		label: __( 'Toon alleen hoofdberichten' ),
+		label: __( 'Toon alleen hoofdberichten', 'yard-query-block' ),
 		value: 'only-parents',
 	},
 	{
-		label: __( 'Toon subberichten van een specifieke hoofdbericht' ),
+		label: __(
+			'Toon subberichten van een specifieke hoofdbericht',
+			'yard-query-block'
+		),
 		value: 'specific-parent',
 	},
 ];
@@ -33,7 +36,7 @@ const PostParentRadioControl = ( props ) => {
 		! enableManualSelection &&
 		enablePostParent && (
 			<RadioControl
-				label={ __( 'Hoofd- en subberichten' ) }
+				label={ __( 'Hoofd- en subberichten', 'yard-query-block' ) }
 				hideLabelFromVision={ true }
 				selected={ postParentOption }
 				options={ DEFAULT_POST_PARENT_OPTIONS }

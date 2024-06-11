@@ -10,7 +10,7 @@ const DisplayExcerptToggleControl = ( props ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Toon samenvatting' ) }
+			label={ __( 'Toon samenvatting', 'yard-query-block' ) }
 			checked={ displayExcerpt }
 			onChange={ () => {
 				setAttributes( { displayExcerpt: ! displayExcerpt } );

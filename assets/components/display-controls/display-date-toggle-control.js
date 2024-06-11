@@ -10,7 +10,7 @@ const DisplayDateToggleControl = ( props ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Toon datum' ) }
+			label={ __( 'Toon datum', 'yard-query-block' ) }
 			checked={ displayDate }
 			onChange={ () => {
 				setAttributes( { displayDate: ! displayDate } );

@@ -34,7 +34,7 @@ const ManualSelectionToggleControl = ( props ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Handmatige selectie' ) }
+			label={ __( 'Handmatige selectie', 'yard-query-block' ) }
 			checked={ enableManualSelection }
 			onChange={ onChange }
 		/>

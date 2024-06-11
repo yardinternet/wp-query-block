@@ -11,7 +11,7 @@ const ExcludePostsToggleControl = ( props ) => {
 	return (
 		! enableManualSelection && (
 			<ToggleControl
-				label={ __( 'Berichten uitsluiten' ) }
+				label={ __( 'Berichten uitsluiten', 'yard-query-block' ) }
 				checked={ enableExcludePosts }
 				onChange={ ( state ) =>
 					setAttributes( { enableExcludePosts: state } )

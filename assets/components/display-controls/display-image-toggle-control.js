@@ -10,7 +10,7 @@ const DisplayImageToggleControl = ( props ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Toon afbeelding' ) }
+			label={ __( 'Toon afbeelding', 'yard-query-block' ) }
 			checked={ displayImage }
 			onChange={ () => {
 				setAttributes( { displayImage: ! displayImage } );

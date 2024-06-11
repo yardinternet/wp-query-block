@@ -23,7 +23,7 @@ const TaxonomyToggleControl = ( props ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Filter op taxonomie' ) }
+			label={ __( 'Filter op taxonomie', 'yard-query-block' ) }
 			checked={ enableTaxonomies }
 			onChange={ onChange }
 		/>

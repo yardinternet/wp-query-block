@@ -10,7 +10,7 @@ const NumberOfPostsRangeControl = ( props ) => {
 
 	return (
 		<RangeControl
-			label={ __( 'Aantal berichten' ) }
+			label={ __( 'Aantal berichten', 'yard-query-block' ) }
 			value={ postsPerPage }
 			min={ 1 }
 			max={ 100 }

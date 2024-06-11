@@ -22,7 +22,8 @@ const StickyPostSelectControl = ( props ) => {
 			isClearable={ true }
 			isMulti={ false }
 			label={ __(
-				'Selecteer het bericht dat als eerste in de lijst moet worden weergegeven.'
+				'Selecteer het bericht dat als eerste in de lijst moet worden weergegeven.',
+				'yard-query-block'
 			) }
 			value={ stickyPost }
 		/>

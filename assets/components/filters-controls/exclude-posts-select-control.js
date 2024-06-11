@@ -22,7 +22,8 @@ const ExcludePostsSelectControl = ( props ) => {
 			isClearable={ false }
 			isMulti={ true }
 			label={ __(
-				'Selecteer de berichten die je niet in deze lijst wilt tonen.'
+				'Selecteer de berichten die je niet in deze lijst wilt tonen.',
+				'yard-query-block'
 			) }
 			value={ excludePosts }
 		/>

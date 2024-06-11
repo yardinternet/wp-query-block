@@ -64,7 +64,7 @@ const PostTypeSelectControl = ( props ) => {
 	return options.length > 0 ? (
 		<>
 			<p className="yard-query-inspector-label">
-				{ __( 'Selecteer content type' ) }
+				{ __( 'Selecteer content type', 'yard-query-block' ) }
 			</p>
 			<Select
 				isMulti

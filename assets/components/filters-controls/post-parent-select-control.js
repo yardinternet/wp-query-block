@@ -31,7 +31,8 @@ const PostParentSelectControl = ( props ) => {
 			isClearable={ true }
 			isMulti={ false }
 			label={ __(
-				'Selecteer het hoofdbericht waar de subberichten van getoond moeten worden.'
+				'Selecteer het hoofdbericht waar de subberichten van getoond moeten worden.',
+				'yard-query-block'
 			) }
 			value={ postParent }
 		/>

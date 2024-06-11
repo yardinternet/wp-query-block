@@ -163,15 +163,21 @@ const AsyncSortableSelectPostsControl = ( props ) => {
 							defaultOptions={ defaultOptions }
 							isMulti
 							isOptionDisabled={ isOptionDisabled }
-							loadingMessage={ () => __( 'Laden…' ) }
+							loadingMessage={ () =>
+								__( 'Laden…', 'yard-query-block' )
+							}
 							loadOptions={ debounce( loadOptions, 500 ) }
 							noOptionsMessage={ () =>
 								__(
-									'Geen berichten gevonden. Probeer een andere zoekterm.'
+									'Geen berichten gevonden. Probeer een andere zoekterm.',
+									'yard-query-block'
 								)
 							}
 							onChange={ handleChange }
-							placeholder={ __( 'Selecteer bericht…' ) }
+							placeholder={ __(
+								'Selecteer bericht…',
+								'yard-query-block'
+							) }
 							value={ value }
 						/>
 					</SortableContext>

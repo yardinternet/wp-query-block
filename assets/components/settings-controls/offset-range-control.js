@@ -10,7 +10,7 @@ const OffsetRangeControl = ( props ) => {
 
 	return (
 		<RangeControl
-			label={ __( 'Afwijking' ) }
+			label={ __( 'Afwijking', 'yard-query-block' ) }
 			value={ offset }
 			min={ 0 }
 			max={ 10 }

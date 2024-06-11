@@ -24,7 +24,8 @@ const ManualSelectionSelectControl = ( props ) => {
 				manualSelectionPosts.length >= postsPerPage
 			}
 			label={ __(
-				'Selecteer de berichten die je in deze lijst wilt tonen.'
+				'Selecteer de berichten die je in deze lijst wilt tonen.',
+				'yard-query-block'
 			) }
 			value={ manualSelectionPosts }
 		/>

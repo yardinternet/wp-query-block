@@ -10,7 +10,7 @@ const DisplayLabelToggleControl = ( props ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Toon label' ) }
+			label={ __( 'Toon label', 'yard-query-block' ) }
 			checked={ displayLabel }
 			onChange={ () => {
 				setAttributes( { displayLabel: ! displayLabel } );

@@ -24,7 +24,7 @@ const StickyPostToggleControl = ( props ) => {
 	return (
 		! enableManualSelection && (
 			<ToggleControl
-				label={ __( 'Klevend bericht' ) }
+				label={ __( 'Klevend bericht', 'yard-query-block' ) }
 				checked={ enableStickyPost }
 				onChange={ onChange }
 			/>

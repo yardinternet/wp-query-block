@@ -38,7 +38,7 @@ const TemplateSelectControl = ( props ) => {
 
 	return (
 		<SelectControl
-			label={ __( 'Sjabloon' ) }
+			label={ __( 'Sjabloon', 'yard-query-block' ) }
 			value={ template }
 			options={ templateOptions }
 			onChange={ ( value ) => setAttributes( { template: value } ) }

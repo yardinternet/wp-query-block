@@ -2,7 +2,7 @@
 	"name": "yard/query-block",
 	"type": "package",
 	"description": "A query block for the Gutenberg editor.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"license": "MIT",
 	"config": {
 		"allow-plugins": {

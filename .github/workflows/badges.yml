@@ -4,11 +4,16 @@ on:
     release:
         types: [published]
     workflow_dispatch:
+    push:
 
 jobs:
     badges:
         name: Create badges
         runs-on: ubuntu-latest
+
+        permissions:
+            contents: write
+            pull-requests: write
 
         steps:
             - name: Checkout code
@@ -19,17 +24,9 @@ jobs:
               with:
                   php-version: '8.1'
                   extensions: simplexml, dom, xml, xdebug, intl
-
-            - name: Get composer cache directory
-              id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            - name: Cache dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: ${{ runner.os }}-composer-
+                  tools: composer:v2
+              env:
+                  COMPOSER_TOKEN: ${{ secrets.YARD_BOT_PAT }}
 
             - name: Install dependencies
               run: composer install --prefer-dist

@@ -1,41 +1,43 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Yard\QueryBlock\Block;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\View;
 use WP_REST_Response;
 use Yard\Data\PostData;
-use Illuminate\Contracts\View\View;
 use Yard\QueryBlock\Query\PostQuery;
-use Yard\QueryBlock\Block\BlockAttributes;
 use Yard\QueryBlock\Traits\VersionRetriever;
-use Illuminate\Contracts\Foundation\Application;
 
 class Block
 {
-	use VersionRetriever;
+    use VersionRetriever;
 
     public function __construct(protected Application $app)
     {
     }
 
-	public function register(): void
-	{
-		\add_action('init', $this->registerBlock(...));
+    public function register(): void
+    {
+        \add_action('init', $this->registerBlock(...));
         \add_filter('block_categories_all', $this->addBlockCategory(...));
         \add_action('rest_api_init', $this->registerSettingsRoute(...));
-	}
+    }
 
-	public function registerSettingsRoute(): void
-	{
-		\add_action('rest_api_init', function () {
-			\register_rest_route('yard/query-block/v1', '/settings', [
+    public function registerSettingsRoute(): void
+    {
+        \add_action('rest_api_init', function () {
+            \register_rest_route('yard/query-block/v1', '/settings', [
                 'methods' => 'GET',
                 'callback' => $this->blockSettings(...),
                 'permission_callback' => '__return_true',
             ]);
-		});
-	}
+        });
+    }
 
-	/**
+    /**
      * Add a custom block category if it doesn't already exist.
      *
      * @param list<array{slug: string, title: string}> $categories

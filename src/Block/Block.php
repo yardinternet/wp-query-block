@@ -7,10 +7,15 @@ use Illuminate\Contracts\View\View;
 use Yard\QueryBlock\Query\PostQuery;
 use Yard\QueryBlock\Block\BlockAttributes;
 use Yard\QueryBlock\Traits\VersionRetriever;
+use Illuminate\Contracts\Foundation\Application;
 
 class Block
 {
 	use VersionRetriever;
+
+    public function __construct(protected Application $app)
+    {
+    }
 
 	public function register(): void
 	{

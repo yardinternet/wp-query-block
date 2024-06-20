@@ -14,8 +14,8 @@ class Block
 
 	public function register(): void
 	{
-		\add_action('init', [$this, 'registerBlock']);
-        \add_filter('block_categories_all', [$this, 'addBlockCategory']);
+		\add_action('init', $this->registerBlock(...));
+        \add_filter('block_categories_all', $this->addBlockCategory(...));
         \add_action('rest_api_init', function () {
             \register_rest_route('yard/query-block/v1', '/settings', [
                 'methods' => 'GET',
@@ -57,7 +57,7 @@ class Block
         });
 
         \register_block_type(__DIR__ . '/../../public/block.json', [
-            'render_callback' => [$this, 'renderBlock'],
+            'render_callback' => $this->renderBlock(...),
             'editor_script_handles' => ['yard-query-block-editor-script'],
             'editor_style_handles' => ['yard-query-block-style'],
         ]);

@@ -16,13 +16,18 @@ class Block
 	{
 		\add_action('init', $this->registerBlock(...));
         \add_filter('block_categories_all', $this->addBlockCategory(...));
-        \add_action('rest_api_init', function () {
-            \register_rest_route('yard/query-block/v1', '/settings', [
+        \add_action('rest_api_init', $this->registerSettingsRoute(...));
+	}
+
+	public function registerSettingsRoute(): void
+	{
+		\add_action('rest_api_init', function () {
+			\register_rest_route('yard/query-block/v1', '/settings', [
                 'methods' => 'GET',
                 'callback' => $this->blockSettings(...),
                 'permission_callback' => '__return_true',
             ]);
-        });
+		});
 	}
 
 	/**

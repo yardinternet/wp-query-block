@@ -1,5 +1,11 @@
 # Yard Query Block
 
+[![Code Style](https://github.com/yardinternet/yard-query-block/actions/workflows/format-php.yml/badge.svg?no-cache)](https://github.com/yardinternet/yard-query-block/actions/workflows/format-php.yml)
+[![PHPStan](https://github.com/yardinternet/yard-query-block/actions/workflows/phpstan.yml/badge.svg?no-cache)](https://github.com/yardinternet/yard-query-block/actions/workflows/phpstan.yml)
+[![Tests](https://github.com/yardinternet/yard-query-block/actions/workflows/run-tests.yml/badge.svg?no-cache)](https://github.com/yardinternet/yard-query-block/actions/workflows/run-tests.yml)
+[![Code Coverage Badge](https://github.com/yardinternet/yard-query-block/blob/badges/coverage.svg)](https://github.com/yardinternet/yard-query-block/actions/workflows/badges.yml)
+[![Lines of Code Badge](https://github.com/yardinternet/yard-query-block/blob/badges/lines-of-code.svg)](https://github.com/yardinternet/yard-query-block/actions/workflows/badges.yml)
+
 An acorn package providing a "Query Block" for the Gutenberg editor.
 
 ## Requirements

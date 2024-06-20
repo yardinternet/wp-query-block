@@ -5,28 +5,26 @@ declare(strict_types=1);
 namespace Yard\QueryBlock;
 
 use Yard\QueryBlock\Block\Block;
-use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class QueryBlockServiceProvider extends ServiceProvider
+class QueryBlockServiceProvider extends PackageServiceProvider
 {
-    public function register(): void
+    public function configurePackage(Package $package): void
+	{
+		$package
+			->name('yard-query-block')
+			->hasViews()
+			->hasRoute('web');
+	}
+
+	public function packageRegistered(): void
     {
-        //
+        $this->app->singleton('Block', fn () => new Block($this->app));
     }
 
-    public function boot(): void
+    public function packageBooted(): void
     {
-        $this->loadViewsFrom(
-            __DIR__.'/../resources/views',
-            'yard-query-block',
-        );
-
-        $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/yard-query-block'),
-        ]);
-
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-
-		(new Block())->register();
+		$this->app->make('Block')->register();
     }
 }

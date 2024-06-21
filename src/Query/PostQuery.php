@@ -57,6 +57,8 @@ class PostQuery implements QueryInterface
          *
          * @param \Corcel\Model\Builder\PostBuilder $query The query object.
          * @param \Yard\QueryBlock\Block\BlockAttributes $attributes The block attributes.
+         *
+         * @return \Corcel\Model\Builder\PostBuilder The modified query object.
          */
         $query = apply_filters('yard_query_block_post_query', $query, $this->attributes);
 

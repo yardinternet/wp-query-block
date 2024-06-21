@@ -57,3 +57,36 @@ Add the template name as a comment at the top of this template file like this:
 ```
 
 Now, you will be able to select the template from the editor. The name of the template is displayed using the value in your docblock.
+
+## Hooks
+
+### Filters
+
+#### yard_query_block_post_query
+
+Filters the Post Query before it is executed on the database.
+
+```php
+apply_filters('yard_query_block_post_query', $query, $attributes);
+```
+
+| Parameters  | Type                                   | Description          |
+|-------------|----------------------------------------|----------------------|
+| $query      | \Corcel\Model\Builder\PostBuilder      | The query object     |
+| $attributes | \Yard\QueryBlock\Block\BlockAttributes | The block attributes |
+
+| Return | Type                              | Description      |
+|--------|-----------------------------------|------------------|
+| $query | \Corcel\Model\Builder\PostBuilder | The query object |
+
+Example:
+
+```php
+add_filter('yard_query_block_post_query', function ($query, $attributes) {
+    if (is_user_logged_in()) {
+        return $query;
+    }
+
+    return $query->hasMeta('post_is_public', 'yes');
+}, 10, 2);
+```

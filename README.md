@@ -11,21 +11,30 @@ An acorn package providing a "Query Block" for the Gutenberg editor.
 ## Requirements
 
 - [Sage](https://github.com/roots/sage) >= 10.0
-- [Acorn](https://github.com/roots/acorn) >= 3.0
+- [Acorn](https://github.com/roots/acorn) >= 4.0
 
 ## Installation
 
-Install this package with Composer:
+1. Add the following to the `repositories` section of your `composer.json`:
 
-```bash
-composer require yard/query-block
-```
+    ```json
+    {
+      "type": "vcs",
+      "url": "git@github.com:yardinternet/yard-query-block"
+    }
+    ```
 
-Then run the Acorn WP-CLI command to discover this package:
+2. Install this package with Composer:
 
-```shell
-wp acorn package:discover
-```
+    ```sh
+    composer require yard/query-block
+    ```
+
+3. Run the Acorn WP-CLI command to discover this package:
+
+    ```shell
+    wp acorn package:discover
+    ```
 
 ## Usage
 
@@ -54,7 +63,7 @@ Add the template name as a comment at the top of this template file like this:
 ```php
 @php
 /**
- * Template: Horizontaal
+ * Template: Horizontal
  *
  * @var Illuminate\Support\Collection|Yard\Data\PostData $postDataCollection
  * @var Yard\QueryBlock\Block\BlockAttributes $attributes

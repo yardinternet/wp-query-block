@@ -23,7 +23,7 @@
 		"@dnd-kit/sortable": "^8.0.0",
 		"@dnd-kit/utilities": "^3.2.2",
 		"@wordpress/api-fetch": "^6.51.0",
-		"@wordpress/blocks": "^12.31.0",
+		"@wordpress/blocks": "^13.1.0",
 		"@wordpress/components": "^27.2.0",
 		"@wordpress/element": "^5.31.0",
 		"@wordpress/eslint-plugin": "^17.11.0",

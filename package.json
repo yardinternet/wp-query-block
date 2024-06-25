@@ -14,7 +14,7 @@
 		"start": "wp-scripts start --webpack-src-dir=assets --output-path=public"
 	},
 	"devDependencies": {
-		"@wordpress/prettier-config": "^3.11.0",
+		"@wordpress/prettier-config": "^4.1.0",
 		"@wordpress/scripts": "^27.5.0"
 	},
 	"dependencies": {

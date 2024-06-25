@@ -15,26 +15,28 @@ class Block
 {
     use VersionRetriever;
 
+    private const SCRIPT_HANDLE = 'yard-query-block-editor-script';
+    private const STYLE_HANDLE = 'yard-query-block-editor-style';
+
     public function __construct(protected Application $app)
     {
     }
 
     public function register(): void
     {
-        \add_action('init', $this->registerBlock(...));
         \add_filter('block_categories_all', $this->addBlockCategory(...));
         \add_action('rest_api_init', $this->registerSettingsRoute(...));
+        \add_action('admin_enqueue_scripts', $this->enqueueAssets(...));
+        \add_action('init', $this->registerBlock(...));
     }
 
     public function registerSettingsRoute(): void
     {
-        \add_action('rest_api_init', function () {
-            \register_rest_route('yard/query-block/v1', '/settings', [
-                'methods' => 'GET',
-                'callback' => $this->blockSettings(...),
-                'permission_callback' => '__return_true',
-            ]);
-        });
+        \register_rest_route('yard/query-block/v1', '/settings', [
+            'methods' => 'GET',
+            'callback' => $this->blockSettings(...),
+            'permission_callback' => '__return_true',
+        ]);
     }
 
     /**
@@ -50,28 +52,27 @@ class Block
             return $categories;
         }
 
-        $categories = array_merge($categories, [
+        return array_merge($categories, [
             [
                 'slug' => 'yard',
                 'title' => 'Yard',
             ],
         ]);
+    }
 
-        return $categories;
+    public function enqueueAssets(): void
+    {
+        $deps = require __DIR__.'/../../public/index.asset.php';
+        wp_register_script(self::SCRIPT_HANDLE, $this->route('/yard/query-block/assets/js/index'), $deps['dependencies'], $this->getVersion(), true);
+        wp_register_style(self::STYLE_HANDLE, $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion());
     }
 
     public function registerBlock(): void
     {
-        add_action('admin_enqueue_scripts', function () {
-            $deps = require __DIR__.'/../../public/index.asset.php';
-            wp_register_script('yard-query-block-editor-script', $this->route('/yard/query-block/assets/js/index'), $deps['dependencies'], $this->getVersion(), true);
-            wp_register_style('yard-query-block-style', $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion());
-        });
-
         \register_block_type(__DIR__ . '/../../public/block.json', [
             'render_callback' => $this->renderBlock(...),
-            'editor_script_handles' => ['yard-query-block-editor-script'],
-            'editor_style_handles' => ['yard-query-block-style'],
+            'editor_script_handles' => [self::SCRIPT_HANDLE],
+            'editor_style_handles' => [self::STYLE_HANDLE],
         ]);
     }
 
@@ -123,14 +124,10 @@ class Block
     public function renderBlock(array $attributes): View
     {
         $attributes = BlockAttributes::from($attributes);
-
         $results = (new PostQuery($attributes))->get();
-
         $postDataCollection = PostData::collect($results);
 
-        $template = $attributes->template();
-
-        return view("yard-query-block::templates." . $template, [
+        return view("yard-query-block::templates." . $attributes->template(), [
             'postDataCollection' => $postDataCollection,
             'attributes' => $attributes,
         ]);

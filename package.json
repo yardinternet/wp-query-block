@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/prettier-config": "^3.11.0",
-		"@wordpress/scripts": "^27.5.0"
+		"@wordpress/scripts": "^28.1.0"
 	},
 	"dependencies": {
 		"@dnd-kit/core": "^6.1.0",

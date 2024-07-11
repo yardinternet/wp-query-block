@@ -8,6 +8,7 @@ on:
       - 'phpunit.xml.dist'
       - 'composer.json'
       - 'composer.lock'
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 jobs:
@@ -29,6 +30,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      packages: read
 
     steps:
       - name: Checkout code
@@ -44,12 +46,19 @@ jobs:
           coverage: xdebug
           tools: composer:v2
         env:
-          COMPOSER_TOKEN: ${{ secrets.YARD_BOT_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Configure Composer for private packages
+        run: composer config --global github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git for private repositories
+        run: |
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
       - name: Install dependencies
         run: |

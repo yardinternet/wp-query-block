@@ -126,8 +126,9 @@ class Block
         $attributes = BlockAttributes::from($attributes);
         $results = (new PostQuery($attributes))->get();
         $postDataCollection = PostData::collect($results);
+        $view = "yard-query-block::templates." . $attributes->template();
 
-        return view("yard-query-block::templates." . $attributes->template(), [
+        return view(view()->exists($view) ? $view : "yard-query-block::templates.default", [
             'postDataCollection' => $postDataCollection,
             'attributes' => $attributes,
         ]);

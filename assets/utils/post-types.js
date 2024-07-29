@@ -16,6 +16,7 @@ export const excludePostTypes = [
 	'wp_navigation',
 	'wp_template',
 	'wp_template_part',
+	'wp_global_styles',
 	'yard-pattern',
 ];
 

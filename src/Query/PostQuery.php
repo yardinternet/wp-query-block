@@ -84,15 +84,15 @@ class PostQuery implements QueryInterface
             return $query->inRandomOrder();
         }
 
-		if ('_EventStartDate' === $this->attributes->orderBy()) {
-			return $query->orderBy(
-				PostMeta::select('meta_value')
-					->where('meta_key', $this->attributes->orderBy())
-					->whereColumn('postmeta.post_id', 'posts.ID'),
-				$this->attributes->order()
-			);
-		}
+        if ('_EventStartDate' === $this->attributes->orderBy()) {
+            return $query->orderBy(
+                PostMeta::select('meta_value')
+                    ->where('meta_key', $this->attributes->orderBy())
+                    ->whereColumn('postmeta.post_id', 'posts.ID'),
+                $this->attributes->order()
+            );
+        }
 
-		return $query->orderBy($this->attributes->orderBy(), $this->attributes->order());
+        return $query->orderBy($this->attributes->orderBy(), $this->attributes->order());
     }
 }

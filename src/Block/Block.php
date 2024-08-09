@@ -123,26 +123,26 @@ class Block
      */
     public function renderBlock(array $attributes): View
     {
-		try {
-			return $this->render($attributes);
-		} catch (\Exception $e) {
-			return view("yard-query-block::error");
-		}
+        try {
+            return $this->render($attributes);
+        } catch (\Exception $e) {
+            return view("yard-query-block::error");
+        }
     }
 
-	/**
-	 * @param array{} $attributes
-	 */
-	private function render(array $attributes): View
-	{
-		$attributes = BlockAttributes::from($attributes);
-		$results = (new PostQuery($attributes))->get();
-		$postDataCollection = PostData::collect($results);
-		$view = "yard-query-block::templates." . $attributes->template();
+    /**
+     * @param array{} $attributes
+     */
+    private function render(array $attributes): View
+    {
+        $attributes = BlockAttributes::from($attributes);
+        $results = (new PostQuery($attributes))->get();
+        $postDataCollection = PostData::collect($results);
+        $view = "yard-query-block::templates." . $attributes->template();
 
-		return view(view()->exists($view) ? $view : "yard-query-block::templates.default", [
-			'postDataCollection' => $postDataCollection,
-			'attributes' => $attributes,
-		]);
-	}
+        return view(view()->exists($view) ? $view : "yard-query-block::templates.default", [
+            'postDataCollection' => $postDataCollection,
+            'attributes' => $attributes,
+        ]);
+    }
 }

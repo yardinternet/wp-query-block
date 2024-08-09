@@ -83,7 +83,6 @@ class BlockAttributes extends Data
     public function orderBy(): string
     {
         return match ($this->orderBy) {
-            'date' => 'post_date',
             'title' => 'post_title',
             'menu_order' => 'menu_order',
             'event_date' => 'event_date',

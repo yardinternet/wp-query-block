@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Yard\QueryBlock\Query;
 
 use Corcel\Model\Builder\PostBuilder;
+use Corcel\Model\Meta\PostMeta;
 use Corcel\Model\Post;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
 
@@ -16,7 +18,7 @@ class PostQuery implements QueryInterface
     }
 
     /**
-     * @return Collection<int, \Illuminate\Database\Eloquent\Model>
+     * @return Collection<int, Model>
      */
     public function get(): Collection
     {
@@ -55,10 +57,10 @@ class PostQuery implements QueryInterface
         /**
          * Filters the Post Query before it is executed on the database.
          *
-         * @param \Corcel\Model\Builder\PostBuilder $query The query object.
-         * @param \Yard\QueryBlock\Block\BlockAttributes $attributes The block attributes.
+         * @param PostBuilder $query The query object.
+         * @param BlockAttributes $attributes The block attributes.
          *
-         * @return \Corcel\Model\Builder\PostBuilder The modified query object.
+         * @return PostBuilder The modified query object.
          */
         $query = apply_filters('yard_query_block_post_query', $query, $this->attributes);
 

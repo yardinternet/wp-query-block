@@ -85,7 +85,7 @@ class BlockAttributes extends Data
         return match ($this->orderBy) {
             'title' => 'post_title',
             'menu_order' => 'menu_order',
-            'event_date' => 'event_date',
+            'event_date' => '_EventStartDate',
             default => 'post_date',
         };
     }

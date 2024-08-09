@@ -11,7 +11,7 @@ use Yard\QueryBlock\Block\BlockAttributes;
 
 class PostQuery implements QueryInterface
 {
-    public function __construct(private BlockAttributes $attributes)
+    public function __construct(private readonly BlockAttributes $attributes)
     {
     }
 

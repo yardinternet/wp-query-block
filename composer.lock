@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75e9eeb3edfda13724c842d45e191326",
+    "content-hash": "ceba576157d66d4b4003494532723756",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2246,16 +2246,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.5.1",
+            "version": "2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "ac815920de0eff6de947eac0a6a94e5ed0fb147c"
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/ac815920de0eff6de947eac0a6a94e5ed0fb147c",
-                "reference": "ac815920de0eff6de947eac0a6a94e5ed0fb147c",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/b650144166dfa7703e62a22e493b853b58d874b0",
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0",
                 "shasum": ""
             },
             "require": {
@@ -2268,8 +2268,8 @@
             },
             "require-dev": {
                 "cebe/markdown": "^1.0",
-                "commonmark/cmark": "0.31.0",
-                "commonmark/commonmark.js": "0.31.0",
+                "commonmark/cmark": "0.31.1",
+                "commonmark/commonmark.js": "0.31.1",
                 "composer/package-versions-deprecated": "^1.8",
                 "embed/embed": "^4.4",
                 "erusev/parsedown": "^1.0",
@@ -2348,7 +2348,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-24T12:52:09+00:00"
+            "time": "2024-08-16T11:46:16+00:00"
         },
         {
             "name": "league/config",
@@ -4228,16 +4228,16 @@
         },
         {
             "name": "spatie/php-structure-discoverer",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/php-structure-discoverer.git",
-                "reference": "24f5221641560ec0f7dce23dd814e7d555b0098b"
+                "reference": "0bfebf609b2047360cdca102d2c08fb78b393927"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/php-structure-discoverer/zipball/24f5221641560ec0f7dce23dd814e7d555b0098b",
-                "reference": "24f5221641560ec0f7dce23dd814e7d555b0098b",
+                "url": "https://api.github.com/repos/spatie/php-structure-discoverer/zipball/0bfebf609b2047360cdca102d2c08fb78b393927",
+                "reference": "0bfebf609b2047360cdca102d2c08fb78b393927",
                 "shasum": ""
             },
             "require": {
@@ -4296,7 +4296,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/php-structure-discoverer/issues",
-                "source": "https://github.com/spatie/php-structure-discoverer/tree/2.1.1"
+                "source": "https://github.com/spatie/php-structure-discoverer/tree/2.1.2"
             },
             "funding": [
                 {
@@ -4304,7 +4304,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-13T16:08:30+00:00"
+            "time": "2024-08-13T15:00:59+00:00"
         },
         {
             "name": "symfony/console",
@@ -6865,24 +6865,30 @@
         },
         {
             "name": "yard/data",
-            "version": "1.0.0",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:yardinternet/yard-data.git",
-                "reference": "108a3e08704c1c84700591829bb39ffb54cfd42f"
+                "reference": "599bb6277efcd6222057ccadbee4623a5e4384c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yardinternet/yard-data/zipball/108a3e08704c1c84700591829bb39ffb54cfd42f",
-                "reference": "108a3e08704c1c84700591829bb39ffb54cfd42f",
+                "url": "https://api.github.com/repos/yardinternet/yard-data/zipball/599bb6277efcd6222057ccadbee4623a5e4384c4",
+                "reference": "599bb6277efcd6222057ccadbee4623a5e4384c4",
                 "shasum": ""
             },
             "require": {
+                "jgrossi/corcel": "^7.0",
                 "php": "^8.1",
                 "spatie/laravel-data": "4.5.1"
             },
-            "suggest": {
-                "spatie/laravel-data": "To customize configuration settings, please install spatie/laravel-data directly. Run `php artisan vendor:publish --provider=\"Spatie\\LaravelData\\LaravelDataServiceProvider\" --tag=\"data-config\"` to publish the configuration file."
+            "require-dev": {
+                "10up/wp_mock": "^0.4.2",
+                "friendsofphp/php-cs-fixer": "^3.58",
+                "larastan/larastan": "^2.0",
+                "orchestra/testbench": "^8.23",
+                "pestphp/pest": "^2.34",
+                "szepeviktor/phpstan-wordpress": "^1.0"
             },
             "type": "package",
             "extra": {
@@ -6900,15 +6906,35 @@
                     "Yard\\Data\\": "src/"
                 }
             },
+            "autoload-dev": {
+                "psr-4": {
+                    "Yard\\Data\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "analyse": [
+                    "sed -i -e 's#function __(#function ____(#' ./vendor/php-stubs/wordpress-stubs/wordpress-stubs.php",
+                    "vendor/bin/phpstan analyse --debug --memory-limit 1G"
+                ],
+                "format": [
+                    "vendor/bin/php-cs-fixer fix"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test:coverage": [
+                    "XDEBUG_MODE=coverage vendor/bin/pest --coverage"
+                ]
+            },
             "license": [
                 "MIT"
             ],
             "description": "Powerful data objects for WordPress",
             "support": {
-                "source": "https://github.com/yardinternet/yard-data/tree/v1.0.0",
+                "source": "https://github.com/yardinternet/yard-data/tree/v1.0.3",
                 "issues": "https://github.com/yardinternet/yard-data/issues"
             },
-            "time": "2024-06-11T10:33:24+00:00"
+            "time": "2024-08-13T12:52:52+00:00"
         }
     ],
     "packages-dev": [

@@ -27,6 +27,7 @@ return (new Config)
         'ordered_imports' => ['sort_algorithm' => 'alpha',
         ],
         'no_unused_imports' => true,
+        'no_extra_blank_lines' => true,
         'not_operator_with_successor_space' => true,
         'logical_operators' => true,
         'trailing_comma_in_multiline' => true,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yard\QueryBlock\Block;
 
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use WP_REST_Response;
@@ -24,15 +25,15 @@ class Block
 
     public function register(): void
     {
-        \add_filter('block_categories_all', $this->addBlockCategory(...));
-        \add_action('rest_api_init', $this->registerSettingsRoute(...));
-        \add_action('admin_enqueue_scripts', $this->enqueueAssets(...));
-        \add_action('init', $this->registerBlock(...));
+        add_filter('block_categories_all', $this->addBlockCategory(...));
+        add_action('rest_api_init', $this->registerSettingsRoute(...));
+        add_action('admin_enqueue_scripts', $this->enqueueAssets(...));
+        add_action('init', $this->registerBlock(...));
     }
 
     public function registerSettingsRoute(): void
     {
-        \register_rest_route('yard/query-block/v1', '/settings', [
+        register_rest_route('yard/query-block/v1', '/settings', [
             'methods' => 'GET',
             'callback' => $this->blockSettings(...),
             'permission_callback' => '__return_true',
@@ -69,7 +70,7 @@ class Block
 
     public function registerBlock(): void
     {
-        \register_block_type(__DIR__ . '/../../public/block.json', [
+        register_block_type(__DIR__ . '/../../public/block.json', [
             'render_callback' => $this->renderBlock(...),
             'editor_script_handles' => [self::SCRIPT_HANDLE],
             'editor_style_handles' => [self::STYLE_HANDLE],
@@ -125,7 +126,7 @@ class Block
     {
         try {
             return $this->render($attributes);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return view("yard-query-block::error");
         }
     }

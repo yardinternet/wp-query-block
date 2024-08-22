@@ -95,7 +95,7 @@ class Block
         }
 
         foreach ($files as $file) {
-            if (strpos($file, '.blade.php') === false) {
+            if (! str_contains($file, '.blade.php')) {
                 continue;
             }
 

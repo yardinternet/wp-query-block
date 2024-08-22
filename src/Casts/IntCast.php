@@ -10,6 +10,7 @@ use Spatie\LaravelData\Casts\Uncastable;
 use Spatie\LaravelData\Contracts\BaseData;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
+use Throwable;
 use Webmozart\Assert\Assert;
 
 /**
@@ -25,7 +26,7 @@ class IntCast implements Cast
     {
         try {
             Assert::integerish($value);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return Uncastable::create();
         }
 

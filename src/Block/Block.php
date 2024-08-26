@@ -64,8 +64,21 @@ class Block
     public function enqueueAssets(): void
     {
         $deps = require __DIR__.'/../../public/index.asset.php';
-        wp_register_script(self::SCRIPT_HANDLE, $this->route('/yard/query-block/assets/js/index'), $deps['dependencies'], $this->getVersion(), true);
-        wp_register_style(self::STYLE_HANDLE, $this->route('/yard/query-block/assets/css/index'), [], $this->getVersion());
+
+        wp_register_script(
+            self::SCRIPT_HANDLE,
+            $this->appendToBaseUrl('/yard/query-block/assets/js/index'),
+            $deps['dependencies'],
+            $this->getVersion(),
+            true
+        );
+
+        wp_register_style(
+            self::STYLE_HANDLE,
+            $this->appendToBaseUrl('/yard/query-block/assets/css/index'),
+            [],
+            $this->getVersion()
+        );
     }
 
     public function registerBlock(): void

@@ -10,11 +10,13 @@ use Illuminate\Contracts\View\View;
 use WP_REST_Response;
 use Yard\Data\PostData;
 use Yard\QueryBlock\Query\PostQuery;
+use Yard\QueryBlock\Traits\Helpers;
 use Yard\QueryBlock\Traits\VersionRetriever;
 
 class Block
 {
     use VersionRetriever;
+    use Helpers;
 
     private const SCRIPT_HANDLE = 'yard-query-block-editor-script';
     private const STYLE_HANDLE = 'yard-query-block-editor-style';
@@ -88,11 +90,6 @@ class Block
             'editor_script_handles' => [self::SCRIPT_HANDLE],
             'editor_style_handles' => [self::STYLE_HANDLE],
         ]);
-    }
-
-    public function route(string $path): string
-    {
-        return config('app.url') . $path;
     }
 
     public function blockSettings(): WP_REST_Response

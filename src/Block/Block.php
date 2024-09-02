@@ -68,18 +68,16 @@ class Block
         $deps = require __DIR__.'/../../public/index.asset.php';
 
         wp_register_script(
-            self::SCRIPT_HANDLE,
-            $this->appendToBaseUrl('/yard/query-block/assets/js/index'),
-            $deps['dependencies'],
-            $this->getVersion(),
-            true
+            handle: self::SCRIPT_HANDLE,
+            src: $this->appendToBaseUrl('/yard/query-block/assets/js/index'),
+            deps: $deps['dependencies'],
+            ver: $this->getVersion(),
         );
 
         wp_register_style(
-            self::STYLE_HANDLE,
-            $this->appendToBaseUrl('/yard/query-block/assets/css/index'),
-            [],
-            $this->getVersion()
+            handle: self::STYLE_HANDLE,
+            src: $this->appendToBaseUrl('/yard/query-block/assets/css/index'),
+            ver: $this->getVersion()
         );
     }
 

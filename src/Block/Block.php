@@ -103,7 +103,7 @@ class Block
         }
 
         foreach ($files as $file) {
-            if (! str_contains($file, '.blade.php')) {
+            if (! str_ends_with($file, '.blade.php')) {
                 continue;
             }
 

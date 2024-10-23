@@ -3,6 +3,7 @@
  */
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -30,54 +31,101 @@ import StickyPostToggleControl from './filters-controls/sticky-post-toggle-contr
 import TaxonomyControl from './filters-controls/taxonomy-control';
 import TemplateSelectControl from './display-controls/template-select-control';
 
+import { getInspectorControls } from './../config/inspector-config';
+
 const Inspector = ( props ) => {
 	const { attributes } = props;
 	const { postTypes } = attributes;
+	const inspectorConfig = getInspectorControls();
 
 	return (
 		<InspectorControls>
-			<PanelBody
-				title={ __( 'Instellingen', 'yard-query-block' ) }
-				initialOpen={ true }
-			>
-				<PostTypeSelectControl { ...props } />
-				{ postTypes.length > 0 && (
-					<>
-						<NumberOfPostsRangeControl { ...props } />
-						<OffsetRangeControl { ...props } />
-						<OrderbySelectControl { ...props } />
-						<OrderSelectControl { ...props } />
-					</>
-				) }
-			</PanelBody>
-			{ postTypes.length > 0 && (
+			{ inspectorConfig.showSettingsPanel && (
+				<PanelBody
+					title={ __( 'Instellingen', 'yard-query-block' ) }
+					initialOpen={ true }
+				>
+					{ inspectorConfig.showPostTypeSelectControl && (
+						<PostTypeSelectControl { ...props } />
+					) }
+					{ postTypes.length > 0 && (
+						<>
+							{ inspectorConfig.showNumberOfPostsRangeControl && (
+								<NumberOfPostsRangeControl { ...props } />
+							) }
+							{ inspectorConfig.showOffsetRangeControl && (
+								<OffsetRangeControl { ...props } />
+							) }
+							{ inspectorConfig.showOrderbySelectControl && (
+								<OrderbySelectControl { ...props } />
+							) }
+							{ inspectorConfig.showOrderSelectControl && (
+								<OrderSelectControl { ...props } />
+							) }
+						</>
+					) }
+				</PanelBody>
+			) }
+			{ postTypes.length > 0 && inspectorConfig.showFiltersPanel && (
 				<PanelBody
 					title={ __( 'Filters', 'yard-query-block' ) }
 					initialOpen={ false }
 				>
-					<ManualSelectionToggleControl { ...props } />
-					<ManualSelectionSelectControl { ...props } />
-					<ManualSelectionOrderCheckboxControl { ...props } />
-					<StickyPostToggleControl { ...props } />
-					<StickyPostSelectControl { ...props } />
-					<ExcludePostsToggleControl { ...props } />
-					<ExcludePostsSelectControl { ...props } />
-					<PostParentToggleControl { ...props } />
-					<PostParentRadioControl { ...props } />
-					<PostParentSelectControl { ...props } />
-					<TaxonomyControl { ...props } />
+					{ inspectorConfig.showManualSelectionToggleControl && (
+						<ManualSelectionToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showManualSelectionSelectControl && (
+						<ManualSelectionSelectControl { ...props } />
+					) }
+					{ inspectorConfig.showManualSelectionOrderCheckboxControl && (
+						<ManualSelectionOrderCheckboxControl { ...props } />
+					) }
+					{ inspectorConfig.showStickyPostToggleControl && (
+						<StickyPostToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showStickyPostSelectControl && (
+						<StickyPostSelectControl { ...props } />
+					) }
+					{ inspectorConfig.showExcludePostsToggleControl && (
+						<ExcludePostsToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showExcludePostsSelectControl && (
+						<ExcludePostsSelectControl { ...props } />
+					) }
+					{ inspectorConfig.showPostParentToggleControl && (
+						<PostParentToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showPostParentRadioControl && (
+						<PostParentRadioControl { ...props } />
+					) }
+					{ inspectorConfig.showPostParentSelectControl && (
+						<PostParentSelectControl { ...props } />
+					) }
+					{ inspectorConfig.showTaxonomyControl && (
+						<TaxonomyControl { ...props } />
+					) }
 				</PanelBody>
 			) }
-			{ postTypes.length > 0 && (
+			{ postTypes.length > 0 && inspectorConfig.showDisplayPanel && (
 				<PanelBody
 					title={ __( 'Weergave', 'yard-query-block' ) }
 					initialOpen={ false }
 				>
-					<TemplateSelectControl { ...props } />
-					<DisplayImageToggleControl { ...props } />
-					<DisplayDateToggleControl { ...props } />
-					<DisplayExcerptToggleControl { ...props } />
-					<DisplayLabelToggleControl { ...props } />
+					{ inspectorConfig.showTemplateSelectControl && (
+						<TemplateSelectControl { ...props } />
+					) }
+					{ inspectorConfig.showDisplayImageToggleControl && (
+						<DisplayImageToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showDisplayDateToggleControl && (
+						<DisplayDateToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showDisplayExcerptToggleControl && (
+						<DisplayExcerptToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showDisplayLabelToggleControl && (
+						<DisplayLabelToggleControl { ...props } />
+					) }
 					<p>
 						{ __(
 							'Let op: Niet alle opties hebben invloed op elk sjabloon.',

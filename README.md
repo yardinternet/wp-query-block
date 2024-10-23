@@ -108,7 +108,12 @@ addFilter(
     'yard.query-exclude-post-types',
     'yard.query-exclude-post-types',
     ( excludedPostTypes ) => {
-        return [ 'page', 'attachment' ]; 
+        return [
+            ...excludedPostTypes,
+            'healthcare-provider',
+            'location',
+            'page',
+        ];
     }
 );
 ```
@@ -122,10 +127,24 @@ import { addFilter } from '@wordpress/hooks';
 
 addFilter(
     'yard.query-exclude-taxonomies',
-    'my-custom-namespace',
+    'yard.query-exclude-taxonomies',
     ( excludedTaxonomies ) => {
         return [ 'category', 'post_tag' ]; 
     }
+);
+```
+
+#### `yard.query-min-number-of-posts` and `yard.query-max-number-of-posts`
+
+Customize the minimum and maximum value for the posts per page range.
+
+```js
+import { addFilter } from '@wordpress/hooks';
+
+addFilter(
+    'yard.query-max-number-of-posts',
+    'yard.query-max-number-of-posts',
+    () => 12 // Set maximum selectable posts
 );
 ```
 

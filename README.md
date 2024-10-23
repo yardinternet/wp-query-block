@@ -75,15 +75,65 @@ Now, you will be able to select the template from the editor. The name of the te
 
 ## Hooks
 
-### Filters
+### JavaScript filters
 
-#### yard_query_block_post_query
+#### `yard.query-inspector-config`
+
+Customize which controls are displayed in the block's inspector panel.
+
+```js
+import { addFilter } from '@wordpress/hooks';
+
+addFilter(
+    'yard.query-inspector-config',
+    'yard.query-inspector-config',
+    ( config ) => {
+        return {
+            ...config,
+            showPostTypeSelectControl: false, 
+            showNumberOfPostsRangeControl: false,
+        };
+    }
+);
+```
+
+#### `yard.query-exclude-post-types`
+
+Exclude specific post types from the list of available post types.
+
+```js
+import { addFilter } from '@wordpress/hooks';
+
+addFilter(
+    'yard.query-exclude-post-types',
+    'yard.query-exclude-post-types',
+    ( excludedPostTypes ) => {
+        return [ 'page', 'attachment' ]; 
+    }
+);
+```
+
+#### `yard.query-exclude-taxonomies`
+
+Exclude specific taxonomies from the list of available taxonomies.
+
+```js
+import { addFilter } from '@wordpress/hooks';
+
+addFilter(
+    'yard.query-exclude-taxonomies',
+    'my-custom-namespace',
+    ( excludedTaxonomies ) => {
+        return [ 'category', 'post_tag' ]; 
+    }
+);
+```
+
+### PHP filters
+
+#### `yard_query_block_post_query`
 
 Filters the Post Query before it is executed on the database.
-
-```php
-apply_filters('yard_query_block_post_query', $query, $attributes);
-```
 
 | Parameters  | Type                                   | Description          |
 |-------------|----------------------------------------|----------------------|

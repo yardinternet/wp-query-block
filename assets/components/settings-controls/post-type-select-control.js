@@ -8,6 +8,7 @@ import Select from 'react-select';
  */
 import { useEffect, useState } from '@wordpress/element';
 import { Spinner } from '@wordpress/components';
+import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -21,6 +22,11 @@ const PostTypeSelectControl = ( props ) => {
 	const { attributes, setAttributes } = props;
 	const { postTypes } = attributes;
 	const [ options, setOptions ] = useState( [] );
+
+	const isMulti = applyFilters(
+		'yard.query-post-type-select-control-is-multi',
+		true
+	);
 
 	/**
 	 * Fetch and map all post types without the unwanted post types
@@ -46,7 +52,7 @@ const PostTypeSelectControl = ( props ) => {
 	 */
 	const onChange = ( value ) => {
 		setAttributes( {
-			postTypes: value,
+			postTypes: isMulti ? value : [ value ],
 			enableManualSelection: false,
 			manualSelectionPosts: [],
 			enableStickyPost: false,
@@ -67,7 +73,7 @@ const PostTypeSelectControl = ( props ) => {
 				{ __( 'Selecteer content type', 'yard-query-block' ) }
 			</p>
 			<Select
-				isMulti
+				isMulti={ isMulti }
 				value={ postTypes }
 				options={ options }
 				onChange={ onChange }

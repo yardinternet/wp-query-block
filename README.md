@@ -148,6 +148,20 @@ addFilter(
 );
 ```
 
+#### `yard.query-post-type-select-control-is-multi`
+
+Change the post type select control from multi to single select.
+
+```js
+import { addFilter } from '@wordpress/hooks';
+
+addFilter(
+    'yard.query-post-type-select-control-is-multi',
+    'yard.query-post-type-select-control-is-multi',
+    () => false
+);
+```
+
 ### PHP filters
 
 #### `yard_query_block_post_query`

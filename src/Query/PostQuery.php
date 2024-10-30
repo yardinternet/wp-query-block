@@ -7,6 +7,7 @@ namespace Yard\QueryBlock\Query;
 use Corcel\Model\Builder\PostBuilder;
 use Corcel\Model\Meta\PostMeta;
 use Corcel\Model\Post;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
@@ -46,6 +47,10 @@ class PostQuery implements QueryInterface
             $query->where('post_parent', $this->attributes->parentPostID());
         }
 
+        if (true === in_array('tribe_events', $this->attributes->postTypes(), true)) {
+            $query = $this->applyEventEndDateFilter($query);
+        }
+
         if ($this->attributes->hasTaxonomyFilter()) {
             foreach ($this->attributes->taxonomyTermSlugs() as $taxonomy => $termSlugs) {
                 $query->taxonomy($taxonomy, $termSlugs);
@@ -65,6 +70,21 @@ class PostQuery implements QueryInterface
         $query = apply_filters('yard_query_block_post_query', $query, $this->attributes);
 
         return $query->get();
+    }
+
+    /**
+     * Exclude past tribe events from the query. Allows other post types without '_EventEndDate' filtering.
+     */
+    private function applyEventEndDateFilter(PostBuilder $query): PostBuilder
+    {
+        return $query->where(function ($query) {
+            $query->where('post_type', 'tribe_events')
+                ->whereHas('meta', function ($metaQuery) {
+                    $metaQuery->where('meta_key', '_EventEndDate')
+                        ->where('meta_value', '>', (new DateTime())->format('Y-m-d H:i:s'));
+                })
+                ->orWhere('post_type', '!=', 'tribe_events');
+        });
     }
 
     private function order(PostBuilder $query): PostBuilder

@@ -36,7 +36,7 @@ import { getInspectorControls } from './../config/inspector-config';
 const Inspector = ( props ) => {
 	const { attributes } = props;
 	const { postTypes } = attributes;
-	const inspectorConfig = getInspectorControls();
+	const inspectorConfig = getInspectorControls( attributes );
 
 	return (
 		<InspectorControls>

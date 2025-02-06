@@ -33,8 +33,13 @@ export const defaultConfig = {
 /**
  * Customize the available controls for the block editor.
  *
+ * @param {Array} attributes - The block attributes.
  * @return {Object} - The inspector controls configuration.
  */
-export const getInspectorControls = () => {
-	return applyFilters( 'yard.query-inspector-config', defaultConfig );
+export const getInspectorControls = ( attributes ) => {
+	return applyFilters(
+		'yard.query-inspector-config',
+		defaultConfig,
+		attributes
+	);
 };

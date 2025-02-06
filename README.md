@@ -87,7 +87,7 @@ import { addFilter } from '@wordpress/hooks';
 addFilter(
     'yard.query-inspector-config',
     'yard.query-inspector-config',
-    ( config ) => {
+    ( config, attributes ) => {
         return {
             ...config,
             showPostTypeSelectControl: false, 
@@ -144,7 +144,19 @@ import { addFilter } from '@wordpress/hooks';
 addFilter(
     'yard.query-max-number-of-posts',
     'yard.query-max-number-of-posts',
-    () => 12 // Set maximum selectable posts
+        (defaultMax, attributes) => {
+        const postTypeValues = attributes.postTypes?.map((type) => type.value) || [];
+        
+        if (postTypeValues.includes('news')) {
+            return 5;
+        }
+
+        if (postTypeValues.includes('healthcare-provider')) {
+            return 2;
+        }
+
+        return defaultMax;
+    }
 );
 ```
 

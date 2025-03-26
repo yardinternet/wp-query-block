@@ -51,6 +51,7 @@ class BlockAttributes extends Data
         public bool $displayExcerpt = false,
         public bool $displayLabel = false,
         public string $align = '',
+		public string $className = '',
         public string $template = 'default',
     ) {
     }

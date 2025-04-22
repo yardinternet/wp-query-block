@@ -10,8 +10,12 @@ const DEFAULT_POST_PARENT_OPTIONS = [
 		value: 'only-parents',
 	},
 	{
+		label: __( 'Toon subberichten van dit bericht', 'yard-query-block' ),
+		value: 'current-post-as-parent',
+	},
+	{
 		label: __(
-			'Toon subberichten van een specifieke hoofdbericht',
+			'Toon subberichten van een specifiek hoofdbericht',
 			'yard-query-block'
 		),
 		value: 'specific-parent',

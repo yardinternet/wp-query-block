@@ -154,10 +154,10 @@ class BlockAttributes extends Data
         return $this->enablePostParent && "only-parents" === $this->postParentOption;
     }
 
-	public function onlyChildPostsOfThisParent(): bool
-	{
-		return $this->enablePostParent && "current-post-as-parent" === $this->postParentOption;
-	}
+    public function onlyChildPostsOfThisParent(): bool
+    {
+        return $this->enablePostParent && "current-post-as-parent" === $this->postParentOption;
+    }
 
     public function onlyChildPostsOfParent(): bool
     {

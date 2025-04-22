@@ -150,8 +150,8 @@ it('returns if it only includes child posts of parent', function () {
 });
 
 it('returns if it only includes child posts of the current post id', function () {
-	$attributes = BlockAttributes::from(['enablePostParent' => true, 'postParentOption' => 'current-post-as-parent']);
-	expect($attributes->onlyChildPostsOfThisParent())->toBeTrue();
+    $attributes = BlockAttributes::from(['enablePostParent' => true, 'postParentOption' => 'current-post-as-parent']);
+    expect($attributes->onlyChildPostsOfThisParent())->toBeTrue();
 });
 
 it('returns if it does not only include child posts of parent', function () {

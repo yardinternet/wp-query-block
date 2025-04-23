@@ -18,6 +18,7 @@ export const excludePostTypes = [
 	'wp_template_part',
 	'wp_global_styles',
 	'yard-pattern',
+	'yard-popup',
 ];
 
 /**

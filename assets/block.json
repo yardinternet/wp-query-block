@@ -84,7 +84,7 @@
 		},
 		"displayDate": {
 			"type": "boolean",
-			"default": true
+			"default": false
 		},
 		"displayExcerpt": {
 			"type": "boolean",

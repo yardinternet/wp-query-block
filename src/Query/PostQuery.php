@@ -113,6 +113,12 @@ class PostQuery implements QueryInterface
             );
         }
 
-        return $query->orderBy($this->attributes->orderBy(), $this->attributes->order());
+        $query->orderBy($this->attributes->orderBy(), $this->attributes->order());
+
+        if ('menu_order' === $this->attributes->orderBy()) {
+            $query->orderBy('post_title', 'ASC'); // Secondary order
+        }
+
+        return $query;
     }
 }

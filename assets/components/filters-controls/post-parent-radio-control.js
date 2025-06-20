@@ -3,6 +3,7 @@
  */
 import { RadioControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
 const DEFAULT_POST_PARENT_OPTIONS = [
 	{
@@ -27,6 +28,15 @@ const PostParentRadioControl = ( props ) => {
 	const { postParentOption, enableManualSelection, enablePostParent } =
 		attributes;
 
+	const { currentPostId, currentPostTitle } = useSelect(
+		( select ) => ( {
+			currentPostId: select( 'core/editor' ).getCurrentPostId(),
+			currentPostTitle:
+				select( 'core/editor' ).getEditedPostAttribute( 'title' ),
+		} ),
+		[]
+	);
+
 	/**
 	 * Save option in attributes and reset postParent attribute
 	 *
@@ -34,6 +44,15 @@ const PostParentRadioControl = ( props ) => {
 	 */
 	const onChange = ( value ) => {
 		setAttributes( { postParentOption: value, postParent: {} } );
+
+		if ( value === 'current-post-as-parent' ) {
+			setAttributes( {
+				postParent: {
+					value: currentPostId,
+					label: currentPostTitle,
+				},
+			} );
+		}
 	};
 
 	return (

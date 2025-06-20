@@ -2,8 +2,8 @@
  * WordPress dependencies
  */
 import { InspectorControls } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -37,6 +37,18 @@ const Inspector = ( props ) => {
 	const { attributes } = props;
 	const { postTypes } = attributes;
 	const inspectorConfig = getInspectorControls( attributes );
+	const [ filterPanelOpen, setFilterPanelOpen ] = useState(
+		[
+			'enableManualSelection',
+			'enableStickyPost',
+			'enableExcludePosts',
+			'enablePostParent',
+			'enableTaxonomies',
+		].some(
+			( key ) =>
+				attributes[ key ] === true || attributes[ key ] === 'true'
+		)
+	);
 
 	return (
 		<InspectorControls>
@@ -69,7 +81,8 @@ const Inspector = ( props ) => {
 			{ postTypes.length > 0 && inspectorConfig.showFiltersPanel && (
 				<PanelBody
 					title={ __( 'Filters', 'yard-query-block' ) }
-					initialOpen={ false }
+					initialOpen={ filterPanelOpen }
+					onToggle={ () => setFilterPanelOpen( ( open ) => ! open ) }
 				>
 					{ inspectorConfig.showManualSelectionToggleControl && (
 						<ManualSelectionToggleControl { ...props } />

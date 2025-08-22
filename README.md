@@ -11,7 +11,7 @@ An acorn package providing a "Query Block" for the Gutenberg editor.
 ## Requirements
 
 - [Sage](https://github.com/roots/sage) >= 10.0
-- [Acorn](https://github.com/roots/acorn) >= 4.0
+- [Acorn](https://github.com/roots/acorn) >= 5.0
 
 ## Installation
 
@@ -38,7 +38,8 @@ An acorn package providing a "Query Block" for the Gutenberg editor.
 
 ## Usage
 
-When this package is installed, you can insert the “Berichtenlijst” block in the Gutenberg editor. This block lists a series of posts based on different filter settings in the admin.
+When this package is installed, you can insert the “Berichtenlijst” block in the Gutenberg editor. This block lists a
+series of posts based on different filter settings in the admin.
 
 ### Templates
 
@@ -50,7 +51,9 @@ A default template is included in the package. You can publish the template to y
 wp acorn vendor:publish --provider="Yard\QueryBlock\QueryBlockServiceProvider"
 ```
 
-This will copy the view default.php from this package into your project at `/sage/resources/views/vendor/yard-query-block/templates/default.blade.php`. You can now modify the default template as desired.
+This will copy the view default.php from this package into your project at
+`/sage/resources/views/vendor/yard-query-block/templates/default.blade.php`. You can now modify the default template as
+desired.
 
 #### Create Aditional Templates
 
@@ -71,7 +74,8 @@ Add the template name as a comment at the top of this template file like this:
 @endphp
 ```
 
-Now, you will be able to select the template from the editor. The name of the template is displayed using the value in your docblock.
+Now, you will be able to select the template from the editor. The name of the template is displayed using the value in
+your docblock.
 
 ## Hooks
 
@@ -85,15 +89,15 @@ Customize which controls are displayed in the block's inspector panel.
 import { addFilter } from '@wordpress/hooks';
 
 addFilter(
-    'yard.query-inspector-config',
-    'yard.query-inspector-config',
-    ( config, attributes ) => {
-        return {
-            ...config,
-            showPostTypeSelectControl: false, 
-            showNumberOfPostsRangeControl: false,
-        };
-    }
+	'yard.query-inspector-config',
+	'yard.query-inspector-config',
+	(config, attributes) => {
+		return {
+			...config,
+			showPostTypeSelectControl: false,
+			showNumberOfPostsRangeControl: false,
+		};
+	}
 );
 ```
 
@@ -105,16 +109,16 @@ Exclude specific post types from the list of available post types.
 import { addFilter } from '@wordpress/hooks';
 
 addFilter(
-    'yard.query-exclude-post-types',
-    'yard.query-exclude-post-types',
-    ( excludedPostTypes ) => {
-        return [
-            ...excludedPostTypes,
-            'healthcare-provider',
-            'location',
-            'page',
-        ];
-    }
+	'yard.query-exclude-post-types',
+	'yard.query-exclude-post-types',
+	(excludedPostTypes) => {
+		return [
+			...excludedPostTypes,
+			'healthcare-provider',
+			'location',
+			'page',
+		];
+	}
 );
 ```
 
@@ -126,11 +130,11 @@ Exclude specific taxonomies from the list of available taxonomies.
 import { addFilter } from '@wordpress/hooks';
 
 addFilter(
-    'yard.query-exclude-taxonomies',
-    'yard.query-exclude-taxonomies',
-    ( excludedTaxonomies ) => {
-        return [ 'category', 'post_tag' ]; 
-    }
+	'yard.query-exclude-taxonomies',
+	'yard.query-exclude-taxonomies',
+	(excludedTaxonomies) => {
+		return ['category', 'post_tag'];
+	}
 );
 ```
 
@@ -142,21 +146,21 @@ Customize the minimum and maximum value for the posts per page range.
 import { addFilter } from '@wordpress/hooks';
 
 addFilter(
-    'yard.query-max-number-of-posts',
-    'yard.query-max-number-of-posts',
-        (defaultMax, attributes) => {
-        const postTypeValues = attributes.postTypes?.map((type) => type.value) || [];
-        
-        if (postTypeValues.includes('news')) {
-            return 5;
-        }
+	'yard.query-max-number-of-posts',
+	'yard.query-max-number-of-posts',
+	(defaultMax, attributes) => {
+		const postTypeValues = attributes.postTypes?.map((type) => type.value) || [];
 
-        if (postTypeValues.includes('healthcare-provider')) {
-            return 2;
-        }
+		if (postTypeValues.includes('news')) {
+			return 5;
+		}
 
-        return defaultMax;
-    }
+		if (postTypeValues.includes('healthcare-provider')) {
+			return 2;
+		}
+
+		return defaultMax;
+	}
 );
 ```
 
@@ -168,9 +172,9 @@ Change the post type select control from multi to single select.
 import { addFilter } from '@wordpress/hooks';
 
 addFilter(
-    'yard.query-post-type-select-control-is-multi',
-    'yard.query-post-type-select-control-is-multi',
-    () => false
+	'yard.query-post-type-select-control-is-multi',
+	'yard.query-post-type-select-control-is-multi',
+	() => false
 );
 ```
 

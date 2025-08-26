@@ -1,123 +1,123 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 3,
-    "name": "yard/query",
-    "version": "0.1.0",
-    "title": "Berichtenlijst",
-    "category": "yard",
-    "description": "Een geavanceerd blok waarmee berichttypen kunnen worden weergegeven op basis van verschillende zoekopdracht parameters en visuele configuraties.",
-    "attributes": {
-        "postTypes": {
-            "type": "array",
-            "default": []
-        },
-        "postsPerPage": {
-            "type": "number",
-            "default": 3
-        },
-        "offset": {
-            "type": "number",
-            "default": 0
-        },
-        "orderBy": {
-            "type": "string",
-            "default": "date"
-        },
-        "order": {
-            "type": "string",
-            "default": "DESC"
-        },
-        "enableManualSelection": {
-            "type": "boolean",
-            "default": false
-        },
-        "manualSelectionPosts": {
-            "type": "array",
-            "default": []
-        },
-        "keepManualSelectionOrder": {
-            "type": "boolean",
-            "default": false
-        },
-        "enableStickyPost": {
-            "type": "boolean",
-            "default": false
-        },
-        "stickyPost": {
-            "type": "object",
-            "default": {}
-        },
-        "enableExcludePosts": {
-            "type": "boolean",
-            "default": false
-        },
-        "excludePosts": {
-            "type": "array",
-            "default": []
-        },
-        "enablePostParent": {
-            "type": "boolean",
-            "default": false
-        },
-        "postParentOption": {
-            "type": "string",
-            "default": "only-parents"
-        },
-        "postParent": {
-            "type": "object",
-            "default": {}
-        },
-        "enablePostStatus": {
-            "type": "boolean",
-            "default": false
-        },
-        "postStatus": {
-            "type": "array",
-            "default": [
-                {
-                    "label": "Gepubliceerd",
-                    "value": "publish"
-                }
-            ]
-        },
-        "enableTaxonomies": {
-            "type": "boolean",
-            "default": false
-        },
-        "taxonomyTerms": {
-            "type": "object"
-        },
-        "template": {
-            "type": "string",
-            "default": "default"
-        },
-        "displayImage": {
-            "type": "boolean",
-            "default": true
-        },
-        "displayDate": {
-            "type": "boolean",
-            "default": false
-        },
-        "displayExcerpt": {
-            "type": "boolean",
-            "default": true
-        },
-        "displayLabel": {
-            "type": "boolean",
-            "default": false
-        },
-        "align": {
-            "type": "string",
-            "default": "wide"
-        }
-    },
-    "supports": {
-        "html": false,
-        "align": [
-            "wide",
-            "full"
-        ]
-    },
-    "textdomain": "yard-query-block"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "yard/query",
+	"version": "0.1.0",
+	"title": "Berichtenlijst",
+	"category": "yard",
+	"description": "Een geavanceerd blok waarmee berichttypen kunnen worden weergegeven op basis van verschillende zoekopdracht parameters en visuele configuraties.",
+	"attributes": {
+		"postTypes": {
+			"type": "array",
+			"default": []
+		},
+		"postsPerPage": {
+			"type": "number",
+			"default": 3
+		},
+		"offset": {
+			"type": "number",
+			"default": 0
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		},
+		"order": {
+			"type": "string",
+			"default": "DESC"
+		},
+		"enableManualSelection": {
+			"type": "boolean",
+			"default": false
+		},
+		"manualSelectionPosts": {
+			"type": "array",
+			"default": []
+		},
+		"keepManualSelectionOrder": {
+			"type": "boolean",
+			"default": false
+		},
+		"enableStickyPost": {
+			"type": "boolean",
+			"default": false
+		},
+		"stickyPost": {
+			"type": "object",
+			"default": {}
+		},
+		"enableExcludePosts": {
+			"type": "boolean",
+			"default": false
+		},
+		"excludePosts": {
+			"type": "array",
+			"default": []
+		},
+		"enablePostParent": {
+			"type": "boolean",
+			"default": false
+		},
+		"postParentOption": {
+			"type": "string",
+			"default": "only-parents"
+		},
+		"postParent": {
+			"type": "object",
+			"default": {}
+		},
+		"enablePostStatus": {
+			"type": "boolean",
+			"default": false
+		},
+		"postStatus": {
+			"type": "array",
+			"default": [
+				{
+					"label": "Gepubliceerd",
+					"value": "publish"
+				}
+			]
+		},
+		"enableTaxonomies": {
+			"type": "boolean",
+			"default": false
+		},
+		"taxonomyTerms": {
+			"type": "object"
+		},
+		"template": {
+			"type": "string",
+			"default": "default"
+		},
+		"displayImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"displayDate": {
+			"type": "boolean",
+			"default": false
+		},
+		"displayExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"displayLabel": {
+			"type": "boolean",
+			"default": false
+		},
+		"align": {
+			"type": "string",
+			"default": "wide"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"wide",
+			"full"
+		]
+	},
+	"textdomain": "yard-query-block"
 }

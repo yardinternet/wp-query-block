@@ -9,10 +9,10 @@ use Spatie\LaravelData\LaravelDataServiceProvider;
 
 class TestCase extends Orchestra
 {
-    protected function getPackageProviders($app)
-    {
-        return [
-            LaravelDataServiceProvider::class,
-        ];
-    }
+	protected function getPackageProviders($app)
+	{
+		return [
+			LaravelDataServiceProvider::class,
+		];
+	}
 }

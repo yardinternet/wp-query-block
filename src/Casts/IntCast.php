@@ -18,18 +18,18 @@ use Webmozart\Assert\Assert;
  */
 class IntCast implements Cast
 {
-    /**
-     * @param array<string> $properties
-     * @param CreationContext<TData> $context
-     */
-    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): int|Uncastable
-    {
-        try {
-            Assert::integerish($value);
-        } catch (Throwable $e) {
-            return Uncastable::create();
-        }
+	/**
+	 * @param array<string> $properties
+	 * @param CreationContext<TData> $context
+	 */
+	public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): int|Uncastable
+	{
+		try {
+			Assert::integerish($value);
+		} catch (Throwable $e) {
+			return Uncastable::create();
+		}
 
-        return (int) $value;
-    }
+		return (int) $value;
+	}
 }

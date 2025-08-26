@@ -8,31 +8,31 @@ use Webmozart\Assert\Assert;
 
 trait Helpers
 {
-    public function appendToBaseUrl(string $path): string
-    {
-        return $this->baseUrl() . $path;
-    }
+	public function appendToBaseUrl(string $path): string
+	{
+		return $this->baseUrl() . $path;
+	}
 
-    private function baseUrl(): string
-    {
-        $url = config('app.url');
+	private function baseUrl(): string
+	{
+		$url = config('app.url');
 
-        Assert::string($url);
+		Assert::string($url);
 
-        $parsed = parse_url($url);
+		$parsed = parse_url($url);
 
-        Assert::isArray($parsed);
+		Assert::isArray($parsed);
 
-        if (! isset($parsed['scheme']) || ! isset($parsed['host'])) {
-            return $url;
-        }
+		if (! isset($parsed['scheme']) || ! isset($parsed['host'])) {
+			return $url;
+		}
 
-        $baseUrl = $parsed['scheme'] . '://' . $parsed['host'];
+		$baseUrl = $parsed['scheme'] . '://' . $parsed['host'];
 
-        if (isset($parsed['port'])) {
-            $baseUrl .= ':' . $parsed['port'];
-        }
+		if (isset($parsed['port'])) {
+			$baseUrl .= ':' . $parsed['port'];
+		}
 
-        return $baseUrl;
-    }
+		return $baseUrl;
+	}
 }

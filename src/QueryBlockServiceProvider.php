@@ -10,21 +10,21 @@ use Yard\QueryBlock\Block\Block;
 
 class QueryBlockServiceProvider extends PackageServiceProvider
 {
-    public function configurePackage(Package $package): void
-    {
-        $package
-            ->name('yard-query-block')
-            ->hasViews()
-            ->hasRoute('web');
-    }
+	public function configurePackage(Package $package): void
+	{
+		$package
+			->name('yard-query-block')
+			->hasViews()
+			->hasRoute('web');
+	}
 
-    public function packageRegistered(): void
-    {
-        $this->app->singleton('Block', fn () => new Block($this->app));
-    }
+	public function packageRegistered(): void
+	{
+		$this->app->singleton('Block', fn () => new Block($this->app));
+	}
 
-    public function packageBooted(): void
-    {
-        $this->app->make('Block')->register();
-    }
+	public function packageBooted(): void
+	{
+		$this->app->make('Block')->register();
+	}
 }

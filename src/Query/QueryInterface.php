@@ -10,9 +10,9 @@ use Yard\QueryBlock\Block\BlockAttributes;
 
 interface QueryInterface
 {
-    public function __construct(BlockAttributes $attributes);
-    /**
-     * @return Collection<int, Model>
-     */
-    public function get(): Collection;
+	public function __construct(BlockAttributes $attributes);
+	/**
+	 * @return Collection<int, Model>
+	 */
+	public function get(): Collection;
 }

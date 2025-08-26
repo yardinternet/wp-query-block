@@ -11,147 +11,147 @@ use WP_REST_Response;
 use Yard\Data\PostData;
 use Yard\QueryBlock\Query\PostQuery;
 use Yard\QueryBlock\Traits\Helpers;
-use Yard\QueryBlock\Traits\VersionRetriever;
 
 class Block
 {
-	use VersionRetriever;
-	use Helpers;
+    use Helpers;
 
-	private const SCRIPT_HANDLE = 'yard-query-block-editor-script';
-	private const STYLE_HANDLE = 'yard-query-block-editor-style';
+    private const VERSION = 'v1.0.17';
 
-	public function __construct(protected Application $app)
-	{
-	}
+    private const SCRIPT_HANDLE = 'yard-query-block-editor-script';
+    private const STYLE_HANDLE = 'yard-query-block-editor-style';
 
-	public function register(): void
-	{
-		add_filter('block_categories_all', $this->addBlockCategory(...));
-		add_action('rest_api_init', $this->registerSettingsRoute(...));
-		add_action('admin_enqueue_scripts', $this->enqueueAssets(...));
-		add_action('init', $this->registerBlock(...));
-	}
+    public function __construct(protected Application $app)
+    {
+    }
 
-	public function registerSettingsRoute(): void
-	{
-		register_rest_route('yard/query-block/v1', '/settings', [
-			'methods' => 'GET',
-			'callback' => $this->blockSettings(...),
-			'permission_callback' => '__return_true',
-		]);
-	}
+    public function register(): void
+    {
+        add_filter('block_categories_all', $this->addBlockCategory(...));
+        add_action('rest_api_init', $this->registerSettingsRoute(...));
+        add_action('admin_enqueue_scripts', $this->enqueueAssets(...));
+        add_action('init', $this->registerBlock(...));
+    }
 
-	/**
-	 * Add a custom block category if it doesn't already exist.
-	 *
-	 * @param list<array{slug: string, title: string}> $categories
-	 *
-	 * @return list<array{slug: string, title: string}>
-	 */
-	public function addBlockCategory(array $categories): array
-	{
-		if (in_array('yard', array_column($categories, 'slug'))) {
-			return $categories;
-		}
+    public function registerSettingsRoute(): void
+    {
+        register_rest_route('yard/query-block/v1', '/settings', [
+            'methods' => 'GET',
+            'callback' => $this->blockSettings(...),
+            'permission_callback' => '__return_true',
+        ]);
+    }
 
-		return array_merge($categories, [
-			[
-				'slug' => 'yard',
-				'title' => 'Yard',
-			],
-		]);
-	}
+    /**
+     * Add a custom block category if it doesn't already exist.
+     *
+     * @param list<array{slug: string, title: string}> $categories
+     *
+     * @return list<array{slug: string, title: string}>
+     */
+    public function addBlockCategory(array $categories): array
+    {
+        if (in_array('yard', array_column($categories, 'slug'))) {
+            return $categories;
+        }
 
-	public function enqueueAssets(): void
-	{
-		$deps = require __DIR__.'/../../public/index.asset.php';
+        return array_merge($categories, [
+            [
+                'slug' => 'yard',
+                'title' => 'Yard',
+            ],
+        ]);
+    }
 
-		wp_register_script(
-			handle: self::SCRIPT_HANDLE,
-			src: $this->appendToBaseUrl('/yard/query-block/assets/js/index'),
-			deps: $deps['dependencies'],
-			ver: $this->getVersion(),
-		);
+    public function enqueueAssets(): void
+    {
+        $deps = require __DIR__.'/../../public/index.asset.php';
 
-		wp_register_style(
-			handle: self::STYLE_HANDLE,
-			src: $this->appendToBaseUrl('/yard/query-block/assets/css/index'),
-			ver: $this->getVersion()
-		);
-	}
+        wp_register_script(
+            handle: self::SCRIPT_HANDLE,
+            src: $this->appendToBaseUrl('/yard/query-block/assets/js/index'),
+            deps: $deps['dependencies'],
+            ver: self::VERSION,
+        );
 
-	public function registerBlock(): void
-	{
-		register_block_type(__DIR__ . '/../../public/block.json', [
-			'render_callback' => $this->renderBlock(...),
-			'editor_script_handles' => [self::SCRIPT_HANDLE],
-			'editor_style_handles' => [self::STYLE_HANDLE],
-		]);
-	}
+        wp_register_style(
+            handle: self::STYLE_HANDLE,
+            src: $this->appendToBaseUrl('/yard/query-block/assets/css/index'),
+            ver: self::VERSION
+        );
+    }
 
-	public function blockSettings(): WP_REST_Response
-	{
-		$path = resource_path('views/vendor/yard-query-block/templates');
-		$files = scandir($path);
-		$templates = [];
+    public function registerBlock(): void
+    {
+        register_block_type(__DIR__ . '/../../public/block.json', [
+            'render_callback' => $this->renderBlock(...),
+            'editor_script_handles' => [self::SCRIPT_HANDLE],
+            'editor_style_handles' => [self::STYLE_HANDLE],
+        ]);
+    }
 
-		if (false === $files) {
-			return new WP_REST_Response([
-				'templates' => [],
-			]);
-		}
+    public function blockSettings(): WP_REST_Response
+    {
+        $path = resource_path('views/vendor/yard-query-block/templates');
+        $files = scandir($path);
+        $templates = [];
 
-		foreach ($files as $file) {
-			if (! str_ends_with($file, '.blade.php')) {
-				continue;
-			}
+        if (false === $files) {
+            return new WP_REST_Response([
+                'templates' => [],
+            ]);
+        }
 
-			$content = file_get_contents($path . '/' . $file);
+        foreach ($files as $file) {
+            if (! str_ends_with($file, '.blade.php')) {
+                continue;
+            }
 
-			if (false === $content) {
-				continue;
-			}
+            $content = file_get_contents($path . '/' . $file);
 
-			preg_match('/Template: (.*)\n/', $content, $matches);
-			$templateName = $matches[1] ?? $file;
+            if (false === $content) {
+                continue;
+            }
 
-			$templates[] = [
-				'label' => $templateName,
-				'value' => str_replace('.blade.php', '', $file),
-			];
-		}
+            preg_match('/Template: (.*)\n/', $content, $matches);
+            $templateName = $matches[1] ?? $file;
 
-		return new WP_REST_Response([
-			'templates' => $templates,
-		]);
-	}
+            $templates[] = [
+                'label' => $templateName,
+                'value' => str_replace('.blade.php', '', $file),
+            ];
+        }
 
-	/**
-	 * @param array{} $attributes
-	 */
-	public function renderBlock(array $attributes): View
-	{
-		try {
-			return $this->render($attributes);
-		} catch (Exception) {
-			return view('yard-query-block::error');
-		}
-	}
+        return new WP_REST_Response([
+            'templates' => $templates,
+        ]);
+    }
 
-	/**
-	 * @param array{} $attributes
-	 */
-	private function render(array $attributes): View
-	{
-		$attributes = BlockAttributes::from($attributes);
-		$results = (new PostQuery($attributes))->get();
-		$postDataCollection = PostData::collect($results);
-		$view = 'yard-query-block::templates.' . $attributes->template();
+    /**
+     * @param array{} $attributes
+     */
+    public function renderBlock(array $attributes): View
+    {
+        try {
+            return $this->render($attributes);
+        } catch (Exception) {
+            return view("yard-query-block::error");
+        }
+    }
 
-		return view(view()->exists($view) ? $view : 'yard-query-block::templates.default', [
-			'postDataCollection' => $postDataCollection,
-			'attributes' => $attributes,
-		]);
-	}
+    /**
+     * @param array{} $attributes
+     */
+    private function render(array $attributes): View
+    {
+        $attributes = BlockAttributes::from($attributes);
+        $results = (new PostQuery($attributes))->get();
+        $postDataCollection = PostData::collect($results);
+        $view = "yard-query-block::templates." . $attributes->template();
+
+        return view(view()->exists($view) ? $view : "yard-query-block::templates.default", [
+            'postDataCollection' => $postDataCollection,
+            'attributes' => $attributes,
+        ]);
+    }
 }

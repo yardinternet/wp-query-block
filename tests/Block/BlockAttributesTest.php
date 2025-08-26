@@ -24,6 +24,16 @@ it('return an empty array if no post types are selected', function () {
 	expect($attributes->postTypes())->toBe([]);
 });
 
+it('returns the post status', function () {
+	$attributes = BlockAttributes::from(['postStatus' => [['value' => 'publish'], ['value' => 'private']]]);
+	expect($attributes->postStatus())->toBe(['publish', 'private']);
+});
+
+it('return publish as default post status', function () {
+	$attributes = BlockAttributes::from([]);
+	expect($attributes->postStatus())->toBe(['publish']);
+});
+
 it('returns the limit', function () {
 	$attributes = BlockAttributes::from(['postsPerPage' => 5]);
 	expect($attributes->limit())->toBe(5);

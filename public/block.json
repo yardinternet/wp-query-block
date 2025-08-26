@@ -67,6 +67,19 @@
       "type": "object",
       "default": {}
     },
+    "enablePostStatus": {
+      "type": "boolean",
+      "default": false
+    },
+    "postStatus": {
+      "type": "array",
+      "default": [
+        {
+          "label": "Gepubliceerd",
+          "value": "publish"
+        }
+      ]
+    },
     "enableTaxonomies": {
       "type": "boolean",
       "default": false

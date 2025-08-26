@@ -21,6 +21,8 @@ export const defaultConfig = {
 	showPostParentToggleControl: true,
 	showPostParentRadioControl: true,
 	showPostParentSelectControl: true,
+	showPostStatusToggleControl: true,
+	showPostStatusSelectControl: true,
 	showTaxonomyControl: true,
 	showDisplayPanel: true,
 	showTemplateSelectControl: true,

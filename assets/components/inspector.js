@@ -25,6 +25,8 @@ import OrderbySelectControl from './settings-controls/orderby-select-control';
 import PostParentSelectControl from './filters-controls/post-parent-select-control';
 import PostParentRadioControl from './filters-controls/post-parent-radio-control';
 import PostParentToggleControl from './filters-controls/post-parent-toggle-control';
+import PostStatusToggleControl from './filters-controls/post-status-toggle-control';
+import PostStatusSelectControl from './filters-controls/post-status-select-control';
 import PostTypeSelectControl from './settings-controls/post-type-select-control';
 import StickyPostSelectControl from './filters-controls/sticky-post-select-control';
 import StickyPostToggleControl from './filters-controls/sticky-post-toggle-control';
@@ -113,6 +115,12 @@ const Inspector = ( props ) => {
 					) }
 					{ inspectorConfig.showPostParentSelectControl && (
 						<PostParentSelectControl { ...props } />
+					) }
+					{ inspectorConfig.showPostStatusToggleControl && (
+						<PostStatusToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showPostStatusSelectControl && (
+						<PostStatusSelectControl { ...props } />
 					) }
 					{ inspectorConfig.showTaxonomyControl && (
 						<TaxonomyControl { ...props } />

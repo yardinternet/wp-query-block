@@ -21,10 +21,10 @@
     "require": {
         "php": "^8.2",
         "jgrossi/corcel": "^9.0",
-        "roots/acorn": "^5.0",
+        "roots/acorn": "^4.0|^5.0",
         "spatie/laravel-package-tools": "^1.16",
         "webmozart/assert": "^1.11",
-        "yard/data": "dev-feat/acorn-5"
+        "yard/data": "^1.0|dev-feat/acorn-5"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.57",

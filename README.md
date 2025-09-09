@@ -8,11 +8,6 @@
 
 An acorn package providing a "Query Block" for the Gutenberg editor.
 
-## Requirements
-
-- [Sage](https://github.com/roots/sage) >= 10.0
-- [Acorn](https://github.com/roots/acorn) >= 5.0
-
 ## Installation
 
 1. Add the following to the `repositories` section of your `composer.json`:

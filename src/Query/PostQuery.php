@@ -60,7 +60,7 @@ class PostQuery implements QueryInterface
 
 		if (true === in_array('yard-event', $this->attributes->postTypes(), true)) {
 			$query = $this->applyYardEventEndDateFilter($query);
-	}
+		}
 
 		if ($this->attributes->hasTaxonomyFilter()) {
 			foreach ($this->attributes->taxonomyTermSlugs() as $taxonomy => $termSlugs) {
@@ -73,8 +73,8 @@ class PostQuery implements QueryInterface
 		/**
 		 * Filters the Post Query before it is executed on the database.
 		 *
-		 * @param PostBuilder $query The query object.
-		 * @param BlockAttributes $attributes The block attributes.
+		 * @param  PostBuilder  $query  The query object.
+		 * @param  BlockAttributes  $attributes  The block attributes.
 		 *
 		 * @return PostBuilder The modified query object.
 		 */
@@ -98,7 +98,7 @@ class PostQuery implements QueryInterface
 		});
 	}
 
-		/**
+	/**
 	 * Exclude past yard events from the query. Allows other post types without '_EventEndDate' filtering.
 	 */
 	private function applyYardEventEndDateFilter(PostBuilder $query): PostBuilder
@@ -116,8 +116,8 @@ class PostQuery implements QueryInterface
 	private function order(PostBuilder $query): PostBuilder
 	{
 		if ($this->attributes->hasManualSelection()
-		&& $this->attributes->keepManualSelectionOrder()
-		&& $this->attributes->manualSelectionPostIDs()
+			&& $this->attributes->keepManualSelectionOrder()
+			&& $this->attributes->manualSelectionPostIDs()
 		) {
 			return $query->orderByRaw('FIELD(ID, ' . implode(',', $this->attributes->manualSelectionPostIDs()) . ')');
 		}
@@ -134,6 +134,18 @@ class PostQuery implements QueryInterface
 			return $query->orderBy(
 				PostMeta::select('meta_value')
 					->where('meta_key', $this->attributes->orderBy())
+					->whereColumn('postmeta.post_id', 'posts.ID'),
+				$this->attributes->order()
+			);
+		}
+
+		if ('_YardEventDate' === $this->attributes->orderBy()) {
+			return $query->orderBy(
+				PostMeta::select('meta_value')
+					->wherein('meta_key', [
+						'event_start_date',
+						'event_end_date_time',
+					])
 					->whereColumn('postmeta.post_id', 'posts.ID'),
 				$this->attributes->order()
 			);

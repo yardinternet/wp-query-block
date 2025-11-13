@@ -16,8 +16,13 @@ const DEFAULT_ORDERBY_OPTIONS = [
 ];
 
 const TRIBE_EVENTS_DATE_OPTION = {
-	label: __( 'Event datum', 'yard-query-block' ),
+	label: __( 'Tribe event datum', 'yard-query-block' ),
 	value: 'event_date',
+};
+
+const YARD_EVENTS_DATE_OPTION = {
+	label: __( 'Yard event datum', 'yard-query-block' ),
+	value: 'yard_event_date',
 };
 
 const OrderbySelectControl = ( props ) => {
@@ -26,27 +31,28 @@ const OrderbySelectControl = ( props ) => {
 	const [ options, setOptions ] = useState( DEFAULT_ORDERBY_OPTIONS );
 
 	/**
-	 * Change options if tribe_events post type is selected
+	 * Dynamically update options based on selected post types
 	 */
 	useEffect( () => {
+		const updatedOptions = [ ...DEFAULT_ORDERBY_OPTIONS ];
+
 		const includesTribeEvents = postTypes.some(
 			( type ) => type.value === 'tribe_events'
 		);
+		const includesYardEvents = postTypes.some(
+			( type ) => type.value === 'yard-event'
+		);
 
-		if (
-			includesTribeEvents &&
-			! options.includes( TRIBE_EVENTS_DATE_OPTION )
-		) {
-			setOptions( [ ...options, TRIBE_EVENTS_DATE_OPTION ] );
+		if ( includesTribeEvents ) {
+			updatedOptions.push( TRIBE_EVENTS_DATE_OPTION );
 		}
 
-		if (
-			! includesTribeEvents &&
-			options.includes( TRIBE_EVENTS_DATE_OPTION )
-		) {
-			setOptions( DEFAULT_ORDERBY_OPTIONS );
+		if ( includesYardEvents ) {
+			updatedOptions.push( YARD_EVENTS_DATE_OPTION );
 		}
-	}, [ postTypes, options ] );
+
+		setOptions( updatedOptions );
+	}, [ postTypes ] );
 
 	return (
 		<SelectControl

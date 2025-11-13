@@ -18,8 +18,10 @@ const OrderSelectControl = ( props ) => {
 
 		switch ( orderBy ) {
 			case 'date':
-			case 'event_date':
 				return isAscending ? 'Oud - Nieuw' : 'Nieuw - Oud';
+			case 'event_date':
+			case 'yard_event_date':
+				return isAscending ? 'Heden - Toekomst' : 'Toekomst - Heden';
 			case 'title':
 				return isAscending ? 'A - Z' : 'Z - A';
 			case 'menu_order':

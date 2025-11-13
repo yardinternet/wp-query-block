@@ -58,6 +58,10 @@ class PostQuery implements QueryInterface
 			$query = $this->applyEventEndDateFilter($query);
 		}
 
+		if (true === in_array('yard-event', $this->attributes->postTypes(), true)) {
+			$query = $this->applyYardEventEndDateFilter($query);
+	}
+
 		if ($this->attributes->hasTaxonomyFilter()) {
 			foreach ($this->attributes->taxonomyTermSlugs() as $taxonomy => $termSlugs) {
 				$query->taxonomy($taxonomy, $termSlugs);
@@ -91,6 +95,21 @@ class PostQuery implements QueryInterface
 						->where('meta_value', '>', (new DateTime())->format('Y-m-d H:i:s'));
 				})
 				->orWhere('post_type', '!=', 'tribe_events');
+		});
+	}
+
+		/**
+	 * Exclude past yard events from the query. Allows other post types without '_EventEndDate' filtering.
+	 */
+	private function applyYardEventEndDateFilter(PostBuilder $query): PostBuilder
+	{
+		return $query->where(function ($query) {
+			$query->where('post_type', 'yard-event')
+				->whereHas('meta', function ($metaQuery) {
+					$metaQuery->where('meta_key', 'event_end_date')
+						->where('meta_value', '>', (new DateTime())->format('Y-m-d H:i:s'));
+				})
+				->orWhere('post_type', '!=', 'yard-event');
 		});
 	}
 

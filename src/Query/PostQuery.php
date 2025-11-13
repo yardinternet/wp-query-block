@@ -99,7 +99,7 @@ class PostQuery implements QueryInterface
 	}
 
 	/**
-	 * Exclude past yard events from the query. Allows other post types without '_EventEndDate' filtering.
+	 * Exclude past yard events from the query.
 	 */
 	private function applyYardEventEndDateFilter(PostBuilder $query): PostBuilder
 	{
@@ -107,7 +107,7 @@ class PostQuery implements QueryInterface
 			$query->where('post_type', 'yard-event')
 				->whereHas('meta', function ($metaQuery) {
 					$metaQuery->where('meta_key', 'event_end_date')
-						->where('meta_value', '>', (new DateTime())->format('Y-m-d H:i:s'));
+						->where('meta_value', '>=', (new DateTime())->format('Y-m-d H:i:s'));
 				})
 				->orWhere('post_type', '!=', 'yard-event');
 		});

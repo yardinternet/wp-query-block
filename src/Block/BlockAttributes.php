@@ -99,6 +99,7 @@ class BlockAttributes extends Data
 			'title' => 'post_title',
 			'menu_order' => 'menu_order',
 			'event_date' => '_EventStartDate',
+			'yard_event_date' => '_YardEventDate',
 			default => 'post_date',
 		};
 	}

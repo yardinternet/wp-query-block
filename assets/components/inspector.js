@@ -31,6 +31,7 @@ import PostTypeSelectControl from './settings-controls/post-type-select-control'
 import StickyPostSelectControl from './filters-controls/sticky-post-select-control';
 import StickyPostToggleControl from './filters-controls/sticky-post-toggle-control';
 import TaxonomyControl from './filters-controls/taxonomy-control';
+import ConnectionControl from './filters-controls/connection-control';
 import TemplateSelectControl from './display-controls/template-select-control';
 
 import { getInspectorControls } from './../config/inspector-config';
@@ -124,6 +125,9 @@ const Inspector = ( props ) => {
 					) }
 					{ inspectorConfig.showTaxonomyControl && (
 						<TaxonomyControl { ...props } />
+					) }
+					{ inspectorConfig.showConnectionControl && (
+						<ConnectionControl { ...props } />
 					) }
 				</PanelBody>
 			) }

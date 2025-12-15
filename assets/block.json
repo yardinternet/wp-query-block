@@ -87,6 +87,14 @@
 		"taxonomyTerms": {
 			"type": "object"
 		},
+		"enableConnection": {
+			"type": "boolean",
+			"default": false
+		},
+		"connectionPosts": {
+			"type": "object",
+			"default": {}
+		},
 		"template": {
 			"type": "string",
 			"default": "default"
@@ -114,10 +122,7 @@
 	},
 	"supports": {
 		"html": false,
-		"align": [
-			"wide",
-			"full"
-		]
+		"align": [ "wide", "full" ]
 	},
 	"textdomain": "yard-query-block"
 }

@@ -24,6 +24,7 @@ export const defaultConfig = {
 	showPostStatusToggleControl: true,
 	showPostStatusSelectControl: true,
 	showTaxonomyControl: true,
+	showConnectionControl: true,
 	showDisplayPanel: true,
 	showTemplateSelectControl: true,
 	showDisplayImageToggleControl: true,

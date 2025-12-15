@@ -68,9 +68,8 @@ const MultiValueRemove = ( props ) => {
 };
 
 const AsyncSortableSelectPostsControl = ( props ) => {
-	const { attributes, enable, handleChange, isOptionDisabled, label, value } =
+	const { subtype, enable, handleChange, isOptionDisabled, label, value } =
 		props;
-	const { postTypes } = attributes;
 	const [ defaultOptions, setDefaultOptions ] = useState( [] );
 
 	/**
@@ -80,11 +79,10 @@ const AsyncSortableSelectPostsControl = ( props ) => {
 	 */
 	const getPostsAsOptions = useCallback(
 		async ( input = '' ) => {
-			const subtype = getSubtype( postTypes );
 			const posts = await searchPosts( input, subtype );
 			return posts ? mapPostsToOptions( posts ) : [];
 		},
-		[ postTypes ]
+		[ subtype ]
 	);
 
 	/**

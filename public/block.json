@@ -87,6 +87,14 @@
     "taxonomyTerms": {
       "type": "object"
     },
+    "enableConnection": {
+      "type": "boolean",
+      "default": false
+    },
+    "connectionPosts": {
+      "type": "object",
+      "default": {}
+    },
     "template": {
       "type": "string",
       "default": "default"

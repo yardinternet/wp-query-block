@@ -6,15 +6,16 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import { getSubtype } from '../../utils/helpers';
 import AsyncSelectPostsControl from '../shared/async-select-posts-control';
 
 const StickyPostSelectControl = ( props ) => {
 	const { attributes, setAttributes } = props;
-	const { enableStickyPost, stickyPost } = attributes;
+	const { postTypes, enableStickyPost, stickyPost } = attributes;
 
 	return (
 		<AsyncSelectPostsControl
-			attributes={ attributes }
+			subtype={ getSubtype( postTypes ) }
 			enable={ enableStickyPost }
 			handleChange={ ( selectedPost ) =>
 				setAttributes( { stickyPost: selectedPost } )

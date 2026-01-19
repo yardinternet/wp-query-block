@@ -6,11 +6,13 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import { getSubtype } from '../../utils/helpers';
 import AsyncSelectPostsControl from '../shared/async-select-posts-control';
 
 const PostParentSelectControl = ( props ) => {
 	const { attributes, setAttributes } = props;
 	const {
+		postTypes,
 		postParentOption,
 		postParent,
 		enableManualSelection,
@@ -19,7 +21,7 @@ const PostParentSelectControl = ( props ) => {
 
 	return (
 		<AsyncSelectPostsControl
-			attributes={ attributes }
+			subtype={ getSubtype( postTypes ) }
 			enable={
 				! enableManualSelection &&
 				enablePostParent &&

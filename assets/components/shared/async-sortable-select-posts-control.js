@@ -23,7 +23,7 @@ import { useState, useEffect, useCallback } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { mapPostsToOptions, getSubtype } from '../../utils/helpers';
+import { mapPostsToOptions } from '../../utils/helpers';
 import { searchPosts } from '../../utils/api';
 
 const MultiValue = ( props ) => {

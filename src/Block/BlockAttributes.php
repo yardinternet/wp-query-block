@@ -25,9 +25,12 @@ class BlockAttributes extends Data
 	 * @param LabelValueArray|array{} $excludePosts
 	 * @param LabelValueArray|array{} $postParent
 	 * @param array{string: list<LabelValueArray>}|array{} $taxonomyTerms
+	 * @param array{string: list<LabelValueArray>}|array{} $connectionPosts
 	 */
 	public function __construct(
 		public array $postTypes = [],
+		public bool $enableConnection = false,
+		public array $connectionPosts = [],
 		public array $postStatus = [['label' => 'Gepubliceerd', 'value' => 'publish']],
 		#[WithCast(IntCast::class)]
 		public int $postsPerPage = 3,
@@ -71,6 +74,39 @@ class BlockAttributes extends Data
 		return collect($this->postTypes)
 			->map(fn (array $postType): string => $postType['value'])
 			->all();
+	}
+
+	public function enableConnection(): bool
+	{
+		return $this->enableConnection;
+	}
+
+	/**
+	 * @return array<string, int>}
+	 */
+	public function connectedPost(): array
+	{
+		$connections = [];
+
+		foreach ($this->connectionPosts as $postType => $connection) {
+			$metaKey = $this->connectionMetaKey($postType);
+			$connections[$metaKey] = (int)$connection[0]['value'];
+		}
+
+		return $connections;
+	}
+
+	private function connectionMetaKey(string $postType): string
+	{
+		$config = config('yard-query-block.connections', []);
+
+		if (! is_array($config) || empty($config)) {
+			return '';
+		}
+
+		$metaKey = collect($config)->firstWhere('to', $postType);
+
+		return $metaKey['meta_key'];
 	}
 
 	/**

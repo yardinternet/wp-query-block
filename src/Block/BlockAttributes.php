@@ -90,7 +90,12 @@ class BlockAttributes extends Data
 
 		foreach ($this->connectionPosts as $postType => $connection) {
 			$metaKey = $this->connectionMetaKey($postType);
-			$connections[$metaKey] = (int)$connection[0]['value'];
+
+			if (empty($metaKey)) {
+				continue;
+			}
+
+			$connections[$metaKey] = (int)$connection['value'];
 		}
 
 		return $connections;

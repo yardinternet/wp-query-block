@@ -8,7 +8,7 @@ import { useEffect, useState } from '@wordpress/element';
  */
 import ConnectionToggleControl from './connection-toggle-control';
 import ConnectionSelectControl from './connection-select-control';
-import { fetchRegisteredPostTypes } from '../../utils/api';
+import { fetchRegisteredPostTypes, fetchBlockSettings } from '../../utils/api';
 import { mapPostTypesToOptions } from '../../utils/helpers';
 import { filterPostTypes } from '../../utils/post-types';
 
@@ -22,11 +22,39 @@ const ConnectionControl = ( props ) => {
 	 */
 	useEffect( () => {
 		const getConnections = async () => {
-			// TODO: Now it fetches all post types, but we only want post types that are connected.
+			const settings = await fetchBlockSettings();
+
+			if ( ! settings.connections || settings.connections.length < 1 ) {
+				setConnections( [] );
+				return;
+			}
+
+			// Filter connections that match selected post types
+			const match = settings.connections.filter( ( a ) =>
+				postTypes.some( ( b ) => a.from === b.value )
+			);
+
+			if ( match.length < 1 ) {
+				setConnections( [] );
+				return;
+			}
+
 			const allPostTypes = await fetchRegisteredPostTypes();
 			const filteredPostTypes = filterPostTypes( allPostTypes );
 			const mappedPostTypes = mapPostTypesToOptions( filteredPostTypes );
-			setConnections( mappedPostTypes );
+
+			const connectionPostTypes = match.map( ( connection ) => {
+				return mappedPostTypes.find(
+					( postType ) => postType.value === connection.to
+				);
+			} );
+
+			if ( connectionPostTypes.length < 1 ) {
+				setConnections( [] );
+				return;
+			}
+
+			setConnections( connectionPostTypes );
 		};
 
 		getConnections();

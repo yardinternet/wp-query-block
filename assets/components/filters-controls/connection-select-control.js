@@ -1,11 +1,11 @@
 /**
  * Internal dependencies
  */
-import AsyncSortableSelectPostsControl from '../shared/async-sortable-select-posts-control';
+import AsyncSelectPostsControl from '../shared/async-select-posts-control';
 
 const ConnectionSelectControl = ( props ) => {
 	const { connection, attributes, setAttributes } = props;
-	const { connectionPosts, postsPerPage } = attributes;
+	const { connectionPosts } = attributes;
 
 	/**
 	 * Save the selected posts as an attribute
@@ -13,7 +13,10 @@ const ConnectionSelectControl = ( props ) => {
 	 * @param {Array} selectedPosts - The new posts to save
 	 */
 	const onChange = ( selectedPosts ) => {
-		const newOption = { [ connection.value ]: selectedPosts };
+		const newOption = {
+			[ connection.value ]:
+				selectedPosts === null ? undefined : selectedPosts,
+		};
 
 		if ( ! connectionPosts ) {
 			setAttributes( { connectionPosts: newOption } );
@@ -24,13 +27,14 @@ const ConnectionSelectControl = ( props ) => {
 	};
 
 	return (
-		<AsyncSortableSelectPostsControl
+		<AsyncSelectPostsControl
 			subtype={ connection.value }
 			enable={ true }
 			handleChange={ onChange }
-			isOptionDisabled={ () => connectionPosts?.length >= postsPerPage }
+			isClearable={ true }
+			isMulti={ false }
 			label={ connection.label }
-			value={ connectionPosts[ connection.value ] || [] }
+			value={ connectionPosts[ connection.value ] }
 		/>
 	);
 };

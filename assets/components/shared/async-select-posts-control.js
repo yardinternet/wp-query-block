@@ -13,12 +13,12 @@ import { useState, useEffect, useCallback } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { mapPostsToOptions, getSubtype } from '../../utils/helpers';
+import { mapPostsToOptions } from '../../utils/helpers';
 import { searchPosts } from '../../utils/api';
 
 const AsyncSelectPostsControl = ( props ) => {
 	const {
-		attributes,
+		subtype,
 		enable,
 		handleChange,
 		isClearable,
@@ -26,7 +26,6 @@ const AsyncSelectPostsControl = ( props ) => {
 		label,
 		value,
 	} = props;
-	const { postTypes } = attributes;
 	const [ defaultOptions, setDefaultOptions ] = useState( [] );
 
 	/**
@@ -36,11 +35,10 @@ const AsyncSelectPostsControl = ( props ) => {
 	 */
 	const getPostsAsOptions = useCallback(
 		async ( input = '' ) => {
-			const subtype = getSubtype( postTypes );
 			const posts = await searchPosts( input, subtype );
 			return posts ? mapPostsToOptions( posts ) : [];
 		},
-		[ postTypes ]
+		[ subtype ]
 	);
 
 	/**

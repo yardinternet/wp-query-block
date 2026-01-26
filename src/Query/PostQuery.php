@@ -68,6 +68,10 @@ class PostQuery implements QueryInterface
 			}
 		}
 
+		if ($this->attributes->enableConnection()) {
+			$query->hasMeta($this->attributes->connectedPost());
+		}
+
 		$query = $this->order($query);
 
 		/**

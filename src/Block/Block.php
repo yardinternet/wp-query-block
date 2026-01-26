@@ -92,14 +92,24 @@ class Block
 
 	public function blockSettings(): WP_REST_Response
 	{
+		return new WP_REST_Response([
+			'version' => self::VERSION,
+			'templates' => $this->templates(),
+			'connections' => $this->connections(),
+		]);
+	}
+
+	/**
+	 * @return array<array{label: string, value: string}>
+	 */
+	private function templates(): array
+	{
 		$path = resource_path('views/vendor/yard-query-block/templates');
 		$files = scandir($path);
 		$templates = [];
 
 		if (false === $files) {
-			return new WP_REST_Response([
-				'templates' => [],
-			]);
+			return [];
 		}
 
 		foreach ($files as $file) {
@@ -122,9 +132,21 @@ class Block
 			];
 		}
 
-		return new WP_REST_Response([
-			'templates' => $templates,
-		]);
+		return $templates;
+	}
+
+	/**
+	 * @return array<string, string>
+	 */
+	public function connections(): array
+	{
+		$config = config('yard-query-block.connections', []);
+
+		if (! is_array($config)) {
+			return [];
+		}
+
+		return $config;
 	}
 
 	/**

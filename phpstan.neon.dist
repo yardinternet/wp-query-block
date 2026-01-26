@@ -7,3 +7,5 @@ parameters:
     paths:
         - src
     tmpDir: build/phpstan
+    ignoreErrors:
+        - message: '#Call to an undefined method Corcel\\Model\\Builder\\PostBuilder::hasMeta\(\)#'

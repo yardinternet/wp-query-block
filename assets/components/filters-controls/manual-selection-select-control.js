@@ -6,16 +6,21 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import { getSubtype } from '../../utils/helpers';
 import AsyncSortableSelectPostsControl from '../shared/async-sortable-select-posts-control';
 
 const ManualSelectionSelectControl = ( props ) => {
 	const { attributes, setAttributes } = props;
-	const { postsPerPage, enableManualSelection, manualSelectionPosts } =
-		attributes;
+	const {
+		postTypes,
+		postsPerPage,
+		enableManualSelection,
+		manualSelectionPosts,
+	} = attributes;
 
 	return (
 		<AsyncSortableSelectPostsControl
-			attributes={ attributes }
+			subtype={ getSubtype( postTypes ) }
 			enable={ enableManualSelection }
 			handleChange={ ( selectedPosts ) =>
 				setAttributes( { manualSelectionPosts: selectedPosts } )

@@ -15,6 +15,7 @@ class QueryBlockServiceProvider extends PackageServiceProvider
 		$package
 			->name('yard-query-block')
 			->hasViews()
+			->hasConfigFile()
 			->hasRoute('web');
 	}
 

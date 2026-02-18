@@ -2,6 +2,9 @@
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import { RadioControl } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -12,10 +15,41 @@ import { fetchRegisteredPostTypes, fetchBlockSettings } from '../../utils/api';
 import { mapPostTypesToOptions } from '../../utils/helpers';
 import { filterPostTypes } from '../../utils/post-types';
 
+const CONNECTION_OPTIONS = [
+	{
+		label: __(
+			'Toon berichten verbonden aan dit bericht',
+			'yard-query-block'
+		),
+		value: 'current-post-connections',
+	},
+	{
+		label: __(
+			'Toon berichten verbonden aan een specifiek bericht',
+			'yard-query-block'
+		),
+		value: 'specific-post-connections',
+	},
+];
+
 const ConnectionControl = ( props ) => {
-	const { attributes } = props;
-	const { postTypes, enableConnection, enableManualSelection } = attributes;
+	const { attributes, setAttributes } = props;
+	const {
+		postTypes,
+		enableConnection,
+		enableManualSelection,
+		connectionOption,
+	} = attributes;
 	const [ connections, setConnections ] = useState( [] );
+
+	const { currentPostId, currentPostTitle } = useSelect(
+		( select ) => ( {
+			currentPostId: select( 'core/editor' ).getCurrentPostId(),
+			currentPostTitle:
+				select( 'core/editor' ).getEditedPostAttribute( 'title' ),
+		} ),
+		[]
+	);
 
 	/**
 	 * Fetch connections of selected post types
@@ -60,13 +94,63 @@ const ConnectionControl = ( props ) => {
 		getConnections();
 	}, [ postTypes ] );
 
+	/**
+	 * Auto-fill connectionPosts with the current post when:
+	 *  - toggle is enabled
+	 *  - the "current-post-connections" option is selected.
+	 */
+	useEffect( () => {
+		if (
+			enableConnection &&
+			connectionOption === 'current-post-connections' &&
+			connections.length > 0
+		) {
+			const newConnectionPosts = {};
+
+			connections.forEach( ( connection ) => {
+				newConnectionPosts[ connection.value ] = {
+					value: currentPostId,
+					label: currentPostTitle,
+				};
+			} );
+
+			setAttributes( {
+				connectionPosts: newConnectionPosts,
+			} );
+		}
+	}, [
+		enableConnection,
+		connectionOption,
+		connections,
+		currentPostId,
+		currentPostTitle,
+		setAttributes,
+	] );
+
+	const onRadioChange = ( value ) => {
+		setAttributes( {
+			connectionOption: value,
+			connectionPosts: {}, // reset when switching mode
+		} );
+	};
+
 	return (
 		! enableManualSelection &&
 		connections.length !== 0 && (
 			<>
 				<ConnectionToggleControl { ...props } />
 
-				{ enableConnection &&
+				{ enableConnection && (
+					<RadioControl
+						label={ __( 'Connectie opties', 'yard-query-block' ) }
+						hideLabelFromVision={ true }
+						selected={ connectionOption }
+						options={ CONNECTION_OPTIONS }
+						onChange={ onRadioChange }
+					/>
+				) }
+
+				{ connectionOption === 'specific-post-connections' &&
 					connections.map( ( connection ) => {
 						return (
 							<div key={ connection.value }>

@@ -91,6 +91,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"connectionOption": {
+			"type": "string",
+			"default": "current-post-connections"
+		},
 		"connectionPosts": {
 			"type": "object",
 			"default": {}

@@ -11,26 +11,10 @@ import { useSelect } from '@wordpress/data';
  */
 import ConnectionToggleControl from './connection-toggle-control';
 import ConnectionSelectControl from './connection-select-control';
+import ConnectionRadioControl from './connection-radio-control';
 import { fetchRegisteredPostTypes, fetchBlockSettings } from '../../utils/api';
 import { mapPostTypesToOptions } from '../../utils/helpers';
 import { filterPostTypes } from '../../utils/post-types';
-
-const CONNECTION_OPTIONS = [
-	{
-		label: __(
-			'Toon berichten verbonden aan dit bericht',
-			'yard-query-block'
-		),
-		value: 'current-post-connections',
-	},
-	{
-		label: __(
-			'Toon berichten verbonden aan een specifiek bericht',
-			'yard-query-block'
-		),
-		value: 'specific-post-connections',
-	},
-];
 
 const ConnectionControl = ( props ) => {
 	const { attributes, setAttributes } = props;
@@ -127,13 +111,6 @@ const ConnectionControl = ( props ) => {
 		setAttributes,
 	] );
 
-	const onRadioChange = ( value ) => {
-		setAttributes( {
-			connectionOption: value,
-			connectionPosts: {}, // reset when switching mode
-		} );
-	};
-
 	return (
 		! enableManualSelection &&
 		connections.length !== 0 && (
@@ -141,12 +118,9 @@ const ConnectionControl = ( props ) => {
 				<ConnectionToggleControl { ...props } />
 
 				{ enableConnection && (
-					<RadioControl
-						label={ __( 'Connectie opties', 'yard-query-block' ) }
-						hideLabelFromVision={ true }
-						selected={ connectionOption }
-						options={ CONNECTION_OPTIONS }
-						onChange={ onRadioChange }
+					<ConnectionRadioControl
+						connectionOption={ connectionOption }
+						setAttributes={ setAttributes }
 					/>
 				) }
 

@@ -109,7 +109,10 @@ class BlockAttributes extends Data
 			return '';
 		}
 
-		$metaKey = collect($config)->firstWhere('to', $postType);
+		$metaKey = collect($config)
+			->where('to', $postType)
+			->where('from', $this->postTypes()[0] ?? '')
+			->first();
 
 		return $metaKey['meta_key'];
 	}

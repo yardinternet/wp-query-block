@@ -95,10 +95,8 @@ class BlockAttributes extends Data
 				continue;
 			}
 
-			$connections = [
-				'meta_keys' => $metaKeys,
-				'post_id' => (int)$connection['value']
-			];
+			$connections['meta_keys'] = array_merge($connections['meta_keys'] ?? [], $metaKeys);
+			$connections['post_id'][] = (int)$connection['value'];
 		}
 
 		return $connections;

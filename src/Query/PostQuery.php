@@ -73,10 +73,9 @@ class PostQuery implements QueryInterface
 				$metaQuery
 					->where(function ($metaQuery) {
 						$connected = $this->attributes->connectedPost();
-
 						$metaQuery
-							->where('meta_value', $connected['post_id'])
-							->whereIn('meta_key', $connected['meta_keys']);;
+							->whereIn('meta_value', $connected['post_id'])
+							->whereIn('meta_key', $connected['meta_keys']);
 					});
 			});
 		}

@@ -78,7 +78,7 @@ class BlockAttributes extends Data
 
 	public function enableConnection(): bool
 	{
-		return $this->enableConnection;
+		return $this->enableConnection && ! empty($this->connectionPosts);
 	}
 
 	/**
@@ -89,19 +89,20 @@ class BlockAttributes extends Data
 		$connections = [];
 
 		foreach ($this->connectionPosts as $postType => $connection) {
-			$metaKey = $this->connectionMetaKey($postType);
+			$metaKeys = $this->connectionMetaKeys($postType);
 
-			if (empty($metaKey)) {
+			if (empty($metaKeys)) {
 				continue;
 			}
 
-			$connections[$metaKey] = (int)$connection['value'];
+			$connections['meta_keys'] = array_merge($connections['meta_keys'] ?? [], $metaKeys);
+			$connections['post_id'][] = (int)$connection['value'];
 		}
 
 		return $connections;
 	}
 
-	private function connectionMetaKey(string $postType): string
+	private function connectionMetaKeys(string $postType): array
 	{
 		$config = config('yard-query-block.connections', []);
 
@@ -109,9 +110,11 @@ class BlockAttributes extends Data
 			return '';
 		}
 
-		$metaKey = collect($config)->firstWhere('to', $postType);
-
-		return $metaKey['meta_key'];
+		return collect($config)
+			->where('to', $postType)
+			->whereIn('from', $this->postTypes())
+			->pluck('meta_key')
+			->all();
 	}
 
 	/**

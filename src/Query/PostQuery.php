@@ -69,7 +69,15 @@ class PostQuery implements QueryInterface
 		}
 
 		if ($this->attributes->enableConnection()) {
-			$query->hasMeta($this->attributes->connectedPost());
+			$query->whereHas('meta', function ($metaQuery) {
+				$metaQuery
+					->where(function ($metaQuery) {
+						$connected = $this->attributes->connectedPost();
+						$metaQuery
+							->whereIn('meta_value', $connected['post_id'])
+							->whereIn('meta_key', $connected['meta_keys']);
+					});
+			});
 		}
 
 		$query = $this->order($query);

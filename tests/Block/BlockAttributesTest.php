@@ -268,3 +268,96 @@ it('returns empty string if no alignment is set', function () {
 	$attributes = BlockAttributes::from([]);
 	expect($attributes->align())->toBe('');
 });
+
+it('returns true for enableConnection when enabled and connectionPosts is not empty', function () {
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => ['page' => ['label' => 'My Page', 'value' => '42']],
+	]);
+	expect($attributes->enableConnection())->toBeTrue();
+});
+
+it('returns false for enableConnection when enabled but connectionPosts is empty', function () {
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => [],
+	]);
+	expect($attributes->enableConnection())->toBeFalse();
+});
+
+it('returns false for enableConnection when disabled even if connectionPosts is not empty', function () {
+	$attributes = BlockAttributes::from([
+		'enableConnection' => false,
+		'connectionPosts' => ['page' => ['label' => 'My Page', 'value' => '42']],
+	]);
+	expect($attributes->enableConnection())->toBeFalse();
+});
+
+it('returns an empty array for postConnections when no config is set', function () {
+	config(['yard-query-block.connections' => []]);
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => ['page' => ['label' => 'My Page', 'value' => '42']],
+	]);
+	expect($attributes->postConnections())->toBe([]);
+});
+
+it('returns an empty array for postConnections when connectionPosts target has no matching config', function () {
+	config(['yard-query-block.connections' => [
+		['from' => 'post', 'to' => 'event', 'meta_key' => 'related_event'],
+	]]);
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => ['page' => ['label' => 'My Page', 'value' => '42']],
+	]);
+	expect($attributes->postConnections())->toBe([]);
+});
+
+it('returns multiple connections when multiple config entries share the same to post type', function () {
+	config(['yard-query-block.connections' => [
+		['from' => 'post', 'to' => 'page', 'meta_key' => 'related_page'],
+		['from' => 'product', 'to' => 'page', 'meta_key' => 'featured_page'],
+	]]);
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => ['page' => ['label' => 'My Page', 'value' => '42']],
+	]);
+	expect($attributes->postConnections())->toBe([
+		['post_type' => 'post', 'meta_key' => 'related_page', 'meta_value' => 42],
+		['post_type' => 'product', 'meta_key' => 'featured_page', 'meta_value' => 42],
+	]);
+});
+
+it('returns multiple connections when connectionPosts has multiple targets', function () {
+	config(['yard-query-block.connections' => [
+		['from' => 'post', 'to' => 'page', 'meta_key' => 'related_page'],
+		['from' => 'post', 'to' => 'category', 'meta_key' => 'related_category'],
+	]]);
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => [
+			'page' => ['label' => 'My Page', 'value' => '42'],
+			'category' => ['label' => 'My Category', 'value' => '10'],
+		],
+	]);
+	expect($attributes->postConnections())->toBe([
+		['post_type' => 'post', 'meta_key' => 'related_page', 'meta_value' => 42],
+		['post_type' => 'post', 'meta_key' => 'related_category', 'meta_value' => 10],
+	]);
+});
+
+it('skips connectionPosts entries with no matching config and returns only matched ones', function () {
+	config(['yard-query-block.connections' => [
+		['from' => 'post', 'to' => 'page', 'meta_key' => 'related_page'],
+	]]);
+	$attributes = BlockAttributes::from([
+		'enableConnection' => true,
+		'connectionPosts' => [
+			'page' => ['label' => 'My Page', 'value' => '42'],
+			'event' => ['label' => 'My Event', 'value' => '99'],
+		],
+	]);
+	expect($attributes->postConnections())->toBe([
+		['post_type' => 'post', 'meta_key' => 'related_page', 'meta_value' => 42],
+	]);
+});

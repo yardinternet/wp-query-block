@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yard\QueryBlock\Block;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
@@ -25,7 +26,7 @@ class BlockAttributes extends Data
 	 * @param LabelValueArray|array{} $excludePosts
 	 * @param LabelValueArray|array{} $postParent
 	 * @param array{string: list<LabelValueArray>}|array{} $taxonomyTerms
-	 * @param array{string: list<LabelValueArray>}|array{} $connectionPosts
+	 * @param array<string, LabelValueArray>|array{} $connectionPosts
 	 */
 	public function __construct(
 		public array $postTypes = [],
@@ -82,39 +83,53 @@ class BlockAttributes extends Data
 	}
 
 	/**
-	 * @return array<string, int>}
+	 * @return list<array{
+	 *	 post_type: string,
+	 *	 meta_key: string,
+	 *	 meta_value: int,
+	 *  }>
 	 */
-	public function connectedPost(): array
+	public function postConnections(): array
 	{
 		$connections = [];
 
-		foreach ($this->connectionPosts as $postType => $connection) {
-			$metaKeys = $this->connectionMetaKeys($postType);
+		$connectionsConfig = $this->connectionsConfig();
 
-			if (empty($metaKeys)) {
+		foreach ($this->connectionPosts as $targetPostType => $connection) {
+			$config = $connectionsConfig->where('to', $targetPostType);
+
+			if ($config->count() === 0) {
 				continue;
 			}
 
-			$connections['meta_keys'] = array_merge($connections['meta_keys'] ?? [], $metaKeys);
-			$connections['post_id'][] = (int)$connection['value'];
+			foreach ($config as $configItem) {
+				$result = [];
+				$result['post_type'] = $configItem['from'];
+				$result['meta_key'] = $configItem['meta_key'];
+				$result['meta_value'] = (int)$connection['value'];
+				$connections[] = $result;
+			}
 		}
 
 		return $connections;
 	}
 
-	private function connectionMetaKeys(string $postType): array
+	/**
+	 * @return Collection<int, array{
+	 *	 from: string,
+	 *	 to: string,
+	 *	 meta_key: string,
+	 * }>
+	 */
+	private function connectionsConfig(): Collection
 	{
 		$config = config('yard-query-block.connections', []);
 
-		if (! is_array($config) || empty($config)) {
-			return '';
+		if (! is_array($config)) {
+			return collect();
 		}
 
-		return collect($config)
-			->where('to', $postType)
-			->whereIn('from', $this->postTypes())
-			->pluck('meta_key')
-			->all();
+		return collect($config);
 	}
 
 	/**

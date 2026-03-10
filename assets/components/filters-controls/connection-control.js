@@ -67,7 +67,7 @@ const ConnectionControl = ( props ) => {
 				);
 			} );
 
-			// Filter connections
+			// Filter connections to only include unique post types (avoid duplicates if multiple connections to the same post type exist)
 			const uniqueConnectionPostTypes = connectionPostTypes.filter(
 				( value, index, self ) =>
 					index === self.findIndex( ( t ) => t.value === value.value )

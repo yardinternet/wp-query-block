@@ -64,6 +64,26 @@ Add the template name as a comment at the top of this template file like this:
 
 Now, you will be able to select the template from the editor. The name of the template is displayed using the value in your docblock.
 
+### ACF Post Object Field
+
+It is possible to add a connection filter to the block settings that lets you filter the available posts based on connected posts. This only works for the ACF "Post Object" field.
+
+**Important: For this to work, the Post Object field setting "Select Multiple" must be disabled.**
+
+All you need to do is publish `config/yard-query-block.php` and register all connections in the `connections` array. For example:
+
+```php
+return [
+	'connections' => [
+		[
+			'from' => 'news',
+			'to' => 'project',
+			'meta_key' => 'news_related_project',
+		],
+	],
+];
+```
+
 ## Hooks
 
 ### JavaScript filters

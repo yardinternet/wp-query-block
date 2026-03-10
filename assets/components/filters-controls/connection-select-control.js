@@ -32,7 +32,7 @@ const ConnectionSelectControl = ( props ) => {
 			enable={ true }
 			handleChange={ onChange }
 			isClearable={ true }
-			isMulti={ false }
+			isMulti={ true }
 			label={ connection.label }
 			value={ connectionPosts[ connection.value ] }
 		/>

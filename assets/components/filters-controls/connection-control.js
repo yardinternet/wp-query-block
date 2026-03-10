@@ -98,10 +98,12 @@ const ConnectionControl = ( props ) => {
 			const newConnectionPosts = {};
 
 			connections.forEach( ( connection ) => {
-				newConnectionPosts[ connection.value ] = {
-					value: currentPostId,
-					label: currentPostTitle,
-				};
+				newConnectionPosts[ connection.value ] = [
+					{
+						value: currentPostId,
+						label: currentPostTitle,
+					},
+				];
 			} );
 
 			setAttributes( {

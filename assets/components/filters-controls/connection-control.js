@@ -67,12 +67,18 @@ const ConnectionControl = ( props ) => {
 				);
 			} );
 
-			if ( connectionPostTypes.length < 1 ) {
+			// Filter connections
+			const uniqueConnectionPostTypes = connectionPostTypes.filter(
+				( value, index, self ) =>
+					index === self.findIndex( ( t ) => t.value === value.value )
+			);
+
+			if ( uniqueConnectionPostTypes.length < 1 ) {
 				setConnections( [] );
 				return;
 			}
 
-			setConnections( connectionPostTypes );
+			setConnections( uniqueConnectionPostTypes );
 		};
 
 		getConnections();

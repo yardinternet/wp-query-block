@@ -64,7 +64,7 @@ const PostTypeSelectControl = ( props ) => {
 			postParent: {},
 			enableTaxonomies: false,
 			taxonomyTerms: undefined,
-			enableConnections: false,
+			enableConnection: false,
 			connectionPosts: {},
 		} );
 	};

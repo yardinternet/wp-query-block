@@ -72,12 +72,14 @@ class PostQuery implements QueryInterface
 			$query->where(function ($query) {
 				$connected = $this->attributes->postConnections();
 				foreach ($connected as $connection) {
-					$query->orWhere('post_type', $connection['post_type'])
-						->whereHas('meta', function ($metaQuery) use ($connection) {
-							$metaQuery
-								->where('meta_key', $connection['meta_key'])
-								->whereIn('meta_value', $connection['meta_value']);
-						});
+					$query->orWhere(function ($q) use ($connection) {
+						$q->where('post_type', $connection['post_type'])
+							->whereHas('meta', function ($metaQuery) use ($connection) {
+								$metaQuery
+									->where('meta_key', $connection['meta_key'])
+									->whereIn('meta_value', $connection['meta_value']);
+							});
+					});
 				}
 			});
 		}

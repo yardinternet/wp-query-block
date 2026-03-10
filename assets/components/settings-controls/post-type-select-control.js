@@ -66,6 +66,7 @@ const PostTypeSelectControl = ( props ) => {
 			taxonomyTerms: undefined,
 			enableConnection: false,
 			connectionPosts: {},
+			connectionOption: 'current-post-connections',
 		} );
 	};
 

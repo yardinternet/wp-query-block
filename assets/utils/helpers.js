@@ -1,3 +1,5 @@
+import { decodeEntities } from '@wordpress/html-entities';
+
 /**
  * Map posts array to an array to use for options in a select control
  *
@@ -34,20 +36,6 @@ export const mapTermsToOptions = ( terms = [] ) => {
 		label: decodeEntities( term.name ),
 		value: term.slug,
 	} ) );
-};
-
-/**
- * Decodes HTML entities commonly found in post-titles and names
- *
- * @param {string} text - The text to decode
- * @return {string} Decoded text
- */
-export const decodeEntities = ( text = '' ) => {
-	return text
-		.replace( /&#39;/g, "'" )
-		.replace( /&#8217;/g, "'" )
-		.replace( /&#8211;/g, '-' )
-		.replace( /&amp;/g, '&' );
 };
 
 /**

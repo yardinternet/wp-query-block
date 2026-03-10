@@ -25,8 +25,8 @@ class BlockAttributes extends Data
 	 * @param LabelValueArray|array{} $stickyPost
 	 * @param LabelValueArray|array{} $excludePosts
 	 * @param LabelValueArray|array{} $postParent
-	 * @param array{string: list<LabelValueArray>}|array{} $taxonomyTerms
-	 * @param array<string, LabelValueArray>|array{} $connectionPosts
+	 * @param array<string, list<LabelValueArray>>|array{} $taxonomyTerms
+	 * @param array<string, list<array{ label: string, value: int }>>|array{} $connectionPosts
 	 */
 	public function __construct(
 		public array $postTypes = [],
@@ -86,7 +86,7 @@ class BlockAttributes extends Data
 	 * @return list<array{
 	 *	 post_type: string,
 	 *	 meta_key: string,
-	 *	 meta_value: int,
+	 *	 meta_value: list<int>,
 	 *  }>
 	 */
 	public function postConnections(): array
@@ -95,7 +95,7 @@ class BlockAttributes extends Data
 
 		$connectionsConfig = $this->connectionsConfig();
 
-		foreach ($this->connectionPosts as $targetPostType => $connection) {
+		foreach ($this->connectionPosts as $targetPostType => $connectionArray) {
 			$config = $connectionsConfig->where('to', $targetPostType);
 
 			if ($config->count() === 0) {
@@ -106,7 +106,7 @@ class BlockAttributes extends Data
 				$result = [];
 				$result['post_type'] = $configItem['from'];
 				$result['meta_key'] = $configItem['meta_key'];
-				$result['meta_value'] = (int)$connection['value'];
+				$result['meta_value'] = array_map('intval', array_column($connectionArray, 'value'));
 				$connections[] = $result;
 			}
 		}

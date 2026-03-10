@@ -76,7 +76,7 @@ class PostQuery implements QueryInterface
 						->whereHas('meta', function ($metaQuery) use ($connection) {
 							$metaQuery
 								->where('meta_key', $connection['meta_key'])
-								->where('meta_value', $connection['meta_value']);
+								->whereIn('meta_value', $connection['meta_value']);
 						});
 				}
 			});

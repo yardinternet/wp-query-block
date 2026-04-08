@@ -257,6 +257,10 @@ class BlockAttributes extends Data
 	{
 		$taxonomyTermSlugs = [];
 		foreach ($this->taxonomyTerms as $taxonomy => $terms) {
+			if (! is_array($terms) || [] === $terms) {
+				continue;
+			}
+
 			$taxonomyTermSlugs[$taxonomy] = array_column($terms, 'value');
 		}
 

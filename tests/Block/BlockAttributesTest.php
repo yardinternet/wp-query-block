@@ -194,6 +194,11 @@ it('returns the taxonomy term slugs', function () {
 	expect($attributes->taxonomyTermSlugs())->toBe(['category' => ['news', 'events']]);
 });
 
+it('returns the taxonomy term slugs excluding empty terms', function () {
+	$attributes = BlockAttributes::from(['taxonomyTerms' => ['category' => [['value' => 'news'], ['value' => 'events']], 'type' => []]]);
+	expect($attributes->taxonomyTermSlugs())->toBe(['category' => ['news', 'events']]);
+});
+
 it('returns an empty array if no taxonomy term slugs are set', function () {
 	$attributes = BlockAttributes::from([]);
 	expect($attributes->taxonomyTermSlugs())->toBe([]);

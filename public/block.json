@@ -111,6 +111,10 @@
       "type": "boolean",
       "default": false
     },
+    "displaySubtitle": {
+      "type": "boolean",
+      "default": true
+    },
     "displayExcerpt": {
       "type": "boolean",
       "default": true

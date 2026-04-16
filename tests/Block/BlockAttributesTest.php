@@ -244,6 +244,16 @@ it('returns if it does not display the date', function () {
 	expect($attributes->displayDate())->toBeFalse();
 });
 
+it('returns if it displays the subtitle', function () {
+	$attributes = BlockAttributes::from(['displaySubtitle' => true]);
+	expect($attributes->displaySubtitle())->toBeTrue();
+});
+
+it('returns if it does not display the subtitle', function () {
+	$attributes = BlockAttributes::from([]);
+	expect($attributes->displaySubtitle())->toBeFalse();
+});
+
 it('returns if it displays the excerpt', function () {
 	$attributes = BlockAttributes::from(['displayExcerpt' => true]);
 	expect($attributes->displayExcerpt())->toBeTrue();

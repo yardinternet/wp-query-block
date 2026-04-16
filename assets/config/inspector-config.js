@@ -29,6 +29,7 @@ export const defaultConfig = {
 	showTemplateSelectControl: true,
 	showDisplayImageToggleControl: true,
 	showDisplayDateToggleControl: true,
+	showDisplaySubtitleToggleControl: true,
 	showDisplayExcerptToggleControl: true,
 	showDisplayLabelToggleControl: true,
 };

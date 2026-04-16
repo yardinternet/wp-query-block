@@ -54,6 +54,7 @@ class BlockAttributes extends Data
 		public string $order = 'desc',
 		public bool $displayImage = false,
 		public bool $displayDate = false,
+		public bool $displaySubtitle = false,
 		public bool $displayExcerpt = false,
 		public bool $displayLabel = false,
 		public string $align = '',
@@ -285,6 +286,11 @@ class BlockAttributes extends Data
 	public function displayDate(): bool
 	{
 		return $this->displayDate;
+	}
+
+	public function displaySubtitle(): bool
+	{
+		return $this->displaySubtitle;
 	}
 
 	public function displayExcerpt(): bool

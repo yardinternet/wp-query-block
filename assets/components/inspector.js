@@ -13,6 +13,7 @@ import DisplayDateToggleControl from './display-controls/display-date-toggle-con
 import DisplayExcerptToggleControl from './display-controls/display-excerpt-toggle-control';
 import DisplayImageToggleControl from './display-controls/display-image-toggle-control';
 import DisplayLabelToggleControl from './display-controls/display-label-toggle-control';
+import DisplaySubtitleToggleControl from './display-controls/display-subtitle-toggle-control';
 import ExcludePostsSelectControl from './filters-controls/exclude-posts-select-control';
 import ExcludePostsToggleControl from './filters-controls/exclude-posts-toggle-control';
 import ManualSelectionOrderCheckboxControl from './filters-controls/manual-selection-order-checkbox-control';
@@ -144,6 +145,9 @@ const Inspector = ( props ) => {
 					) }
 					{ inspectorConfig.showDisplayDateToggleControl && (
 						<DisplayDateToggleControl { ...props } />
+					) }
+					{ inspectorConfig.showDisplaySubtitleToggleControl && (
+						<DisplaySubtitleToggleControl { ...props } />
 					) }
 					{ inspectorConfig.showDisplayExcerptToggleControl && (
 						<DisplayExcerptToggleControl { ...props } />

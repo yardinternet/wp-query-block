@@ -230,7 +230,7 @@ it('returns if it displays the image', function () {
 });
 
 it('returns if it does not display the image', function () {
-	$attributes = BlockAttributes::from([]);
+	$attributes = BlockAttributes::from(['displayImage' => false]);
 	expect($attributes->displayImage())->toBeFalse();
 });
 
@@ -240,7 +240,7 @@ it('returns if it displays the date', function () {
 });
 
 it('returns if it does not display the date', function () {
-	$attributes = BlockAttributes::from([]);
+	$attributes = BlockAttributes::from(['displayDate' => false]);
 	expect($attributes->displayDate())->toBeFalse();
 });
 
@@ -250,7 +250,7 @@ it('returns if it displays the subtitle', function () {
 });
 
 it('returns if it does not display the subtitle', function () {
-	$attributes = BlockAttributes::from([]);
+	$attributes = BlockAttributes::from(['displaySubtitle' => false]);
 	expect($attributes->displaySubtitle())->toBeFalse();
 });
 
@@ -260,7 +260,7 @@ it('returns if it displays the excerpt', function () {
 });
 
 it('returns if it does not display the excerpt', function () {
-	$attributes = BlockAttributes::from([]);
+	$attributes = BlockAttributes::from(['displayExcerpt' => false]);
 	expect($attributes->displayExcerpt())->toBeFalse();
 });
 
@@ -270,7 +270,7 @@ it('returns if it displays the label', function () {
 });
 
 it('returns if it does not display the label', function () {
-	$attributes = BlockAttributes::from([]);
+	$attributes = BlockAttributes::from(['displayLabel' => false]);
 	expect($attributes->displayLabel())->toBeFalse();
 });
 

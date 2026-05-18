@@ -52,9 +52,12 @@ export const fetchTaxonomiesByPostType = ( type = '' ) => {
  * Fetch terms by taxonomy
  *
  * @param {string} taxonomy
+ * @param {string} search
  */
-export const fetchTermsByTaxonomy = ( taxonomy = '' ) => {
-	return apiFetch( { path: `wp/v2/${ taxonomy }?per_page=100` } );
+export const fetchTermsByTaxonomy = ( taxonomy = '', search = '' ) => {
+	return apiFetch( {
+		path: `wp/v2/${ taxonomy }?search=${ search }&per_page=100`,
+	} );
 };
 
 /**

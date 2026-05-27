@@ -28,6 +28,10 @@ class PostQuery implements QueryInterface
 			->limit($this->attributes->limit())
 			->offset($this->attributes->offset());
 
+		if ($this->isCurrentPostExcluded()) {
+			$query->where('ID', '!=', $this->currentPostId());
+		}
+
 		if ($this->attributes->hasManualSelection()) {
 			$query->whereIn('ID', $this->attributes->manualSelectionPostIDs());
 		}
@@ -174,5 +178,47 @@ class PostQuery implements QueryInterface
 		}
 
 		return $query;
+	}
+
+	private function isCurrentPostExcluded(): bool
+	{
+		/**
+		 * Filters whether the current post should be excluded from query results.
+		 * This applies when the query is not using a manual selection and the current post is not the configured sticky post.
+		 */
+		$excludeCurrentPost = apply_filters('yard_query_block_exclude_current_post', true);
+
+		if (! $excludeCurrentPost) {
+			return false;
+		}
+
+		$currentPostId = $this->currentPostId();
+
+		if (0 >= $currentPostId) {
+			return false;
+		}
+
+		if ($this->attributes->hasManualSelection()) {
+			return false;
+		}
+
+		if ($this->attributes->hasStickyPost() && $this->attributes->stickyPostID() === $currentPostId) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private function currentPostId(): int
+	{
+		if (function_exists('get_the_ID') && $id = get_the_ID()) {
+			return $id;
+		}
+
+		if (function_exists('get_queried_object_id')) {
+			return (int) get_queried_object_id();
+		}
+
+		return 0;
 	}
 }

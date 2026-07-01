@@ -67,8 +67,23 @@ class PostQuery implements QueryInterface
 		}
 
 		if ($this->attributes->hasTaxonomyFilter()) {
-			foreach ($this->attributes->taxonomyTermSlugs() as $taxonomy => $termSlugs) {
-				$query->taxonomy($taxonomy, $termSlugs);
+			$termSlugs = $this->attributes->taxonomyTermSlugs();
+
+			if ($this->attributes->taxonomyRelation() === 'OR') {
+				$query->where(function ($q) use ($termSlugs) {
+					foreach ($termSlugs as $taxonomy => $slugs) {
+						$q->orWhereHas('taxonomies', function ($tq) use ($taxonomy, $slugs) {
+							$tq->where('taxonomy', $taxonomy)
+								->whereHas('term', function ($termQ) use ($slugs) {
+									$termQ->whereIn('slug', $slugs);
+								});
+						});
+					}
+				});
+			} else {
+				foreach ($termSlugs as $taxonomy => $slugs) {
+					$query->taxonomy($taxonomy, $slugs);
+				}
 			}
 		}
 

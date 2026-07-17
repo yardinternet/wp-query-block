@@ -51,6 +51,7 @@ class BlockAttributes extends Data
 		public bool $enableTaxonomies = false,
 		public array $taxonomyTerms = [],
 		public string $taxonomyRelation = 'AND',
+		public string $taxonomyOption = 'specific-terms',
 		public string $order = 'desc',
 		public bool $displayImage = true,
 		public bool $displayDate = false,

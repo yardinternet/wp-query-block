@@ -18,7 +18,7 @@ import { CSS } from '@dnd-kit/utilities';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect, useCallback } from '@wordpress/element';
+import { useState, useEffect, useCallback, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -97,20 +97,10 @@ const AsyncSortableSelectPostsControl = ( props ) => {
 		getOptions();
 	}, [ getPostsAsOptions ] );
 
-	/**
-	 * Load posts based on input value when the user start searching
-	 *
-	 * @param {string}   input
-	 * @param {Function} callback
-	 */
-	const loadOptions = async ( input, callback ) => {
-		if ( ! input ) return callback( [] );
-
-		const options = await getPostsAsOptions( input );
-
-		setDefaultOptions( options );
-		callback( options );
-	};
+	const loadOptions = useMemo(
+		() => debounce( getPostsAsOptions, 500 ),
+		[ getPostsAsOptions ]
+	);
 
 	/**
 	 * Update the array when the user has changed the order of the labels
@@ -144,9 +134,7 @@ const AsyncSortableSelectPostsControl = ( props ) => {
 					collisionDetection={ closestCorners }
 				>
 					<SortableContext
-						items={ defaultOptions.map(
-							( option ) => option.value
-						) }
+						items={ value.map( ( option ) => option.value ) }
 						strategy={ horizontalListSortingStrategy }
 					>
 						<AsyncSelect
@@ -164,7 +152,7 @@ const AsyncSortableSelectPostsControl = ( props ) => {
 							loadingMessage={ () =>
 								__( 'Laden…', 'yard-query-block' )
 							}
-							loadOptions={ debounce( loadOptions, 500 ) }
+							loadOptions={ loadOptions }
 							noOptionsMessage={ () =>
 								__(
 									'Geen berichten gevonden. Probeer een andere zoekterm.',

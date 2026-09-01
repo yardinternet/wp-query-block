@@ -15,6 +15,5 @@ jobs:
     uses: yardinternet/workflows/.github/workflows/run-laravel-testbench-tests.yml@main
     with:
       php-versions: '["8.2","8.3"]'
-      laravel-versions: '["12.*"]'
-      testbench-versions: '["10.*"]'
+      laravel-versions: '["10.*","11.*","12.*"]'
     secrets: inherit

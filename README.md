@@ -5,6 +5,8 @@
 [![Tests](https://github.com/yardinternet/yard-query-block/actions/workflows/run-tests.yml/badge.svg?no-cache)](https://github.com/yardinternet/yard-query-block/actions/workflows/run-tests.yml)
 [![Code Coverage Badge](https://github.com/yardinternet/yard-query-block/blob/badges/coverage.svg)](https://github.com/yardinternet/yard-query-block/actions/workflows/badges.yml)
 [![Lines of Code Badge](https://github.com/yardinternet/yard-query-block/blob/badges/lines-of-code.svg)](https://github.com/yardinternet/yard-query-block/actions/workflows/badges.yml)
+![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/yard/query-block/php)
+![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/yard/query-block/illuminate%2Fauth)
 
 An acorn package providing a "Query Block" for the Gutenberg editor.
 

@@ -2,8 +2,6 @@
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { RadioControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 /**

@@ -87,6 +87,14 @@
     "taxonomyTerms": {
       "type": "object"
     },
+    "taxonomyOption": {
+      "type": "string",
+      "default": "specific-terms"
+    },
+    "taxonomyRelation": {
+      "type": "string",
+      "default": "AND"
+    },
     "enableConnection": {
       "type": "boolean",
       "default": false

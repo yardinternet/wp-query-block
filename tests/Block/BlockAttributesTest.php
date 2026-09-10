@@ -376,3 +376,13 @@ it('skips connectionPosts entries with no matching config and returns only match
 		['post_type' => 'post', 'meta_key' => 'related_page', 'meta_value' => [42]],
 	]);
 });
+
+it('returns specific-terms as default taxonomyOption', function () {
+	$attributes = BlockAttributes::from([]);
+	expect($attributes->taxonomyOption)->toBe('specific-terms');
+});
+
+it('returns the given taxonomyOption', function () {
+	$attributes = BlockAttributes::from(['taxonomyOption' => 'current-post-taxonomies']);
+	expect($attributes->taxonomyOption)->toBe('current-post-taxonomies');
+});

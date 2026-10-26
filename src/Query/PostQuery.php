@@ -45,10 +45,11 @@ class PostQuery implements QueryInterface
 		}
 
 		if ($this->attributes->onlyChildPostsOfThisParent()) {
-			if ($this->attributes->parentPostID() === 0) {
+			$parentPostID = $this->currentPostId() ?: $this->attributes->parentPostID();
+			if ($parentPostID === 0) {
 				return collect();
 			}
-			$query->where('post_parent', $this->attributes->parentPostID());
+			$query->where('post_parent', $parentPostID);
 		}
 
 		if ($this->attributes->onlyChildPostsOfParent()) {

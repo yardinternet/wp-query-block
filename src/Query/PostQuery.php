@@ -9,6 +9,7 @@ use Corcel\Model\Meta\PostMeta;
 use Corcel\Model\Post;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Yard\QueryBlock\Block\BlockAttributes;
 
@@ -106,17 +107,39 @@ class PostQuery implements QueryInterface
 
 	/**
 	 * Exclude past tribe events from the query. Allows other post types without '_EventEndDate' filtering.
+	 * Recurring events only keep their first occurrence in '_EventEndDate', so TEC's occurrences are used when available.
 	 */
 	private function applyEventEndDateFilter(PostBuilder $query): PostBuilder
 	{
 		return $query->where(function ($query) {
 			$query->where('post_type', 'tribe_events')
-				->whereHas('meta', function ($metaQuery) {
-					$metaQuery->where('meta_key', '_EventEndDate')
-						->where('meta_value', '>', (new DateTime())->format('Y-m-d H:i:s'));
-				})
+				->when(
+					$this->hasTribeOccurrences(),
+					fn ($query) => $query->whereExists($this->upcomingTribeOccurrences()),
+					fn ($query) => $query->whereHas('meta', function ($metaQuery) {
+						$metaQuery->where('meta_key', '_EventEndDate')
+							->where('meta_value', '>', (new DateTime())->format('Y-m-d H:i:s'));
+					})
+				)
 				->orWhere('post_type', '!=', 'tribe_events');
 		});
+	}
+
+	private function hasTribeOccurrences(): bool
+	{
+		$isActive = ['TEC\Events\Custom_Tables\V1\Provider', 'is_active'];
+
+		return is_callable($isActive) && true === $isActive();
+	}
+
+	/**
+	 * Occurrences of the current post that have not ended yet. WordPress runs PHP in UTC, hence the UTC columns.
+	 */
+	private function upcomingTribeOccurrences(): QueryBuilder
+	{
+		return (new Post())->getConnection()->table('tec_occurrences')
+			->whereColumn('tec_occurrences.post_id', 'posts.ID')
+			->where('tec_occurrences.end_date_utc', '>', (new DateTime())->format('Y-m-d H:i:s'));
 	}
 
 	/**
@@ -149,6 +172,14 @@ class PostQuery implements QueryInterface
 
 		if ($this->attributes->inRandomOrder()) {
 			return $query->inRandomOrder();
+		}
+
+		if ('_EventStartDate' === $this->attributes->orderBy() && $this->hasTribeOccurrences()) {
+			// Order recurring events by their next occurrence instead of their first.
+			return $query->orderBy(
+				$this->upcomingTribeOccurrences()->selectRaw('MIN(start_date_utc)'),
+				$this->attributes->order()
+			);
 		}
 
 		if ('_EventStartDate' === $this->attributes->orderBy()) {

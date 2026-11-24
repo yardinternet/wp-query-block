@@ -214,6 +214,31 @@ it('returns the default taxonomy relation', function () {
 	expect($attributes->taxonomyRelation())->toBe('AND');
 });
 
+it('returns true for nextOccurrenceOnly when enabled for yard events', function () {
+	$attributes = BlockAttributes::from([
+		'postTypes' => [['value' => 'yard-event']],
+		'nextOccurrenceOnly' => true,
+	]);
+	expect($attributes->nextOccurrenceOnly())->toBeTrue();
+});
+
+it('returns false for nextOccurrenceOnly without yard events', function () {
+	$attributes = BlockAttributes::from([
+		'postTypes' => [['value' => 'post']],
+		'nextOccurrenceOnly' => true,
+	]);
+	expect($attributes->nextOccurrenceOnly())->toBeFalse();
+});
+
+it('returns false for nextOccurrenceOnly with a manual selection', function () {
+	$attributes = BlockAttributes::from([
+		'postTypes' => [['value' => 'yard-event']],
+		'nextOccurrenceOnly' => true,
+		'enableManualSelection' => true,
+	]);
+	expect($attributes->nextOccurrenceOnly())->toBeFalse();
+});
+
 it('returns the order', function () {
 	$attributes = BlockAttributes::from(['order' => 'desc']);
 	expect($attributes->order())->toBe('desc');

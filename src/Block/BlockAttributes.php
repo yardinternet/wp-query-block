@@ -51,6 +51,7 @@ class BlockAttributes extends Data
 		public bool $enableTaxonomies = false,
 		public array $taxonomyTerms = [],
 		public string $taxonomyRelation = 'AND',
+		public bool $nextOccurrenceOnly = false,
 		public string $order = 'desc',
 		public bool $displayImage = true,
 		public bool $displayDate = false,
@@ -271,6 +272,16 @@ class BlockAttributes extends Data
 	public function taxonomyRelation(): string
 	{
 		return $this->taxonomyRelation;
+	}
+
+	/**
+	 * A manual selection is shown as picked, so it never drops later occurrences.
+	 */
+	public function nextOccurrenceOnly(): bool
+	{
+		return $this->nextOccurrenceOnly
+			&& ! $this->hasManualSelection()
+			&& in_array('yard-event', $this->postTypes(), true);
 	}
 
 	public function order(): string

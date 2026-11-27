@@ -125,11 +125,12 @@ class PostQuery implements QueryInterface
 		});
 	}
 
+	/**
+	 * TEC creates its custom tables on activation, but only fills them once the events have been migrated.
+	 */
 	private function hasTribeOccurrences(): bool
 	{
-		$isActive = ['TEC\Events\Custom_Tables\V1\Provider', 'is_active'];
-
-		return is_callable($isActive) && true === $isActive();
+		return function_exists('tribe') && true === tribe()->getVar('ct1_fully_activated');
 	}
 
 	/**

@@ -19,6 +19,7 @@ import ExcludePostsToggleControl from './filters-controls/exclude-posts-toggle-c
 import ManualSelectionOrderCheckboxControl from './filters-controls/manual-selection-order-checkbox-control';
 import ManualSelectionToggleControl from './filters-controls/manual-selection-toggle-control';
 import ManualSelectionSelectControl from './filters-controls/manual-selection-select-control';
+import NextOccurrenceToggleControl from './filters-controls/next-occurrence-toggle-control';
 import NumberOfPostsRangeControl from './settings-controls/number-of-posts-range-control';
 import OffsetRangeControl from './settings-controls/offset-range-control';
 import OrderSelectControl from './settings-controls/order-select-control';
@@ -48,6 +49,7 @@ const Inspector = ( props ) => {
 			'enableExcludePosts',
 			'enablePostParent',
 			'enableTaxonomies',
+			'nextOccurrenceOnly',
 		].some(
 			( key ) =>
 				attributes[ key ] === true || attributes[ key ] === 'true'
@@ -129,6 +131,9 @@ const Inspector = ( props ) => {
 					) }
 					{ inspectorConfig.showConnectionControl && (
 						<ConnectionControl { ...props } />
+					) }
+					{ inspectorConfig.showNextOccurrenceToggleControl && (
+						<NextOccurrenceToggleControl { ...props } />
 					) }
 				</PanelBody>
 			) }

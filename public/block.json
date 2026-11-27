@@ -99,6 +99,10 @@
       "type": "object",
       "default": {}
     },
+    "nextOccurrenceOnly": {
+      "type": "boolean",
+      "default": false
+    },
     "template": {
       "type": "string",
       "default": "default"

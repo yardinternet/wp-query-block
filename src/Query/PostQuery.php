@@ -25,9 +25,7 @@ class PostQuery implements QueryInterface
 	public function get(): Collection
 	{
 		$query = Post::whereIn('post_status', $this->attributes->postStatus())
-			->whereIn('post_type', $this->attributes->postTypes())
-			->limit($this->attributes->limit())
-			->offset($this->attributes->offset());
+			->whereIn('post_type', $this->attributes->postTypes());
 
 		if ($this->isCurrentPostExcluded()) {
 			$query->where('ID', '!=', $this->currentPostId());
@@ -90,7 +88,13 @@ class PostQuery implements QueryInterface
 			});
 		}
 
-		$query = $this->order($query);
+		if ($this->attributes->nextOccurrenceOnly()) {
+			$query = $this->applyNextYardEventOccurrenceFilter($query);
+		}
+
+		$query = $this->order($query)
+			->limit($this->attributes->limit())
+			->offset($this->attributes->offset());
 
 		/**
 		 * Filters the Post Query before it is executed on the database.
@@ -156,6 +160,28 @@ class PostQuery implements QueryInterface
 				})
 				->orWhere('post_type', '!=', 'yard-event');
 		});
+	}
+
+	/**
+	 * Keep only the next occurrence of each yard event schedule. The occurrences are read from a copy of the
+	 * filtered query, so only those the block would show compete.
+	 */
+	private function applyNextYardEventOccurrenceFilter(PostBuilder $query): PostBuilder
+	{
+		$laterOccurrenceIDs = (clone $query)
+			->where('post_type', 'yard-event')
+			->where('post_parent', '!=', 0)
+			->orderBy(
+				PostMeta::select('meta_value')
+					->where('meta_key', 'event_start_date')
+					->whereColumn('postmeta.post_id', 'posts.ID')
+			)
+			->pluck('post_parent', 'ID')
+			->duplicates()
+			->keys()
+			->all();
+
+		return $query->whereNotIn('ID', $laterOccurrenceIDs);
 	}
 
 	private function order(PostBuilder $query): PostBuilder
